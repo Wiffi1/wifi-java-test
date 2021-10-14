@@ -9,6 +9,8 @@ public class Bank {
 
         try {
             Bankkonto konto1 = new Bankkonto("FI1", 1.1, 300);
+            konto1.abheben(200);
+            konto1.anzeigen();
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Sparbucheröffnung " +  e.getMessage());
         }
@@ -21,6 +23,7 @@ public class Bank {
 
         try {
             Bankkonto konto3 = new Bankkonto("FI3", 2000);
+            konto3.abheben(200);
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Kontoeröffnung " + e.getMessage());
         }

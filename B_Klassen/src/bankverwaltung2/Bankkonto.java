@@ -23,6 +23,8 @@ Schreibe eine Klasse, die ein Bankkonto kapselt.
 
 public class Bankkonto {
 
+    public static final String SPARBUCH = "Sparbuch";
+    public static final String GEHALTSKONTO = "Gehaltskonto";
     private static int objectCount;
 
     private int kontonummer;
@@ -53,10 +55,12 @@ public class Bankkonto {
     }
 
     public void anzeigen() {
-        if (kontotyp.equals("Sparbuch")) {
-            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR, zinssatz=%.2f \n", kontonummer, inhaber, kontotyp, kontostand, zinssatz);
+        if (kontotyp.equals(SPARBUCH)) {
+            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR, zinssatz=%.2f \n",
+                    kontonummer, inhaber, kontotyp, kontostand, zinssatz);
         } else {
-            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR ueberziehungsrahmen=%.2f\n", kontonummer, inhaber, kontotyp, kontostand, ueberziehungsrahmen);
+            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR ueberziehungsrahmen=%.2f\n",
+                    kontonummer, inhaber, kontotyp, kontostand, ueberziehungsrahmen);
         }
     }
 
@@ -66,7 +70,7 @@ public class Bankkonto {
         this.inhaber = inhaber;
         this.zinssatz = zinssatz;
         this.einzahlen(ersteinlage);
-        this.kontotyp = "Sparbuch";
+        this.kontotyp = SPARBUCH;
         anzeigen();
     }
 
@@ -75,7 +79,7 @@ public class Bankkonto {
         this.inhaber = inhaber;
         this.zinssatz = 0.1;
         this.ueberziehungsrahmen = ueberziehungsrahmen;
-        this.kontotyp = "Gehaltskonto";
+        this.kontotyp = GEHALTSKONTO;
         anzeigen();
     }
 
@@ -88,7 +92,8 @@ public class Bankkonto {
 
     public void abheben(double betrag) {
         if (betrag > kontostand) {
-            throw new IllegalArgumentException("KontoNr: " + kontonummer + "Betrag für Abbuchung zu hoch (> Kontostand)");
+            throw new IllegalArgumentException("ABHEBEN KontoNr: " + kontonummer + " " + kontostand + " " + betrag + " "
+                    + "Betrag für Abbuchung zu hoch (> Kontostand)");
         }
         this.kontostand -= betrag;
     }
