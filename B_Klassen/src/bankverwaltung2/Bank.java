@@ -7,19 +7,18 @@ public class Bank {
         System.out.println("Bank");
         System.out.printf("");
 
-        Bankkonto konto1 = new Bankkonto(111, "Franz Irnberger", 2, 300);
-//        konto1.sparbuchEroeffnen(111, "Franz Irnberger", 2, 300);
+//        int aktuelleKontoNr = ;
+
+        Bankkonto konto1 = new Bankkonto(Bankkonto.GetObjectCount(), "FI1", 2, 300);
 
         try {
-            Bankkonto konto2 = new Bankkonto(222, "Franz Irnberger", 2, 20000);
-//            konto2.sparbuchEroeffnen(222, "Franz Irnberger zu hoch", 2, 20000);
+            Bankkonto konto2 = new Bankkonto(Bankkonto.GetObjectCount(), "FI2", 2, 200);
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Sparbucheröffnung " +  e.getMessage());
         }
 
         try {
-            Bankkonto konto3 = new Bankkonto(333, "Sebastian Irnberger", 2000);
-//            konto3.gehaltskontoEroeffnen(333, "Sebastian Irnberger", 2000);
+            Bankkonto konto3 = new Bankkonto(Bankkonto.GetObjectCount(), "FI3", 200000);
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Kontoeröffnung " + e.getMessage());
         }

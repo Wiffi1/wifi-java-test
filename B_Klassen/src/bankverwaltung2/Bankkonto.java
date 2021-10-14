@@ -22,6 +22,9 @@ Schreibe eine Klasse, die ein Bankkonto kapselt.
 */
 
 public class Bankkonto {
+
+    private static int objectCount;
+
     private int kontonummer;
     private String inhaber;
     private double kontostand;
@@ -29,12 +32,17 @@ public class Bankkonto {
     private double ueberziehungsrahmen;
     private String kontotyp;
 
+    public static int GetObjectCount() {
+        return /*CountClass.*/objectCount;
+    }
 
     public Bankkonto(int kontonummer, String  inhaber, double zinssatz, double ersteinlage) {
+        objectCount++;
         this.sparbuchEroeffnen(kontonummer, inhaber, zinssatz, ersteinlage);
     }
 
     public Bankkonto(int kontonummer, String  inhaber, double ueberziehungsrahmen) {
+        objectCount++;
         this.gehaltskontoEroeffnen(kontonummer, inhaber, ueberziehungsrahmen);
     }
 
