@@ -3,7 +3,9 @@ package fitnesscenter2;
 public class Wertkarte {
     // Attribute (=Feld, Membervariable) für Nr, Inhaber, uew
     // Attribute definieren die Daten
-    private int nr;
+    // Das finale Feld nr muss bei der Erzeugung des Objkts initialisert werden
+    // und kann nachträlich nicht mehr verändert werden.
+    private final int nr;
     private String inhaber;
     private double guthaben;
 
