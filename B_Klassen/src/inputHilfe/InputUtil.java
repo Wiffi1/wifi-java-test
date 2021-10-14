@@ -9,6 +9,7 @@ public class InputUtil {
     // Alternative Initialisierung:
     static {
         input =  new Scanner(System.in);
+        System.out.println(">>>>>>>>>> Achtung : Kommatrennzeichen ist der .");
     }
 
     // statische Methoden zum Einlesen verschiedener Datnrypen
@@ -26,7 +27,7 @@ public class InputUtil {
         }
         // Alle Fehler, die aufeten fangen
         catch (Exception e) {
-            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.err.println("Fehlerhafte Eingabe: " + e.toString());
             System.out.println("Neuer Versuch");
             return readInt();
         }
@@ -39,7 +40,7 @@ public class InputUtil {
         }
         // Alle Fehler, die aufeten fangen
         catch (Exception e) {
-            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.err.println("Fehlerhafte Eingabe: " + e.toString());
             System.out.println("Neuer Versuch");
             return readDouble();
         }
@@ -55,7 +56,7 @@ public class InputUtil {
 
         // Alle Fehler, die aufeten fangen
         catch (Exception e) {
-            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.err.println("Fehlerhafte Eingabe: " + e.toString());
             System.out.println("Neuer Versuch");
             return readChar();
         }
