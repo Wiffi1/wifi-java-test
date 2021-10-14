@@ -19,9 +19,46 @@ public class InputUtil {
 
     public static int readInt() {
         String strZahl = input.nextLine();
-        // aus einer Zeichenfolge eine ganze Zahl ermitteln
-        int zahl = Integer.parseInt(strZahl);
-        return zahl;
+
+        try {
+            // aus einer Zeichenfolge eine ganze Zahl ermitteln
+            return Integer.parseInt(strZahl);
+        }
+        // Alle Fehler, die aufeten fangen
+        catch (Exception e) {
+            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.out.println("Neuer Versuch");
+            return readInt();
+        }
+    }
+
+    public static double readDouble() {
+        try {
+            // aus einer Zeichenfolge ein Double ermitteln
+            return Double.parseDouble(input.nextLine());
+        }
+        // Alle Fehler, die aufeten fangen
+        catch (Exception e) {
+            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.out.println("Neuer Versuch");
+            return readDouble();
+        }
+    }
+
+    public static char readChar() {
+        try {
+            String text = input.nextLine();
+
+            // aus einer Zeichenfolge ein Double ermitteln
+            return text.charAt(0);
+        }
+
+        // Alle Fehler, die aufeten fangen
+        catch (Exception e) {
+            System.out.println("Fehlerhafte Eingabe: " + e.toString());
+            System.out.println("Neuer Versuch");
+            return readChar();
+        }
     }
 
 }
