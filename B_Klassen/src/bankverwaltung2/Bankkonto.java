@@ -36,24 +36,29 @@ public class Bankkonto {
         return /*CountClass.*/objectCount;
     }
 
-    public Bankkonto(int kontonummer, String  inhaber, double zinssatz, double ersteinlage) {
-        objectCount++;
+    public static void IncrementObjectCount() {
+        objectCount++;;
+    }
+
+    public Bankkonto(String  inhaber, double zinssatz, double ersteinlage) {
+        IncrementObjectCount();
+        int kontonummer = GetObjectCount();
         this.sparbuchEroeffnen(kontonummer, inhaber, zinssatz, ersteinlage);
     }
 
-    public Bankkonto(int kontonummer, String  inhaber, double ueberziehungsrahmen) {
-        objectCount++;
+    public Bankkonto(String  inhaber, double ueberziehungsrahmen) {
+        IncrementObjectCount();
+        int kontonummer = GetObjectCount();
         this.gehaltskontoEroeffnen(kontonummer, inhaber, ueberziehungsrahmen);
     }
 
     public void anzeigen() {
         if (kontotyp.equals("Sparbuch")) {
-            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR, zinssatz=.2f \n", kontonummer, inhaber, kontotyp, kontostand, zinssatz);
+            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR, zinssatz=%.2f \n", kontonummer, inhaber, kontotyp, kontostand, zinssatz);
         } else {
-            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR ueberziehungsrahmen=.2f\n", kontonummer, inhaber, kontotyp, kontostand, ueberziehungsrahmen);
+            System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR ueberziehungsrahmen=%.2f\n", kontonummer, inhaber, kontotyp, kontostand, ueberziehungsrahmen);
         }
     }
-
 
 
     public void sparbuchEroeffnen(int kontonummer, String  inhaber, double zinssatz, double ersteinlage) {

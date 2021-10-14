@@ -4,24 +4,33 @@ package bankverwaltung2;
 
 public class Bank {
     public static void main(String[] args) {
-        System.out.println("Bank");
-        System.out.printf("");
-
-//        int aktuelleKontoNr = ;
-
-        Bankkonto konto1 = new Bankkonto(Bankkonto.GetObjectCount(), "FI1", 2, 300);
+        System.out.println("Bank wird eröffet");
+        System.out.println("");
 
         try {
-            Bankkonto konto2 = new Bankkonto(Bankkonto.GetObjectCount(), "FI2", 2, 200);
+            Bankkonto konto1 = new Bankkonto("FI1", 1.1, 300);
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Sparbucheröffnung " +  e.getMessage());
         }
 
         try {
-            Bankkonto konto3 = new Bankkonto(Bankkonto.GetObjectCount(), "FI3", 200000);
+            Bankkonto konto2 = new Bankkonto("FI2", 2.2, 200);
+        } catch(IllegalArgumentException e) {
+            System.err.println("Fehler bei der Sparbucheröffnung " +  e.getMessage());
+        }
+
+        try {
+            Bankkonto konto3 = new Bankkonto("FI3", 2000);
         } catch(IllegalArgumentException e) {
             System.err.println("Fehler bei der Kontoeröffnung " + e.getMessage());
         }
+
+        try {
+            Bankkonto konto2 = new Bankkonto("FI2", 3.3, 200000);
+        } catch(IllegalArgumentException e) {
+            System.err.println("Fehler bei der Sparbucheröffnung " +  e.getMessage());
+        }
+
 
     }
 }
