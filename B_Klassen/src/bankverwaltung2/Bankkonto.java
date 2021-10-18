@@ -21,11 +21,49 @@ Schreibe eine Klasse, die ein Bankkonto kapselt.
         Erstelle ein Klassen-Design für die Klasse Bankkonto. Implementiere anschließend die Klasse und teste die Funktionen mit einem geeigneten Testprogramm.
 */
 
+import org.junit.jupiter.api.Test;
+
 public class Bankkonto {
 
     public static final String SPARBUCH = "Sparbuch";
     public static final String GEHALTSKONTO = "Gehaltskonto";
+    public static final int MAX_EINZAHLUNG = 15000;
     private static int objectCount;
+
+    public int getKontonummer() {
+        return kontonummer;
+    }
+    public void setKontonummer(int kontonummer) {
+        this.kontonummer = kontonummer;
+    }
+    public String getInhaber() {
+        return inhaber;
+    }
+    public void setInhaber(String inhaber) {
+        this.inhaber = inhaber;
+    }
+    public double getKontostand() {return kontostand;}
+    public void setKontostand(double kontostand) {
+        this.kontostand = kontostand;
+    }
+    public double getZinssatz() {
+        return zinssatz;
+    }
+    public void setZinssatz(double zinssatz) {
+        this.zinssatz = zinssatz;
+    }
+    public double getUeberziehungsrahmen() {
+        return ueberziehungsrahmen;
+    }
+    public void setUeberziehungsrahmen(double ueberziehungsrahmen) {
+        this.ueberziehungsrahmen = ueberziehungsrahmen;
+    }
+    public String getKontotyp() {
+        return kontotyp;
+    }
+    public void setKontotyp(String kontotyp) {
+        this.kontotyp = kontotyp;
+    }
 
     private int kontonummer;
     private String inhaber;
@@ -54,6 +92,7 @@ public class Bankkonto {
         this.gehaltskontoEroeffnen(kontonummer, inhaber, ueberziehungsrahmen);
     }
 
+//    https://stackoverflow.com/questions/8751553/how-to-write-a-unit-test
     public void anzeigen() {
         if (kontotyp.equals(SPARBUCH)) {
             System.out.printf("Konto Nr=%d, Inhaber=%s, kontotyp=%s, Kontostand=%.2f EUR, zinssatz=%.2f \n",
@@ -63,7 +102,6 @@ public class Bankkonto {
                     kontonummer, inhaber, kontotyp, kontostand, ueberziehungsrahmen);
         }
     }
-
 
     public void sparbuchEroeffnen(int kontonummer, String  inhaber, double zinssatz, double ersteinlage) {
         this.kontonummer = kontonummer;
@@ -84,7 +122,7 @@ public class Bankkonto {
     }
 
     public void einzahlen(double betrag) {
-        if (betrag > 15000) {
+        if (betrag > MAX_EINZAHLUNG) {
             throw new IllegalArgumentException("KontoNr: " + kontonummer + " Betrag für Aufbuchung zu hoch (> 15000)");
         }
         this.kontostand += betrag;
