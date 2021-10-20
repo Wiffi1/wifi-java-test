@@ -11,3 +11,4 @@ https://id.docker.com
 https://idmsa.apple.com
 https://lernplattform.wifi.at
 https://login.karriere.at
+https://secure.post.at
