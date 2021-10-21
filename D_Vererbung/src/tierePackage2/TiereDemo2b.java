@@ -14,6 +14,10 @@ public class TiereDemo2b {
         // typumwandlung: Hund nach Haustier
         Haustier meinTier = rex;
         testeTier(meinTier);
+
+        Katze minki = new Katze("Minki", LocalDate.of(2014, 8, 15), "Wollknäuel");
+        // Typumwandlung: Katze nach Haustier (weil der Parameter vom Typ Haustier ist.)
+        testeTier(meinTier);
     }
 
     static void testeTier(Haustier meinTier) {

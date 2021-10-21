@@ -33,5 +33,12 @@ public class Hund extends Haustier {
         super.zeigeDich();
         // Jetzt die eigenen Infofmationen anzeigen
         System.out.printf("Ich bin ein Hund, ich habe %d kg\n", gewicht);
+        belle();   // !!!!!!
     }
+
+    // final Methode darf nicht überschrieben werden
+//    @Override
+//    public String getKosename() {
+//        return kosename;
+//    }
 }

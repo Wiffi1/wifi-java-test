@@ -12,7 +12,7 @@ public class Haustier {
     public LocalDate getGeburtsdatum() {
         return geburtsdatum;
     }
-    public String getKosename() {
+    public final String getKosename() {
         return kosename;
     }
 
@@ -27,7 +27,7 @@ public class Haustier {
         System.out.printf("Hallo. mein Name ist %s, mein Geburtsdatum ist %s\n", kosename, geburtsdatum);
     }
 
-    public int getAlter() {
+    public final int getAlter() {
         LocalDate heute = LocalDate.now();
         Period spanne = Period.between(geburtsdatum, heute);
         // Die Property Jahre aus dem Ergebnis zurückliefern
