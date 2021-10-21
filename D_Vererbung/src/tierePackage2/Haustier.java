@@ -12,17 +12,8 @@ public class Haustier {
     public LocalDate getGeburtsdatum() {
         return geburtsdatum;
     }
-
-    public void setGeburtsdatum(LocalDate geburtsdatum) {
-        this.geburtsdatum = geburtsdatum;
-    }
-
     public String getKosename() {
         return kosename;
-    }
-
-    public void setKosename(String kosename) {
-        this.kosename = kosename;
     }
 
     // Attribute bei der Erzeugung initialsieren

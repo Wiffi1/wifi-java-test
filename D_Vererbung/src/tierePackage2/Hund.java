@@ -10,12 +10,12 @@ public class Hund extends Haustier {
         return gewicht;
     }
 
-    public void setGewicht(int gewicht) {
-        this.gewicht = gewicht;
-    }
-
     public Hund(String name, LocalDate datum, int gewicht) {
         super(name, datum); // Aufruf des Basisklassen-Konstruktors, wird auch implizit ausgeführt.
+        // Die abgeleitete Klasse initialisiert KEINE Felder der Basisklasse
+//        this.kosename = kosename;   // NIE SO MACHEN
+//        this.geburtsdatum = geburtsdatum;   // NIE SO MACHEN
+
         this.gewicht = gewicht;
         System.out.println("Konstructor von Hund");
     }
@@ -25,4 +25,13 @@ public class Hund extends Haustier {
     }
 
 
+    // Methode mit gleicher Signatur wie in der Basisklasse
+    // wird auch aufgerufen, wenn eine Haustierreferenz auf ein Hundobjekt verweist
+    @Override
+    public void zeigeDich() {
+        // Methode aus der Basisklasse ausführen
+        super.zeigeDich();
+        // Jetzt die eigenen Infofmationen anzeigen
+        System.out.printf("Ich bin ein Hund, ich habe %d kg\n", gewicht);
+    }
 }
