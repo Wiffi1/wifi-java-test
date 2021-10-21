@@ -1,5 +1,6 @@
 package inputHilfe;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -9,7 +10,8 @@ public class InputUtil {
     // Alternative Initialisierung:
     static {
         input =  new Scanner(System.in);
-        System.out.println(">>>>>>>>>> Achtung : Kommatrennzeichen ist der .");
+        // stimmt mit NumberFormat nicht mehr.
+//        System.out.println(">>>>>>>>>> Achtung : Kommatrennzeichen ist der .");
     }
 
     // statische Methoden zum Einlesen verschiedener Datnrypen
@@ -33,10 +35,25 @@ public class InputUtil {
         }
     }
 
-    public static double readDouble() {
+    public static double readDoubleAlt() {
         try {
             // aus einer Zeichenfolge ein Double ermitteln
             return Double.parseDouble(input.nextLine());
+        }
+        // Alle Fehler, die aufeten fangen
+        catch (Exception e) {
+            System.err.println("Fehlerhafte Eingabe: " + e.toString());
+            System.out.println("Neuer Versuch");
+            return readDoubleAlt();
+        }
+    }
+
+    public static double readDouble() {
+        try {
+            // aus einer Zeichenfolge ein Double ermitteln
+            NumberFormat fmt = NumberFormat.getNumberInstance();
+//            return Double.parseDouble(input.nextLine());
+            return fmt.parse(input.nextLine()).doubleValue();
         }
         // Alle Fehler, die aufeten fangen
         catch (Exception e) {
