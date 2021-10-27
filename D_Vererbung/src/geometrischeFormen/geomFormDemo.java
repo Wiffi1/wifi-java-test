@@ -24,7 +24,10 @@ public class geomFormDemo {
 
 
         for (GeomForm geoForm : geoForms) {
-            System.out.println(geoForm.toString());
+//            System.out.println(geoForm.toString());
+            System.out.println("");
+            System.out.println("## GeoForm erstellt   "  + geoForm.toString());
+            System.out.printf("Fläche: %f, Unfang %f\n", geoForm.getFläche(), geoForm.getUmfang());
         }
 
     }
