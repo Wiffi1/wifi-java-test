@@ -5,6 +5,7 @@ public abstract class GeomForm {
     protected double yKoord;
     abstract double getFläche();
     abstract double getUmfang();
+    abstract boolean  isHit(double xHitKoord, double yHitKoord);
 
     @Override
     public String toString() {

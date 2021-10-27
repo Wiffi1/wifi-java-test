@@ -30,4 +30,14 @@ public class Recheck extends GeomForm {
                 '}';
          return geoFormInfo + "    " + subInfo;
     }
+
+    @Override
+    boolean isHit(double xHitKoord, double yHitKoord) {
+        double xKoordMax = xKoord + laenge;
+        double yKoordMax = yKoord + breite;
+        boolean isInKoordX = xKoord <= xHitKoord && xHitKoord <= xKoordMax;
+        boolean isInKoordY = yKoord <= yHitKoord && yHitKoord <= yKoordMax;
+
+        return isInKoordX && isInKoordY;
+    }
 }

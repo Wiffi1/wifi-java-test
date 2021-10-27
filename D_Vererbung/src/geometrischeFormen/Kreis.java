@@ -27,4 +27,9 @@ public class Kreis extends GeomForm{
                 '}';
         return geoFormInfo + "    " + subInfo;
     }
+
+    @Override
+    boolean isHit(double xHitKoord, double yHitKoord) {
+        return false;
+    }
 }
