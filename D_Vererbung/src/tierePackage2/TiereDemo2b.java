@@ -21,10 +21,17 @@ public class TiereDemo2b {
     }
 
     static void testeTier(Haustier meinTier) {
-        System.out.printf("Teste Tier mit Namen %s\n", meinTier.getKosename());
+        System.out.printf("Teste Tier vom Typ %s mit Namen %s\n",
+                meinTier.getClass().getName(),
+//                meinTier.getClass(),
+                meinTier.getKosename()
+        );
         meinTier.zeigeDich();
         System.out.printf("%s ist %d Jahre alt\n", meinTier.getKosename(), meinTier.getAlter());
         // Nicht möglich
         // meinTier.belle();
+
+        // Das Haustier-Objekt an der Konsole anzeigen (es wird die toString-
+        System.out.println(meinTier/*toString*/);
     }
 }

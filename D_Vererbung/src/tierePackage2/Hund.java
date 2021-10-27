@@ -10,7 +10,14 @@ public class Hund extends Haustier {
         return gewicht;
     }
 
+    // Das wäre der Kunstuktor,den der Copiler für uns automatisch erzeugen würde,
+    // wenn wir keinen Konstruktor deefinieren
+/*    public Hund() {
+        super();
+    }*/
+
     public Hund(String name, LocalDate datum, int gewicht) {
+        // Explizierter Aufruf des Basisklassen-Konstruktors, mit Weitergabe der Parameter.
         super(name, datum); // Aufruf des Basisklassen-Konstruktors, wird auch implizit ausgeführt.
         // Die abgeleitete Klasse initialisiert KEINE Felder der Basisklasse
 //        this.kosename = kosename;   // NIE SO MACHEN
@@ -41,4 +48,10 @@ public class Hund extends Haustier {
 //    public String getKosename() {
 //        return kosename;
 //    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + ", gewicht=" + gewicht;
+    }
 }

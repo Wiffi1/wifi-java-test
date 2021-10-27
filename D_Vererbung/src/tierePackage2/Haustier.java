@@ -34,4 +34,12 @@ public class Haustier {
         return spanne.getYears();
     }
 
+    @Override
+    public String toString() {
+/*        return "Haustier{" +
+                "kosename='" + kosename + '\'' +
+                ", geburtsdatum=" + geburtsdatum +
+                '}';*/
+        return "!!!kosename='" + kosename + '\'' + " geburtsdatum=" + geburtsdatum;
+    }
 }

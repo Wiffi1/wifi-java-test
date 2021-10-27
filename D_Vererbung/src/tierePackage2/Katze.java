@@ -25,4 +25,9 @@ public class Katze extends Haustier {
         super.zeigeDich();
         System.out.printf("Ich bin einee Katze und spiele gern mit %s\n", spielzeug);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", spielzeug=" + spielzeug + '\'';
+    }
 }
