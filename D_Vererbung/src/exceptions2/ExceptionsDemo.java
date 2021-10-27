@@ -35,6 +35,8 @@ public class ExceptionsDemo {
 			if (e.getCause() != null) {
 				System.out.println("\tGrund " + e.getCause().toString());
 			}
+		} catch (NumberFormatException e) {
+			System.out.println("Fehlerhafte Eingabe: " + e.getMessage());
 		}
 	}
 
