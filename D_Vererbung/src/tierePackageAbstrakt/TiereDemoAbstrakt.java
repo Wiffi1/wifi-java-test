@@ -40,6 +40,14 @@ public class TiereDemoAbstrakt {
         System.out.print("Typischer Laut: ");
         meinTier.gibEinenLautVonDir();
 
+        if (meinTier instanceof Hund) {
+            System.out.print("Das Tier ist ein Art Hund");
+            // Jetzt is die Rück-Umwandlung ok.
+            Hund einHund = (Hund) meinTier;
+            einHund.belle();
+//            ((Hund) meinTier).belle();
+        }
+
         System.out.println();
     }
 }
