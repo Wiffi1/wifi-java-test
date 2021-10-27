@@ -1,14 +1,17 @@
 package exceptions;
 
-public class CalculationException extends RuntimeException {
-    // Konstruktor mit Angabe des Fehlertextes.
-    public CalculationException(String msg) {
-        // Den Fehlertext an die Basisklasse weitergeben.
+// diese Klasse ist eine unchecked Exception weil sie von RuntimeException ableitet
+// -> kann ohne Deklaration geworfen werden
+public class CalculationException extends RuntimeException{
+    // Konstruktor mit Angabe des Fehlertextes
+    public CalculationException(String msg){
+        // den Fehlertext an die Basisklasse weitergeben
         super(msg);
     }
 
-    public CalculationException(String msg, Exception cause) {
-        // Den Fehlertext und die auslösende Exception an die Basisklasse weitergeben.
+    // Konstruktor mit Angabe des Fehlertextes und des auslösenden Fehlers
+    public CalculationException(String msg, Exception cause){
+        // den Fehlertext und den auslösenden Fehler an die Basisklasse weitergeben
         super(msg, cause);
     }
 

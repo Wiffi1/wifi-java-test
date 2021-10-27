@@ -1,7 +1,10 @@
 package exceptions2;
 
 public class Calculator {
-	public int calculate(char op, int number1, int number2) {
+	public int calculate(char op, int number1, int number2)
+			// "specify" des catch-or-specify-Prinzips: Deklarieren, dass die
+			// CalculationException auftreten kann
+			throws CalculationException {
 		// Berechnung je nach Operator
 		switch (op) {
 		case '+':
@@ -9,18 +12,19 @@ public class Calculator {
 		case '-':
 			return number1 - number2;
 		case '/':
-			// TODO: handle division by zery
-			try	{
+			// handle division by zero
+			try {
 				return number1 / number2;
-			} catch(ArithmeticException e) {
-				// ArithmeticException in eine CalculationException einpacken und werfen.
-				throw new CalculationException("Fehler in der Division.", e);
+			} catch (ArithmeticException e){
+				//  ArithmeticException in eine CalculationException einpacken
+				throw new CalculationException("Fehler in der Division", e);
 			}
 		case '*':
 			return number1 * number2;
 		default:
-			throw new CalculationException("ungültiger Operator " + op);
-//			return 0;
+			// throw exception
+			throw new CalculationException("Ungültiger Operator " + op);
+			//return 0;
 		}
 
 	}
