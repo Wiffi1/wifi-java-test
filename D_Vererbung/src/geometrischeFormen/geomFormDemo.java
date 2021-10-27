@@ -1,12 +1,5 @@
 package geometrischeFormen;
 
-import tierePackageAbstrakt.Dackel;
-import tierePackageAbstrakt.Haustier;
-import tierePackageAbstrakt.Hund;
-import tierePackageAbstrakt.Katze;
-
-import java.time.LocalDate;
-
 public class geomFormDemo {
     public static void main(String[] args) {
 /*        GeomForm rechtEck1 = new Recheck(0, 0, 4, 3);
