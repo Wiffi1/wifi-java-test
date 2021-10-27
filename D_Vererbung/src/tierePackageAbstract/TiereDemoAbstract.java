@@ -14,6 +14,7 @@ public class TiereDemoAbstract {
                 meinTier.getClass().getName(),
                 meinTier.getKosename()
         );
+        meinTier.bewegDich();
         meinTier.zeigeDich();
         System.out.printf("%s ist %d Jahre alt\n", meinTier.getKosename(), meinTier.getAlter());
         // Nicht möglich

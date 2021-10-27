@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 // Basisklasse für Haustier (Hund, Katze, etc...)
-public class Haustier {
+public abstract class Haustier {
     // protected: Klasse, abgeleiete Klassen und alle Klassen im selben Package können zugreifen.
     protected String kosename;
     protected LocalDate geburtsdatum;
@@ -17,7 +17,7 @@ public class Haustier {
     }
 
     // Attribute bei der Erzeugung initialsieren
-    public Haustier(String name, LocalDate datum) {
+    protected Haustier(String name, LocalDate datum) {
         System.out.println("Konstructor von Haustier");
         this.geburtsdatum = datum;
         this.kosename = name;
@@ -43,7 +43,14 @@ public class Haustier {
         return "!!!kosename='" + kosename + '\'' + " geburtsdatum=" + geburtsdatum;
     }
 
-/*    public void bewegDich() {
+    // bewegDich als abstracte Method
+    // hiat hier keien IMprlemenierung, kann aber über eine AHaustier-Referrenz
+    // aufgerufen werden
+    public abstract void bewegDich();
+
+/*
+    public  void bewegDich()  {
         System.out.printf("%s bewegt sich??? \n", kosename);
-    }*/
+    }
+*/
 }

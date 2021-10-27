@@ -34,14 +34,14 @@ public class Hund extends Haustier {
 
     // Methode mit gleicher Signatur wie in der Basisklasse
     // wird auch aufgerufen, wenn eine Haustierreferenz auf ein Hundobjekt verweist
-    @Override
+/*    @Override
     public void zeigeDich() {
         // Methode aus der Basisklasse ausführen
         super.zeigeDich();
         // Jetzt die eigenen Infofmationen anzeigen
         System.out.printf("Ich bin ein Hund, ich habe %d kg\n", gewicht);
         belle();   // !!!!!!
-    }
+    }*/
 
     // final Methode darf nicht überschrieben werden
 //    @Override
@@ -57,8 +57,6 @@ public class Hund extends Haustier {
 
 //    @Override
     public void bewegDich() {
-//        super.bewegDich();
-//        bewegDich();
         System.out.printf("%s wedelt mit dem Schwanz \n", kosename);
     }
 }
