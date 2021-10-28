@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/C_Arrays/C_Arrays.iml" filepath="$PROJECT_DIR$/C_Arrays/C_Arrays.iml" />
       <module fileurl="file://$PROJECT_DIR$/C_KlassenC/C_KlassenC.iml" filepath="$PROJECT_DIR$/C_KlassenC/C_KlassenC.iml" />
       <module fileurl="file://$PROJECT_DIR$/D_Vererbung/D_Vererbung.iml" filepath="$PROJECT_DIR$/D_Vererbung/D_Vererbung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/E_Generics/E_Generics.iml" filepath="$PROJECT_DIR$/E_Generics/E_Generics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" filepath="$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" />
       <module fileurl="file://$PROJECT_DIR$/_DOCU/_DOCU.iml" filepath="$PROJECT_DIR$/_DOCU/_DOCU.iml" />
     </modules>
   </component>
