@@ -26,6 +26,11 @@ public class AnimalsSortDemo {
         // Overload mit Comparator verwenden
         Arrays.sort(allAnimals, comparator);
         show(allAnimals, "Tiere nach Gewicht sortiert");
+
+        // nach Pflanzenfresser und latname
+        // Overload mit Comparator verwenden
+        Arrays.sort(allAnimals, new SortiereNachPflanzenfresserUndLatName());
+        show(allAnimals, "Tiere nach SortiereNachPflanzenfresserUndLatName sortiert");
     }
 
     static void show(Animal[] animals, String text) {
