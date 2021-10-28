@@ -29,7 +29,8 @@ public class AnimalList {
 
 	public void showAnimals(AnimalFilter filter) {
 		for (Animal animal: allAnimals) {
-			// wenn das Tier laut Filer-Objekt soll
+			// wenn das Tier laut Filer-Objekt angezeigt soll
+			// (dh wenn die Filer-Implemntierung für das Ter "true" geliefert hat)
 			if (filter.isTrueFor(animal)) {
 				System.out.println(animal);
 			}
@@ -37,7 +38,9 @@ public class AnimalList {
 		System.out.println();
 	}
 
-	public void showVegetarian() {
+	// Die spezialisierten Methoden werden durch Aufrufe von showNnimals
+	// mit einem passenden AnimalFilter-Objekt ersetzt.
+/*	public void showVegetarian() {
 		for (Animal animal: allAnimals) {
 			if (animal.isHerbivore()) {
 				System.out.println(animal);
@@ -53,6 +56,6 @@ public class AnimalList {
 			}
 		}
 		System.out.println();
-	}
+	}*/
 	
 }

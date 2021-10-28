@@ -11,9 +11,9 @@ public class AnimalProgram {
 		System.out.println("alleTiere");
 		animals.showAll();
 		System.out.println("Vegetarier");
-		animals.showVegetarian();
+		//animals.showVegetarian();
 		System.out.println("Schwere Tiere");
-		animals.heavyVegetarian();
+		//animals.heavyVegetarian();
 	}
 
 }
