@@ -19,7 +19,13 @@ public class AnimalsSortDemo {
 /*        Comparable<Animal> x = allAnimals[1];
         int cmp = x.compareTo(allAnimals[0]);*/
         Arrays.sort(allAnimals);
-        show(allAnimals, "Tiee sortiert");
+        show(allAnimals, "Tiere sortiert");
+
+        // sortieren mit einem Coparator
+        SortiereNachGewicht comparator = new SortiereNachGewicht();
+        // Overload mit Comparator verwenden
+        Arrays.sort(allAnimals, comparator);
+        show(allAnimals, "Tiere nach Gewicht sortiert");
     }
 
     static void show(Animal[] animals, String text) {
