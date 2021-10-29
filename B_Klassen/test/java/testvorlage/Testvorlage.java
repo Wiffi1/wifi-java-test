@@ -34,7 +34,7 @@ public class Testvorlage {
     @Nested class nestedTest {
         @Test
         public void nestedTest1() {
-            assertTrue(true);
+            assertEquals(true, true);
         }
     }
 
