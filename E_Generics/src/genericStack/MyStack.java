@@ -19,7 +19,7 @@ public class MyStack<T> {
     // daher muss man sich mit einem Object-Array behelfen
     private Object[] array;
 
-    private int anzahl = 0;
+    private int anzahl;
     private int maxAnzahl;
 
     // Erzeugung des Stapels unter Angabe der Kapazität
@@ -35,13 +35,15 @@ public class MyStack<T> {
     }
 
     public  T pop() {
-        // TODO das Element von der obersten Position holen
-        // TODO das Element su dem Array entfernen (null setzen und anzahl verminderrn)
-        T element = (T)array[anzahl - 1];
-//        removeElement(maxAnzahl);
-        array[anzahl] = null;
-        anzahl--;
-        return (T)element;
+        if (anzahl <= 0) {
+            throw new StackException("Kein Element mehr vorhanden");
+        } else if (anzahl > maxAnzahl - 2) {
+            throw new StackException("Kein Platz mehr am Stack");
+        } else {
+            T element = (T)array[anzahl - 1];
+            array[anzahl] = null;
+            return (T)element;
+        }
     }
 
     public  T peek() {
@@ -59,6 +61,5 @@ public class MyStack<T> {
         array[anzahl] = null;
         anzahl--;
     }*/
-
 
 }
