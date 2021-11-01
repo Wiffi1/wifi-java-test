@@ -54,4 +54,9 @@ public class Hund extends Haustier {
     public String toString() {
         return super.toString() + ", gewicht=" + gewicht;
     }
+
+    private void schreie() {
+        System.out.printf("Wuff %s\n", kosename, geburtsdatum);
+    }
+
 }

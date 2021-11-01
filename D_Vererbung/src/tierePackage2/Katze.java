@@ -30,4 +30,9 @@ public class Katze extends Haustier {
     public String toString() {
         return super.toString() + ", spielzeug=" + spielzeug + '\'';
     }
+
+    private void schreie() {
+        System.out.printf("Miau %s\n", kosename, geburtsdatum);
+    }
+
 }

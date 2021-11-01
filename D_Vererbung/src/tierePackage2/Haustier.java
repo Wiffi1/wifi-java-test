@@ -42,4 +42,8 @@ public class Haustier {
                 '}';*/
         return "!!!kosename='" + kosename + '\'' + " geburtsdatum=" + geburtsdatum;
     }
+
+    private void schreie() {
+        System.out.printf("Unbekannter Laut %s\n", kosename, geburtsdatum);
+    }
 }
