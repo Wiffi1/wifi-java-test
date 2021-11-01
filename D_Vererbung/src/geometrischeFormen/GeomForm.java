@@ -9,9 +9,6 @@ public abstract class GeomForm {
 
     @Override
     public String toString() {
-        return "GeomForm{" +
-                "xKoord=" + xKoord +
-                ", yKoord=" + yKoord +
-                '}';
+        return String.format("x=%f y=%f", xKoord, yKoord);
     }
 }

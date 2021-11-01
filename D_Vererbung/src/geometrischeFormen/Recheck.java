@@ -23,12 +23,7 @@ public class Recheck extends GeomForm {
 
     @Override
     public String toString() {
-         String geoFormInfo = super.toString();
-         String subInfo = "Recheck{" +
-                "laenge=" + laenge +
-                ", breite=" + breite +
-                '}';
-         return geoFormInfo + "    " + subInfo;
+        return String.format("Rechteck: %s %f %f", super.toString(), laenge, breite);
     }
 
     @Override
