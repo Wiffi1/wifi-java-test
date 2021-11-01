@@ -52,40 +52,31 @@ public class geomFormDemo {
         }
 
         System.out.println("");
-        System.out.println("Test Rechteck");
-        System.out.println("Treffer erwartet");
-        testeRechteck(rechtEck1, 2.0, 2.0);
+        System.out.printf("Test für Rechteck: %s \n", rechtEck1.toString());
+        System.out.println("\tfür die folgenden Fälle wird \"true\" als Ergebnis erwartet");
+        testBeingHit(rechtEck1, 2.0, 2.0);
+        testBeingHit(rechtEck1, 4.0, 3.0);
 
-        System.out.println("false als Ergebnis erwartet");
-        testeRechteck(rechtEck1, 5.0, 2.0);
-        testeRechteck(rechtEck1, 2.0, 5.0);
-        testeRechteck(rechtEck1, 7.0, 8.0);
-        testeRechteck(rechtEck1, -1.0, -1.0);
+        System.out.println("\tfür die folgenden Fälle wird \"false\" als Ergebnis erwartet");
+        testBeingHit(rechtEck1, 5.0, 2.0);
+        testBeingHit(rechtEck1, 2.0, 5.0);
+        testBeingHit(rechtEck1, 7.0, 8.0);
+        testBeingHit(rechtEck1, -1.0, -1.0);
 
         System.out.println("");
-        System.out.println("Kreis");
+        System.out.printf("Test für Kreis: %s \n", rechtEck1.toString());
 
-        System.out.println("true als Ergebnis erwartet");
-        testeKreis(kreis1, 2.0, 0.0);
-        testeKreis(kreis1, 0.0, 2.0);
+        System.out.println("\tfür die folgenden Fälle wird \"true\" als Ergebnis erwartet");
+        testBeingHit(kreis1, 2.0, 0.0);
+        testBeingHit(kreis1, 0.0, 2.0);
 
-
-        System.out.println("false als Ergebnis erwartet");
-        testeKreis(kreis1, 3.0, 0.0);
-        testeKreis(kreis1, 0.0, 3.0);
-    }
-
-    private static void testeKreis(GeomForm kreis, double testX, double testY) {
-        System.out.printf("!!!kreis, %b \n" , kreis instanceof Kreis);
-        System.out.printf("isHit %f/%f => %b\n", testX, testY, kreis.isHit(testX, testY));
-    }
-
-    private static void testeRechteck(GeomForm rechteck, double testX, double testY) {
-        System.out.printf("isHit %f/%f => %b\n", testX, testY, rechteck.isHit(testX, testY));
+        System.out.println("\tfür die folgenden Fälle wird \"false\" als Ergebnis erwartet");
+        testBeingHit(kreis1, 3.0, 0.0);
+        testBeingHit(kreis1, 0.0, 3.0);
     }
 
     private static void testBeingHit(GeomForm geoForm, double testX, double testY) {
-        System.out.printf("isHit %f/%f => %b\n", testX, testY, geoForm.isHit(testX, testY));
+        System.out.printf("\t\tisHit %f/%f => %b\n", testX, testY, geoForm.isHit(testX, testY));
     }
 
 }

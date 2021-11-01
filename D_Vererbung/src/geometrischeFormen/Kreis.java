@@ -21,15 +21,15 @@ public class Kreis extends GeomForm{
 
     @Override
     public String toString() {
-        String geoFormInfo = super.toString();
-        String subInfo = "Kreis{" +
-                "radius=" + radius +
-                '}';
-        return geoFormInfo + "    " + subInfo;
+        return String.format("Kreis: %s Radius: %f", super.toString(), radius);
     }
 
     @Override
     boolean isHit(double xHitKoord, double yHitKoord) {
-        return false;
+        double dx = - xHitKoord - xKoord;
+        double dy = - yHitKoord - yKoord;
+        double testRad =  Math.sqrt(dx * dx  + dy * dy);
+        return testRad <= radius;
     }
+
 }
