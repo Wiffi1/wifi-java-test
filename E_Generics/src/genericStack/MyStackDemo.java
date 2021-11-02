@@ -7,7 +7,7 @@ public class MyStackDemo {
         listStack(myStringStack);
     }
 
-    private static void listStack(MyStack<String> mystack) {
+    private static <T> void listStack(MyStack<T> mystack) {
         System.out.printf(" listStack " + mystack.toString());
         for (int i = 0; i < mystack.size(); i++) {
             var el = mystack.pop();
@@ -17,8 +17,11 @@ public class MyStackDemo {
 
         try {
             mystack.pop();
-        } catch (Error e) {
-
+        } catch (StackException e) {
+            System.out.println("Fehler in der Berechnung: " + e.getMessage());
+            if (e.getCause() != null) {
+                System.out.println("\tGrund: " + e.getCause().toString());
+            }
         }
 
     }

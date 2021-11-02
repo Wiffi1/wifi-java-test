@@ -8,6 +8,8 @@
 
 package genericStack;
 
+import java.util.Arrays;
+
 // T ist der Typ der Elemente, die auf den Stapel gelegt werden
 // bei der Deklaration muss für T eine Klasse oder ein Interface angegeben werden
 public class MyStack<T> {
@@ -19,8 +21,14 @@ public class MyStack<T> {
     // daher muss man sich mit einem Object-Array behelfen
     private Object[] array;
 
+    private int version = 2;
+
     private int anzahl;
     private int maxAnzahl;
+
+    public int getMaxAnzahl() {
+        return maxAnzahl;
+    }
 
     // Erzeugung des Stapels unter Angabe der Kapazität
     public MyStack(int maxAnzahl) {
@@ -30,6 +38,15 @@ public class MyStack<T> {
     }
 
     public void push(T element) {
+
+        if (anzahl >= maxAnzahl) {
+            if (version == 1) {
+                throw new StackException("Kein Platz mehr am Stack");
+            } else {
+                erweitereKapazität();
+            }
+        }
+
         array[anzahl] = element;
         anzahl++;
     }
@@ -37,29 +54,35 @@ public class MyStack<T> {
     public  T pop() {
         if (anzahl <= 0) {
             throw new StackException("Kein Element mehr vorhanden");
-        } else if (anzahl > maxAnzahl - 2) {
-            throw new StackException("Kein Platz mehr am Stack");
-        } else {
-            T element = (T)array[anzahl - 1];
-            array[anzahl] = null;
-            return (T)element;
         }
+
+        T element = (T)array[anzahl - 1];
+        array[anzahl] = null;
+        anzahl--;
+        return (T)element;
+    }
+
+    private void erweitereKapazität() {
+        maxAnzahl = maxAnzahl * 2;
+        Object[] tempArray = new Object[maxAnzahl];
+        tempArray = Arrays.copyOf(array, maxAnzahl);
+        array = tempArray;
     }
 
     public  T peek() {
-//        return anzahl <= 0 ? null : (T)array[anzahl - 1];
         var elem = (T)array[anzahl - 1];
         return (T)elem;
     }
 
     public int size() {
-        // Anazahl der Elemente am Stapel liefern
+        // Anzahl der Elemente am Stapel liefern
         return anzahl;
     }
 
-/*    private void removeElement(int position) {
-        array[anzahl] = null;
-        anzahl--;
-    }*/
-
+    public void truncate() {
+        maxAnzahl = anzahl;
+        Object[] tempArray = new Object[anzahl];
+        tempArray = Arrays.copyOf(array, array.length);
+        array = tempArray;
+    }
 }

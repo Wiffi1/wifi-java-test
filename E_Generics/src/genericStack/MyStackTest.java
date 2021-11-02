@@ -11,18 +11,6 @@ public class MyStackTest {
 
     static final Logger log = Logger.getLogger("Logger");
 
-    @BeforeAll
-    public static void beforeClass() { /*log.info("@BeforeAll");*/ }
-
-    @AfterAll
-    public static void afterClass() { /*log.info("@AterAll");*/ }
-
-    @BeforeEach
-    public void setUp() { /*log.info("@BeforeEach");*/ }
-
-    @AfterEach
-    public void tearDown() { /*log.info("@AfterEach");*/ }
-
     @DisplayName("simpleTest")
     @Nested class simpleTest {
         @Test
@@ -49,12 +37,10 @@ public class MyStackTest {
             myStack.push((String)"Erster String");
             int size = myStack.size();
             String peekedEl = myStack.peek();
-//            System.out.printf("%s");
             assertEquals(size, 1);
             assertEquals(peekedEl, "Erster String");
         }
     }
-
 
     @DisplayName("pop tests")
     @Nested class popTests {
@@ -65,17 +51,52 @@ public class MyStackTest {
             myStack.push("Erster String");
             String peekedEl = myStack.peek();
             assertEquals(peekedEl, "Erster String");
-//            var el = myStack.pop();
             String popedEl = myStack.pop();
             assertEquals(popedEl, "Erster String");
+            assertEquals(0, myStack.size());
         }
     }
 
-    @DisplayName("nestedTest")
-    @Nested class nestedTest {
+    @DisplayName("Push on full Stack")
+    @Nested class arrayGrösseVerändern {
         @Test
-        public void nestedTest1() {
-            assertEquals(true, true);
+        public void push_int_onFullStack() {
+            MyStack<Integer> myStack = new MyStack<Integer>(2);
+            myStack.push(1);
+            myStack.push(2);
+            int size = myStack.size();
+            assertEquals(size, 2);
+            int peekeddEl = myStack.peek();
+            assertEquals(peekeddEl, 2);
+        }
+
+        @Test
+        public void push_String_onFullStack() {
+            MyStack<String> myStack = new MyStack<>(2);
+            myStack.push("first String");
+            myStack.push("second String");
+            myStack.push("third String");
+            var size = myStack.size();
+            assertEquals(size, 3);
+            assertEquals(4, myStack.getMaxAnzahl());
+            var peekeddEl = myStack.peek();
+            assertEquals(peekeddEl, "third String");
+        }
+    }
+
+
+    @DisplayName("Truncate")
+    @Nested class Truncate {
+        @Test
+        public void truncate1() {
+            MyStack<String> myStack = new MyStack<>(2);
+            myStack.push("first String");
+            myStack.push("second String");
+            myStack.push("third String");
+            myStack.truncate();
+            assertEquals(3, myStack.size());
+            assertEquals(3, myStack.getMaxAnzahl());
+            var peekeddEl = myStack.peek();
         }
     }
 }
