@@ -1,8 +1,9 @@
-package oop;
+package bankverwaltung.oopSort;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class BankProgramCompare {
     static Bankkonto[] bankkonten = new Bankkonto[10];
@@ -37,6 +38,20 @@ public class BankProgramCompare {
         System.out.println("sortiert nach Type und Kontostand");
         Arrays.sort(bankkonten, new SortiereNachTypUndKontostand());
         alleKontenAusgeben(false);
+
+        System.out.println();
+        System.out.println("sortiert nach Type und Kontostand mit Lambda-Comparator");
+        Comparator<Bankkonto> comparatorLambda1 = (Bankkonto o1, Bankkonto o2) -> {
+            int ret = o1.getKontotyp().compareTo(o2.getKontotyp());
+            if (ret == 0) {
+                ret = Double.compare(o2.getKontostand(), o1.getKontostand());
+            }
+            return ret;
+        };
+        Arrays.sort(bankkonten, comparatorLambda1);
+        alleKontenAusgeben(false);
+
+
     }
 
     private static void alleKontenAusgeben(boolean isNaturalSort) {
@@ -106,7 +121,7 @@ public class BankProgramCompare {
 
     private static void zeigeAnShort(Bankkonto konto, boolean isNaturalSort){
         if (isNaturalSort) {
-            System.out.printf("\t%-20s %-20s Nr: %d   %.3f \n", konto.getInhaber(), konto.getKontotyp(), konto.getKontonummer(), konto.getKontostand());
+            System.out.printf("\t%-20s %-20s Nr: %d   %10.3f \n", konto.getInhaber(), konto.getKontotyp(), konto.getKontonummer(), konto.getKontostand());
         } else  {
             System.out.printf("\t%-20s %10.3f   Nr: %d   %-20s   \n", konto.getKontotyp(), konto.getKontostand(), konto.getKontonummer(), konto.getInhaber());
         }

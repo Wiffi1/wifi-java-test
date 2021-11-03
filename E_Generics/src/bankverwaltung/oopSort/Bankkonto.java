@@ -1,4 +1,4 @@
-package oop;
+package bankverwaltung.oopSort;
 
 public class Bankkonto implements  Comparable<Bankkonto> {
 

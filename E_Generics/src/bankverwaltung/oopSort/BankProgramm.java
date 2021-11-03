@@ -1,4 +1,4 @@
-package oop;
+package bankverwaltung.oopSort;
 
 import java.util.Arrays;
 
