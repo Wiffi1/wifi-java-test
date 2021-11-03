@@ -40,18 +40,37 @@ public class BankProgramCompare {
         alleKontenAusgeben(false);
 
         System.out.println();
-        System.out.println("sortiert nach Type und Kontostand mit Lambda-Comparator");
-        Comparator<Bankkonto> comparatorLambda1 = (Bankkonto o1, Bankkonto o2) -> {
-            int ret = o1.getKontotyp().compareTo(o2.getKontotyp());
+        System.out.println("sortiert nach Type und Kontostand mit Lambda-Comparator, geänderte Reihenfolge");
+        Comparator<Bankkonto> comparatorLambda1 = (o1, o2) -> {
+            int ret = -o1.getKontotyp().compareTo(o2.getKontotyp());
             if (ret == 0) {
-                ret = Double.compare(o2.getKontostand(), o1.getKontostand());
+                ret = -Double.compare(o2.getKontostand(), o1.getKontostand());
             }
             return ret;
         };
         Arrays.sort(bankkonten, comparatorLambda1);
         alleKontenAusgeben(false);
 
+        System.out.println();
+        System.out.println("Anonyme interface implementierung");
+        Comparator<Bankkonto> comparatorAnonym = new Comparator<Bankkonto>() {
+            @Override
+            public int compare(Bankkonto o1, Bankkonto o2) {
+                return 0;
+            }
+        };
+        Arrays.sort(bankkonten, comparatorAnonym);
+        alleKontenAusgeben(false);
 
+        System.out.println();
+        System.out.println("Anonyme interface implementierung - direkt");
+        Arrays.sort(bankkonten, new Comparator<Bankkonto>() {
+            @Override
+            public int compare(Bankkonto o1, Bankkonto o2) {
+                return 0;
+            }
+        });
+        alleKontenAusgeben(false);
     }
 
     private static void alleKontenAusgeben(boolean isNaturalSort) {
