@@ -1,5 +1,7 @@
 package oop;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 
 public class BankProgramCompare {
@@ -17,6 +19,7 @@ public class BankProgramCompare {
             eroeffnen("Track", 2000),
             eroeffnen("Zzzack", 1.5, 100),
             eroeffnen("Angestellter1", 1.5, 200),
+            eroeffnen("Bausparer", 20000),
         };
 
         bankkonten[2].einzahlen(123);
@@ -36,13 +39,13 @@ public class BankProgramCompare {
         alleKontenAusgeben(false);
     }
 
-    private static void alleKontenAusgeben(Boolean isNaturalSort) {
+    private static void alleKontenAusgeben(boolean isNaturalSort) {
         for (Bankkonto bankkonto: bankkonten) {
             zeigeAnShort(bankkonto, isNaturalSort);
         }
     }
 
-    private static Bankkonto eroeffnen(String inhaber, double zinssatz, double einlage) {
+    private static @Nullable Bankkonto eroeffnen(String inhaber, double zinssatz, double einlage) {
         try {
             System.out.println("Eröffne Sparkonto");
             Bankkonto konto = new Bankkonto(inhaber, zinssatz, einlage);
@@ -101,7 +104,7 @@ public class BankProgramCompare {
         System.out.println();
     }
 
-    private static void zeigeAnShort(Bankkonto konto, Boolean isNaturalSort){
+    private static void zeigeAnShort(Bankkonto konto, boolean isNaturalSort){
         if (isNaturalSort) {
             System.out.printf("\t%-20s %-20s Nr: %d   %.3f \n", konto.getInhaber(), konto.getKontotyp(), konto.getKontonummer(), konto.getKontostand());
         } else  {
