@@ -71,6 +71,13 @@ public class BankProgramCompare {
             }
         });
         alleKontenAusgeben(false);
+
+        System.out.println();
+        System.out.println("sortiert nach Kontonummer absteigend");
+        Comparator<Bankkonto> comparatorLambda2 = (o1, o2) -> -Double.compare(o1.getKontonummer(), o2.getKontonummer());
+//            return o1.getKontonummer() - o2.getKontonummer();
+        Arrays.sort(bankkonten, comparatorLambda2);
+        alleKontenAusgeben(false);
     }
 
     private static void alleKontenAusgeben(boolean isNaturalSort) {
