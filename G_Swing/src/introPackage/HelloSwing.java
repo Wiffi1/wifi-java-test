@@ -13,8 +13,8 @@ public class HelloSwing extends JFrame {
         // Kein automatisches Layout verwenden, da wir müssen aboluste
         // Positionen und Größen angeben
         setLayout(null);
-        int startX = 20, startY = 20, abstand = 5, hoehe = 20;
-        final int breite = 70;
+        int startX = 20, startY = 20, abstand = 5;
+        final int breite = 70, hoehe = 20;
 
         // Titelzeile
         JLabel lbTitel = new JLabel("Hallo bei Swing");
@@ -25,8 +25,8 @@ public class HelloSwing extends JFrame {
         lbTitel.setFont(titleFont);
         add(lbTitel);
 
-
-        // 1. Zeile: Nae
+        // 1. Zeile: Name
+        startY += hoehe * 2;
         // Beschriftungsfeld
         JLabel lbName = new JLabel("Dein Name:");
         lbName.setSize(breite, 20);
@@ -41,17 +41,23 @@ public class HelloSwing extends JFrame {
         JButton btnGruesse = new JButton("Klick mich!");
         startY += + abstand + hoehe;
         btnGruesse.setBounds(startX + abstand + breite, startY, 100, 20);
+
         add(btnGruesse);
 
         // 3. Feld für Message
         startY += + abstand + hoehe;
-        JLabel lbMessage = new JLabel("...");
+        JLabel lbMessage = new JLabel("");
         lbMessage.setSize(breite, 20);
         lbMessage.setLocation(startX, startY);
         lbMessage.setBounds(startX, startY, 200, hoehe);
         lbMessage.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         add(lbMessage);
 
+        // Callback für das Klick-Ereignis
+        btnGruesse.addActionListener(e -> {
+            System.out.println("Click auf btngrüße. name = " + txtName.getText());
+            lbMessage.setText("Hallo, " + txtName.getText());
+        });
 
         // Standard-Operation  ist Verbergen
         // stattdessen das Fenster beim Schließen zerstöre
