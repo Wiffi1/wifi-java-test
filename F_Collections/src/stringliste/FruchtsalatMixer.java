@@ -2,14 +2,23 @@ package stringliste;
 
 import inputHilfe.InputUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class FruchtsalatMixer {
     public static void main(String[] args) {
+        // Für die Liste das Basisinterface verwenden...
         List<String> fruchtsalat = new ArrayList<>();
+
+        boolean mitArraylist = false;
+
+        // ... und mit einer passenden Implementierung instanziieren
+        if (mitArraylist) {
+            fruchtsalat = new ArrayList<>();
+        } else {
+            fruchtsalat = new LinkedList<>();
+        }
+
+        System.out.println("Fruchstsalat mit: " + fruchtsalat.getClass().getSimpleName());
 
         // ein paar Elemente anfügen
         fruchtsalat.add("Banane");

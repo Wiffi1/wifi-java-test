@@ -10,14 +10,12 @@ import java.util.List;
  */
 public class PersonenGruppe {
 
-    // Liste für Personen mit einer Standard-Kapazität
+    // Liste für die Personen, mit Standard-Anfangskapazität
     private List<Person> gruppe = new ArrayList<>();
 
-
-
     /**
-     * Eine Person anmelden. Die Person wird im Array am nächsten freien Platz
-     * hinzugefügt
+     * Eine Person anmelden. Die Person wird am Ende der Liste hinzugefügt
+     *
      *
      * @param p die Person, die angemeldet werden soll
      */
@@ -30,10 +28,11 @@ public class PersonenGruppe {
      * alle Personen anzeigen
      */
     public void alleAnzeigen() {
-        // alle anzeigen (Iteraton mit foreach)
-        System.out.printf("In der Gruppe sind  %d Personen\n", gruppe.size());
-        for (Person p : gruppe) {
-            System.out.println();
+        // size liefert die Anzahl der Elemente in der Liste
+        System.out.printf("In der Gruppe sind %d Personen\n", gruppe.size());
+        // alle anzeigen (Iteration mit for-each)
+        for (Person p: gruppe) {
+            System.out.printf("\t%s\n", p);
         }
     }
 
@@ -47,6 +46,7 @@ public class PersonenGruppe {
         if (index < 0) {
             System.out.printf("Person mit Nummer %d existiert nicht\n", nr);
         } else {
+            // Person anzeigen
             Person pTemp = gruppe.get(index);
             System.out.printf("Person gefunden: %s\n", pTemp);
         }
@@ -69,25 +69,24 @@ public class PersonenGruppe {
         // das Objekt aus der Liste abrufen
         Person geloescht = gruppe.get(index);
         // aus der Liste entfernen
-
         gruppe.remove(index);
 
-        // und das Objekt zurückenliefern
+        // und das Objekt zurückliefern
         return geloescht;
 
     }
 
     // den Index der Person im Array suchen
     private int findePersonIndex(int nr) {
-
         // Person suchen
-        // indexOf-Methode der Liste ist nicht zielführend, weil wir nicht eine Zahl und ein Person-objekt vergleichen
-        // können.
-        // int x = liste.indexOf(nr)
-        // Daher selbst das passende Objekt suchen.
+        // indexOf-Methode der Liste ist nicht zielführend, weil wir nicht
+        // eine Zahl mit einem Person-Objekt vergleichen können
+        //int x = liste.indexOf(nr)
+        // daher selber das passende Objekt suchen
         for (int i = 0; i < gruppe.size(); i++) {
             Person pTemp = gruppe.get(i);
-            if (pTemp.getNr() == nr) {
+            // wenn die Nummer gleich der gesuchten Nummer ist
+            if(pTemp.getNr() == nr){
                 // den Index zurückliefern
                 return i;
             }
