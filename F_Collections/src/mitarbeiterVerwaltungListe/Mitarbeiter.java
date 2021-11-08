@@ -107,11 +107,8 @@ public class Mitarbeiter {
 
     @Override
     public String toString() {
-        return  name + '\'' +
-                ", id=" + id +
-                ", geburtsdatum=" + geburtsdatum +
-                ", eintrittsdatum=" + eintrittsdatum +
-                ", grundgehalt=" + grundgehalt;
+        return String.format("id: %2d, Name: %-20s Grundgeh: %8.2f Gebdatum: %s Eintritt: %s",
+                id, name, grundgehalt, geburtsdatum, eintrittsdatum);
     }
 
 }

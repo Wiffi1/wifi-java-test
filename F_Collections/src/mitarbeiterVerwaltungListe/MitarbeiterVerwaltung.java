@@ -25,14 +25,6 @@ public class MitarbeiterVerwaltung {
 //        return mitarbeiterListe.get(mitarbeiterListe.size() - 1);
     }
 
-    public Mitarbeiter testGetMaByIndex(int index) {
-        return mitarbeiterListe.get(index);
-    }
-
-    public Mitarbeiter mAabrufen(int MitarbeiterID) {
-        return mitarbeiterListe.get(MitarbeiterID);
-    }
-
     public double maGehaltErhoehen(int mitarbeiterID , double prozent) {
         Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
         return ma.maGehaltErhoehen(prozent);
@@ -51,7 +43,6 @@ public class MitarbeiterVerwaltung {
 
 //    private void alleAnzeigen(enum sortedBy)
     public void alleAnzeigen(String sortedBy) {
-        // size liefert die Anzahl der Elemente in der Liste
         System.out.println("\n***** Mitarbeiterliste *****");
         System.out.printf("In der Gruppe sind %d Personen\n", mitarbeiterListe.size());
         for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
@@ -65,7 +56,6 @@ public class MitarbeiterVerwaltung {
         return ma;
     }
 
-    // Ist es da eigentlich besser -1 oder error?
     private Mitarbeiter getMitarbeiterById(int mitarbeiterID) {
         int index = findeMitarbeiterIndex(mitarbeiterID);
         if (index == -1) {
@@ -95,4 +85,13 @@ public class MitarbeiterVerwaltung {
         // einen ungültigen Index zurückliefern
         return -1;
     }
+
+
+    //    public Mitarbeiter testGetMaByIndex(int index) {
+//        return mitarbeiterListe.get(index);
+//    }
+
+//    public Mitarbeiter mAabrufen(int MitarbeiterID) {
+//        return mitarbeiterListe.get(MitarbeiterID);
+//    }
 }

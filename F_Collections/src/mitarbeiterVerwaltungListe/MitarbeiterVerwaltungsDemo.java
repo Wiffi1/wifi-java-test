@@ -22,21 +22,23 @@ public class MitarbeiterVerwaltungsDemo {
 
         maVerwaltung.alleAnzeigen("");
 
-        System.out.println("Mitarbeiter Experte2 wird ausgeschieden");
-        // id == -1, da Mitarbeiter bereits ausgeschieden ist
-        // mitarbeiterListe.mAausgeben(ausgeschieden.getId());
-        Mitarbeiter ausgeschieden = maVerwaltung.maAusscheiden(experte2.getId());
-        System.out.printf("\nfolgender Mitarbeiter wurde ausgeschieden: %s\n", ausgeschieden);
+        System.out.println("\n** Mitarbeiter Experte2 wird ausgeschieden **");
+        maAusscheiden(experte2.getId());
 
+        System.out.println("\n** Ein neuer Experte wird eingestellt **");
         Mitarbeiter ersatzExperte = new Experte("Franz III Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "Typescript");
-        maVerwaltung.maHinzufuegen(ersatzExperte);
+        maHinzufuegen(ersatzExperte);
+        maVerwaltung.alleAnzeigen("");
 
+        System.out.println("\n** Mitarbeiter mit nicht vorhandener ID wird versucht, auszuscheiden **");
         int idNichtVorhandenerMa = experte2.getId();
         maAusscheiden(idNichtVorhandenerMa);
+
+        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit nicht vorhandener ID wird versucht **");
         maGehaltErhoehen(idNichtVorhandenerMa, 13);
 
         System.out.println();
-        System.out.println("**** alle erhalten eine Gehaltserhöhung um 50% ****");
+        System.out.println("** alle erhalten eine Gehaltserhöhung um 50% **");
         maVerwaltung.alleGehaltErhoehen(50);
         maVerwaltung.alleAnzeigen("");
 
@@ -47,11 +49,12 @@ public class MitarbeiterVerwaltungsDemo {
 
     public static void maAusscheiden(int mitarbeiterID) {
         try {
-            maVerwaltung.maAusscheiden(mitarbeiterID);
+            Mitarbeiter tmpMa = maVerwaltung.maAusscheiden(mitarbeiterID);
+            System.out.println("\tfolgender Mitarbeiter wurde ausgeschieden:");
+            System.out.printf("\t\t%s\n", tmpMa);
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("-- ACHTUNG! Fehler beim Ausscheiden eines Mitarbeiter --");
-            System.out.printf("\t\tMitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
+            System.out.println("\t-- ACHTUNG! Fehler beim Ausscheiden eines Mitarbeiter --");
+            System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
     }
 
@@ -59,10 +62,14 @@ public class MitarbeiterVerwaltungsDemo {
         try {
             maVerwaltung.maGehaltErhoehen(mitarbeiterID, prozent);
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("-- ACHTUNG! Fehler bei der Lohnerhöhung für einen Mitarbeiter --");
-            System.out.printf("\t\tMitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
+            System.out.println("\t-- ACHTUNG! Fehler bei der Lohnerhöhung für einen Mitarbeiter --");
+            System.out.printf("\t\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
+    }
+
+    public static void maHinzufuegen(Mitarbeiter ersatzExperte) {
+        maVerwaltung.maHinzufuegen(ersatzExperte);
+        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
     }
 
 }
