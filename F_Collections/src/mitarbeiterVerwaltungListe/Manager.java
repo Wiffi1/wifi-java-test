@@ -15,8 +15,7 @@ public class Manager extends Mitarbeiter {
 
     @Override
     public String toString() {
-        return super.toString() + "Manager{" +
-                "bonus=" + bonus +
-                '}';
+        return super.toString() + " Manager" +
+                "bonus=" + bonus;
     }
 }

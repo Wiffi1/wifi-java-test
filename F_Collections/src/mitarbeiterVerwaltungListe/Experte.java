@@ -11,6 +11,7 @@ public class Experte extends Mitarbeiter {
 
     public Experte(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt, String fachgebiet) {
         super(name, geburtsdatum, eintrittsdatum, grundgehalt);
+        this.fachgebiet = fachgebiet;
     }
 
     @Override
@@ -21,8 +22,7 @@ public class Experte extends Mitarbeiter {
 
     @Override
     public String toString() {
-        return super.toString() + "Experte{" +
-                "fachgebiet='" + fachgebiet + '\'' +
-                '}';
+        return super.toString() + " Experte " +
+                "fachgebiet='" + fachgebiet + '\'';
     }
 }
