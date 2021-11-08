@@ -16,15 +16,11 @@ package mitarbeiterVerwaltungListe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MitarbeiterListe {
+public class MitarbeiterVerwaltung {
 
     private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
 
-    public void test() {
-        System.out.println("test");
-    }
-
-    public void mAhinzufuegen (Mitarbeiter mitarbeiter) {
+    public void maHinzufuegen(Mitarbeiter mitarbeiter) {
         mitarbeiterListe.add(mitarbeiter);
 //        return mitarbeiterListe.get(mitarbeiterListe.size() - 1);
     }
@@ -38,8 +34,8 @@ public class MitarbeiterListe {
     }
 
     public double maGehaltErhoehen(int mitarbeiterID , double prozent) {
-        Mitarbeiter ma = mitarbeiterListe.get(mitarbeiterID);
-        return ma.mAgehaltErhoehen(prozent);
+        Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
+        return ma.maGehaltErhoehen(prozent);
     }
 
     public void alleGehaltErhoehen(double prozent) {
@@ -49,8 +45,7 @@ public class MitarbeiterListe {
     }
 
     public void maAusgeben(int MitarbeiterID) {
-        int index = findeMitarbeiterIndex(MitarbeiterID);
-        Mitarbeiter ma = mitarbeiterListe.get(index);
+        Mitarbeiter ma = getMitarbeiterById(MitarbeiterID);
         System.out.printf("%s", ma);
     }
 
@@ -65,13 +60,13 @@ public class MitarbeiterListe {
     }
 
     public Mitarbeiter maAusscheiden(int mitarbeiterID) {
-        Mitarbeiter ma = findeMitarbeiterById(mitarbeiterID);
+        Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
         mitarbeiterListe.remove(ma);
         return ma;
     }
 
     // Ist es da eigentlich besser -1 oder error?
-    private Mitarbeiter findeMitarbeiterById(int mitarbeiterID) {
+    private Mitarbeiter getMitarbeiterById(int mitarbeiterID) {
         int index = findeMitarbeiterIndex(mitarbeiterID);
         if (index == -1) {
             throw new IndexOutOfBoundsException();

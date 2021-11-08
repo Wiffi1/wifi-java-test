@@ -87,7 +87,7 @@ public class Mitarbeiter {
         return getGrundgehalt();
     }
 
-    public double mAgehaltErhoehen(double prozent) {
+    public double maGehaltErhoehen(double prozent) {
         return this.grundgehalt = this.grundgehalt * ((100 + prozent) / 100);
     }
 
