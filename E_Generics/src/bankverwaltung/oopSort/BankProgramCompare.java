@@ -1,6 +1,6 @@
 package bankverwaltung.oopSort;
 
-import org.jetbrains.annotations.Nullable;
+import animals.sort.Animal;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -73,6 +73,21 @@ public class BankProgramCompare {
         alleKontenAusgeben(false);
 
         System.out.println();
+        System.out.println("sortiert nach Type (aufsteigend) und Kontostand (absteigend) mit Methoden-Referenzen");
+        Comparator<Bankkonto> comparator;
+        comparator = Comparator
+                .comparing(Bankkonto::getKontotyp)
+                .reversed()
+                .thenComparing(Bankkonto::getKontostand)
+                .reversed();
+        // Kann man das reversed() nur auf den thenComparing::getKontostand anwenden?
+        // Ist so, wie es derzeit ist, nämlich unschön
+
+        Arrays.sort(bankkonten, comparator);
+        alleKontenAusgeben(false);
+
+
+        System.out.println();
         System.out.println("sortiert nach Kontonummer absteigend");
         Comparator<Bankkonto> comparatorLambda2 = (o1, o2) -> -Double.compare(o1.getKontonummer(), o2.getKontonummer());
 //            return o1.getKontonummer() - o2.getKontonummer();
@@ -86,7 +101,7 @@ public class BankProgramCompare {
         }
     }
 
-    private static @Nullable Bankkonto eroeffnen(String inhaber, double zinssatz, double einlage) {
+    private static Bankkonto eroeffnen(String inhaber, double zinssatz, double einlage) {
         try {
             System.out.println("Eröffne Sparkonto");
             Bankkonto konto = new Bankkonto(inhaber, zinssatz, einlage);
