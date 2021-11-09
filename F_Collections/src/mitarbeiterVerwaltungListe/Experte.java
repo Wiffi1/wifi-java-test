@@ -22,7 +22,7 @@ public class Experte extends Mitarbeiter {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" Einstufung: %-10s Fachgebiet: %-10s",
-                "Experte", fachgebiet);
+        return super.toString() + String.format(" Einstufung: %-10s %-12s %s",
+                "Experte", "Fachgebiet:", fachgebiet);
     }
 }

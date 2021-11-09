@@ -20,7 +20,7 @@ public class MitarbeiterVerwaltungsDemo {
         maVerwaltung.maHinzufuegen(manager1);
         maVerwaltung.maHinzufuegen(manager2);
 
-        maVerwaltung.alleAnzeigen("");
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
         System.out.println("\n** Mitarbeiter Experte2 wird ausgeschieden **");
         maAusscheiden(experte2.getId());
@@ -28,7 +28,7 @@ public class MitarbeiterVerwaltungsDemo {
         System.out.println("\n** Ein neuer Experte wird eingestellt **");
         Mitarbeiter ersatzExperte = new Experte("Franz III Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "Typescript");
         maHinzufuegen(ersatzExperte);
-        maVerwaltung.alleAnzeigen("");
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
         System.out.println("\n** Mitarbeiter mit nicht vorhandener ID wird versucht, auszuscheiden **");
         int idNichtVorhandenerMa = experte2.getId();
@@ -40,11 +40,14 @@ public class MitarbeiterVerwaltungsDemo {
         System.out.println();
         System.out.println("** alle erhalten eine Gehaltserhöhung um 50% **");
         maVerwaltung.alleGehaltErhoehen(50);
-        maVerwaltung.alleAnzeigen("");
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
         //        mitarbeiterListe.mAausgeben(2);
         //        Mitarbeiter ma = mitarbeiterListe.testGetMaByIndex(0);
         //        System.out.printf("%s", ma);
+
+        maVerwaltung.alleAnzeigen(OrderBy.NAME);
+        maVerwaltung.alleAnzeigen(OrderBy.TYPE_EINTRITTSDATUM);
     }
 
     public static void maAusscheiden(int mitarbeiterID) {

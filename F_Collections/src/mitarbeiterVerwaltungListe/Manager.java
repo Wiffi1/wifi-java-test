@@ -5,7 +5,7 @@ package mitarbeiterVerwaltungListe;
 import java.time.LocalDate;
 
 public class Manager extends Mitarbeiter {
-    // Höhe des Bonus ist Verhandlungssache, deshalb nicht static gnommen.
+    // Höhe des Bonus ist Verhandlungssache, deshalb nicht static genommen.
     private double bonus;
 
     public Manager(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt, double bonus) {
@@ -15,7 +15,7 @@ public class Manager extends Mitarbeiter {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" Einstufung: %-10s Bonus: %8.2f",
-                "Manager", bonus);
+        return super.toString() + String.format(" Einstufung: %-10s %-11s %8.2f",
+                "Manager", "Bonus:", bonus);
     }
 }

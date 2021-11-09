@@ -51,6 +51,11 @@ public class Mitarbeiter {
         this.grundgehalt = grundgehalt;
     }
 
+    public String getType() {
+//        System.out.println("getClass().getName() " + getClass().getName());
+        return getClass().getName();
+    }
+
     public double getMonatsgehalt() {
         return this.grundgehalt;
     }

@@ -13,8 +13,7 @@
 
 package mitarbeiterVerwaltungListe;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MitarbeiterVerwaltung {
 
@@ -41,9 +40,25 @@ public class MitarbeiterVerwaltung {
         System.out.printf("%s", ma);
     }
 
-//    private void alleAnzeigen(enum sortedBy)
-    public void alleAnzeigen(String sortedBy) {
-        System.out.println("\n***** Mitarbeiterliste *****");
+    public void alleAnzeigen(OrderBy orderBy) {
+
+        Comparator<Mitarbeiter> comparator;
+        comparator = switch (orderBy){
+            case NO_ORDER -> Comparator.comparing(Mitarbeiter::getId);
+            case NAME -> Comparator.comparing(Mitarbeiter::getName);
+            case TYPE_EINTRITTSDATUM -> Comparator.comparing(Mitarbeiter::getType)
+                    .thenComparing(Mitarbeiter::getEintrittsdatum) ;
+        };
+
+        String sortiertNach = switch (orderBy){
+            case NO_ORDER -> "Id";
+            case NAME -> "Name";
+            case TYPE_EINTRITTSDATUM -> "Type/Eintrittsdatum";
+        };
+
+        Collections.sort(mitarbeiterListe, comparator);
+
+        System.out.printf("\n***** Mitarbeiterliste sortiert nach %s *****\n", sortiertNach);
         System.out.printf("In der Gruppe sind %d Personen\n", mitarbeiterListe.size());
         for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
             System.out.printf("\t%s\n", mitarbeiter);
