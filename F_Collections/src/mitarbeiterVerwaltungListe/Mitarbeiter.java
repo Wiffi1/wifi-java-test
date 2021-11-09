@@ -98,16 +98,10 @@ public class Mitarbeiter {
 
     Period getAnstellungsdauer() {
         LocalDate now = LocalDate.now();
-        LocalDate endDate = LocalDate.of(now.getYear(), 12, 24);
-//        Period p = Period.between(now, endDate);
-//        int y = p.getYears();
-//        int m = p.getMonths();
-//        int d = p.getDays();
-        return Period.between(now, endDate);
+        return Period.between(eintrittsdatum, now);
     }
 
     void mitarbeiterblatt()  {
-//        String ma = "name: " + this.getName() + "";
     }
 
     @Override

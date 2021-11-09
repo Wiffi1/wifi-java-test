@@ -21,7 +21,6 @@ public class MitarbeiterVerwaltung {
 
     public void maHinzufuegen(Mitarbeiter mitarbeiter) {
         mitarbeiterListe.add(mitarbeiter);
-//        return mitarbeiterListe.get(mitarbeiterListe.size() - 1);
     }
 
     public double maGehaltErhoehen(int mitarbeiterID , double prozent) {
@@ -37,7 +36,7 @@ public class MitarbeiterVerwaltung {
 
     public void maAusgeben(int MitarbeiterID) {
         Mitarbeiter ma = getMitarbeiterById(MitarbeiterID);
-        System.out.printf("%s", ma);
+        System.out.printf("\t%s", ma);
     }
 
     public void alleAnzeigen(OrderBy orderBy) {

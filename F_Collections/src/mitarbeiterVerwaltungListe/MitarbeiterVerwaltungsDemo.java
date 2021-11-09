@@ -34,20 +34,30 @@ public class MitarbeiterVerwaltungsDemo {
         int idNichtVorhandenerMa = experte2.getId();
         maAusscheiden(idNichtVorhandenerMa);
 
-        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit nicht vorhandener ID wird versucht **");
-        maGehaltErhoehen(idNichtVorhandenerMa, 13);
+/*        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit nicht vorhandener ID wird versucht **");
+        maGehaltErhoehen(idNichtVorhandenerMa, 13);*/
+
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+
+        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit id=5 um 33% **");
+        maGehaltErhoehen(5, 33);
+
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+
 
         System.out.println();
         System.out.println("** alle erhalten eine Gehaltserhöhung um 50% **");
         maVerwaltung.alleGehaltErhoehen(50);
         maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
-        //        mitarbeiterListe.mAausgeben(2);
-        //        Mitarbeiter ma = mitarbeiterListe.testGetMaByIndex(0);
-        //        System.out.printf("%s", ma);
-
         maVerwaltung.alleAnzeigen(OrderBy.NAME);
         maVerwaltung.alleAnzeigen(OrderBy.TYPE_EINTRITTSDATUM);
+
+        System.out.println("\n** Mitarbeiter mit nicht vorhandener ID ausgeben **");
+        maAusgeben(27);
+
+        System.out.println("\n** Mitarbeiter mit id=2 ausgeben **");
+        maAusgeben(2);
     }
 
     public static void maAusscheiden(int mitarbeiterID) {
@@ -63,10 +73,12 @@ public class MitarbeiterVerwaltungsDemo {
 
     public static void maGehaltErhoehen(int mitarbeiterID, double prozent) {
         try {
-            maVerwaltung.maGehaltErhoehen(mitarbeiterID, prozent);
+            double neuerGehalt = maVerwaltung.maGehaltErhoehen(mitarbeiterID, prozent);
+            System.out.printf("\tNeuer Gehalt für id: %d: %f\n", mitarbeiterID, neuerGehalt);
+            maAusgeben(mitarbeiterID);
         } catch (Exception e) {
             System.out.println("\t-- ACHTUNG! Fehler bei der Lohnerhöhung für einen Mitarbeiter --");
-            System.out.printf("\t\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
+            System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
     }
 
@@ -74,5 +86,15 @@ public class MitarbeiterVerwaltungsDemo {
         maVerwaltung.maHinzufuegen(ersatzExperte);
         System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
     }
+
+    public static void maAusgeben(int mitarbeiterID) {
+        try {
+            maVerwaltung.maAusgeben(mitarbeiterID);
+        } catch (Exception e) {
+            System.out.println("\t-- ACHTUNG! Fehler bei der Ausgabe für einen Mitarbeiter --");
+            System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
+        }
+    }
+
 
 }
