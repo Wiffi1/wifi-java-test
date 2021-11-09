@@ -80,8 +80,10 @@ public class BankProgramCompare {
                 .reversed()
                 .thenComparing(Bankkonto::getKontostand)
                 .reversed();
-        // Kann man das reversed() nur auf den thenComparing::getKontostand anwenden?
-        // Ist so, wie es derzeit ist, nämlich unschön
+        // Frage an Michaele, gibt es eine Möglichkeit, das reversed() nur auf das thenComparing::getKontostand anzuwenden?
+        // Das zweite reverse() ändert nämlich natürlich die Gesamtreihenfolge, ich wollte aber den Kontotyp aufsteigend
+        // und den Kontostand absteigend sortieren. Das scheint zwar mit den beiden reverse() zu funktionieren,
+        // ist aber nicht sehr schön
 
         Arrays.sort(bankkonten, comparator);
         alleKontenAusgeben(false);
@@ -90,7 +92,6 @@ public class BankProgramCompare {
         System.out.println();
         System.out.println("sortiert nach Kontonummer absteigend");
         Comparator<Bankkonto> comparatorLambda2 = (o1, o2) -> -Double.compare(o1.getKontonummer(), o2.getKontonummer());
-//            return o1.getKontonummer() - o2.getKontonummer();
         Arrays.sort(bankkonten, comparatorLambda2);
         alleKontenAusgeben(false);
     }
