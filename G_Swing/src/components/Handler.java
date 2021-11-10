@@ -1,8 +1,10 @@
 package components;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Handler {
+public class Handler implements ActionListener {
 
 	private TeilnehmerFenster meinFenster;
 
@@ -11,6 +13,16 @@ public class Handler {
 
 	}
 
+	// Handler-Code für das Action-Event der beiden Buttons
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+			case "OK" -> onOK();
+			case "CANCEL" -> onCancel();
+			default -> System.out.println("Ungültiges Acrioncomman: " + e.getActionCommand());
+		}
+
+	}
 
 	private void onOK() {
 		System.out.println("OK Button ausgelöst");

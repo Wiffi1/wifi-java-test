@@ -35,6 +35,7 @@ public class TeilnehmerFenster extends JFrame {
 		this.setLayout(null);
 
 		// TODO Handler erzeugen
+		Handler myHandler = new Handler(this);
 		// Alle Komponenten werden in die ContentPane hinzugefügt
 		// Überschrift
 		getContentPane().add(createLabel(40, 30, 200, 30, "Eingabe-Dialog", new Font("Serif", Font.BOLD | Font.ITALIC, 20)));
@@ -82,10 +83,10 @@ public class TeilnehmerFenster extends JFrame {
 
 		// Schaltflächen
 		getContentPane().add(btnOk = createButton(200, 270, 100, 23, "OK", "OK", false));
-		// TODO Handler
+		btnOk.addActionListener(myHandler);
 
 		getContentPane().add(btnVerwerfen = createButton(320, 270, 100, 23, "Verwerfen", "CANCEL", true));
-		// TODO Handler
+		btnVerwerfen.addActionListener(myHandler);
 
 		// Infomeldung
 		getContentPane().add(lblMeldung = createLabel(180, 320, 270, 23, "Bitte nehmen Sie Ihre Eingaben vor",
