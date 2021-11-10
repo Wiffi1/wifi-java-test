@@ -12,13 +12,19 @@ public class TicTacToe extends JFrame {
     final JLabel lblStatus;
     final JLabel lblSpieler;
 
+    private int clickedFieldCount = 0;
+
+    private char spieler1 = 'x';
+    private char spieler2 = '0';
+    private char spieler = spieler1;
+    private char gewinner = ' ';
+
     private char[][] charTicTac = {
             {' ', ' ', ' '},
             {' ', ' ', ' '},
             {' ', ' ', ' '}
     };
 
-//    JTextField txtName, JLabel lblMessage, JButton[][] btnPlay
     public TicTacToe() {
         super("Erstes Swing Programm");
         setSize(600, 600);
@@ -91,20 +97,33 @@ public class TicTacToe extends JFrame {
         String cmdStr = e.getActionCommand();
         int clickedBtnId = Integer.parseInt(cmdStr);
         int s = clickedBtnId % 3;
-        int z = (clickedBtnId - s) / 3;
-        System.out.printf("clicked: %d \n ", clickedBtnId);
-        System.out.printf("s: %d\n ", s);
-        System.out.printf("z: %d\n ", z);
-        System.out.printf("z=%d s=%d \n ", z, s);
+        int z = clickedBtnId / 3;
 
-        if (charTicTac[z][s] == 'o') {
-            lblStatus.setText("Status: Fehler");
-        } else {
-            charTicTac[z][s] = 'o';
-            btnTicToc[z][s].setText("o");
-            lblStatus.setText("Status");
+        System.out.printf("clickedFieldCount %d", clickedFieldCount);
+        if (clickedFieldCount >= 8) {
+        } else if (gewinner == ' ') {
+            if (charTicTac[z][s] == spieler1 || charTicTac[z][s] == spieler2) {
+                lblStatus.setText("Status: Fehler");
+            } else {
+                spieler = (spieler == spieler1) ? spieler2 : spieler1;
+                charTicTac[z][s] = spieler;
+                btnTicToc[z][s].setText(String.valueOf(spieler));
+                lblStatus.setText("Status");
+
+                ++clickedFieldCount;
+                lblStatus.setText("Status: Keine Zug mehr möglich!");
+
+                if (hatSpielerGewonnen(spieler1)) {
+                    gewinner = spieler1;
+                    lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler1));
+                } else if (hatSpielerGewonnen(spieler2)) {
+                    gewinner = spieler2;
+                    lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler2));
+                } else if (clickedFieldCount >= 8) {
+                    lblStatus.setText(String.format("DAS SPIEL IST AUS", spieler2));
+                }
+            }
         }
-
     }
 
     private void onKlickResetBtn(ActionEvent e) {
@@ -114,8 +133,30 @@ public class TicTacToe extends JFrame {
                 btnTicToc[z][s].setText(" ");
             }
         }
+        gewinner = ' ';
+        clickedFieldCount = 0;
         System.out.println(e);
     }
 
+    private boolean hatSpielerGewonnen(char player) {
+        boolean gewonnen = false;
+        for (int z = 0; z < 3; z++) {
+            if (charTicTac[z][0] == player && charTicTac[z][1] == player && charTicTac[z][2] == player) {
+                gewonnen = true;
+            }
+        }
+        for (int s = 0; s < 3; s++) {
+            if (charTicTac[0][s] == player && charTicTac[1][s] == player && charTicTac[2][s] == player) {
+                gewonnen = true;
+            }
+        }
+
+        if (charTicTac[0][0] == player && charTicTac[1][1] == player && charTicTac[2][2] == player) {
+            gewonnen = true;
+        } else if (charTicTac[0][2] == player && charTicTac[1][1] == player && charTicTac[2][0] == player) {
+            gewonnen = true;
+        }
+        return gewonnen;
+    }
 
 }
