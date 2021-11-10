@@ -9,8 +9,8 @@ public class TicTacToe extends JFrame {
 
     final JButton[][] btnTicToc = new JButton[3][3];
     final JButton btnReset;
-//    final JLabel lblStatus;
-//    final JLabel lblSpieler;
+    final JLabel lblStatus;
+    final JLabel lblSpieler;
 
     private char[][] charTicTac = {
             {'x', 'x', 'x'},
@@ -55,6 +55,28 @@ public class TicTacToe extends JFrame {
         btnReset.addActionListener(this::onKlickResetBtn);
         add(btnReset);
 
+        startY = startY + 50;
+
+        lblStatus = new JLabel("Status");
+        lblStatus.setBounds(startX, startY, 225, 30);
+        // Textausrichtung zentriert
+        lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        // Größere Schrift, fett und kursiv
+//        Font titleFont = new Font("Arial", Font.BOLD | Font.ITALIC, 20);
+//        lblTitel.setFont(titleFont);
+        add(lblStatus);
+
+        startY = startY + 50;
+
+        lblSpieler = new JLabel("Spieler");
+        lblSpieler.setBounds(startX, startY, 225, 30);
+        // Textausrichtung zentriert
+        lblSpieler.setHorizontalAlignment(SwingConstants.CENTER);
+        // Größere Schrift, fett und kursiv
+        Font spielerFont = new Font("Arial", Font.BOLD | Font.ITALIC, 20);
+        lblSpieler.setFont(spielerFont);
+        add(lblSpieler);
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -67,12 +89,17 @@ public class TicTacToe extends JFrame {
     private void onKlickTicTocBtn(ActionEvent e) {
 //        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
 //        lblMessage.setText("Hallo, " + txtName.getText());
+//        btnTicToc[x][y].setText(" ");
         System.out.println(e);
     }
 
     private void onKlickResetBtn(ActionEvent e) {
-//        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
-//        lblMessage.setText("Hallo, " + txtName.getText());
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                charTicTac[x][y] = ' ';
+                btnTicToc[x][y].setText(" ");
+            }
+        }
         System.out.println(e);
     }
 
