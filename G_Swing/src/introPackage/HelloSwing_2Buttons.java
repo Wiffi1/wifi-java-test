@@ -58,6 +58,7 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
         btnKlick1.setBounds(startX + abstand + breite, startY, 70, hoehe);
         // das Fenster selber als ActionListener-Implementierung registrieren
         btnKlick1.addActionListener(this);
+        btnKlick1.setActionCommand("TEST1");
         add(btnKlick1);
 
         // Schaltfläche
@@ -65,6 +66,7 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
         btnKlick2.setBounds(startX + abstand * 2 + breite + 70, startY, 70, hoehe);
         // das Fenster selber als ActionListener-Implementierung registrieren
         btnKlick2.addActionListener(this);
+        btnKlick2.setActionCommand("TEST2");
         add(btnKlick2);
 
         // 3. Zeile: Feld für Message
@@ -91,6 +93,19 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
     }
 
     @Override
-        // TODO
+    public void actionPerformed(ActionEvent e) {
+        // ist es Button 1 oder Button 2
+        String quelle;
+        if (e.getSource() == btnKlick2) {
+            quelle = "Klick 1";
+        } else {
+            quelle = "Klick 2";
+        }
+        System.out.println("Auslöser" + quelle);
+
+        switch (e.getActionCommand()) {
+            case "TEST1" -> System.out.println("Test1 ist dran");
+            case "TEST2" -> System.out.println("Test2 ist dran");
+        }
     }
 }

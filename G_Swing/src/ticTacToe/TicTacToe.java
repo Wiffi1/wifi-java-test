@@ -13,15 +13,15 @@ public class TicTacToe extends JFrame {
     final JLabel lblSpieler;
 
     private char[][] charTicTac = {
-            {'x', 'x', 'x'},
-            {'x', 'x', 'x'},
-            {'x', 'x', 'x'}
+            {' ', ' ', ' '},
+            {' ', ' ', ' '},
+            {' ', ' ', ' '}
     };
 
 //    JTextField txtName, JLabel lblMessage, JButton[][] btnPlay
     public TicTacToe() {
         super("Erstes Swing Programm");
-        setSize(600, 800);
+        setSize(600, 600);
 
         setLayout(null);
 
@@ -40,12 +40,13 @@ public class TicTacToe extends JFrame {
 
         startY = startY + 50;
 
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                btnTicToc[x][y] = new JButton("x");
-                btnTicToc[x][y].setBounds(50 * x, startY + 50 * y, 50, 50 );
-                btnTicToc[x][y].addActionListener(this::onKlickTicTocBtn);
-                add(btnTicToc[x][y]);
+        for (int s = 0; s < 3; s++) {
+            for (int z = 0; z < 3; z++) {
+                btnTicToc[z][s] = new JButton(String.valueOf(charTicTac[z][s]));
+                btnTicToc[z][s].setBounds(50 * s, startY + 50 * z, 50, 50 );
+                btnTicToc[z][s].addActionListener(this::onKlickTicTocBtn);
+                btnTicToc[z][s].setActionCommand(String.valueOf(z*3 + s));
+                add(btnTicToc[z][s]);
             }
         }
 
@@ -87,24 +88,34 @@ public class TicTacToe extends JFrame {
     }
 
     private void onKlickTicTocBtn(ActionEvent e) {
-//        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
-//        lblMessage.setText("Hallo, " + txtName.getText());
-//        btnTicToc[x][y].setText(" ");
-        System.out.println(e);
+        String cmdStr = e.getActionCommand();
+        int clickedBtnId = Integer.parseInt(cmdStr);
+        int s = clickedBtnId % 3;
+        int z = (clickedBtnId - s) / 3;
+        System.out.printf("clicked: %d \n ", clickedBtnId);
+        System.out.printf("s: %d\n ", s);
+        System.out.printf("z: %d\n ", z);
+        System.out.printf("z=%d s=%d \n ", z, s);
+
+        if (charTicTac[z][s] == 'o') {
+            lblStatus.setText("Status: Fehler");
+        } else {
+            charTicTac[z][s] = 'o';
+            btnTicToc[z][s].setText("o");
+            lblStatus.setText("Status");
+        }
+
     }
 
     private void onKlickResetBtn(ActionEvent e) {
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                charTicTac[x][y] = ' ';
-                btnTicToc[x][y].setText(" ");
+        for (int z = 0; z < 3; z++) {
+            for (int s = 0; s < 3; s++) {
+                charTicTac[z][s] = ' ';
+                btnTicToc[z][s].setText(" ");
             }
         }
         System.out.println(e);
     }
 
-/*    private static void initCharTicToc () {
-
-    } */
 
 }
