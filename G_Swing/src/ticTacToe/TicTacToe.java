@@ -2,6 +2,7 @@ package ticTacToe;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class TicTacToe extends JFrame {
     // Attribute für alle Controls, die wir in den Callbacks usw. brauchen
@@ -40,6 +41,7 @@ public class TicTacToe extends JFrame {
             for (int y = 0; y < 3; y++) {
                 btnTicToc[x][y] = new JButton("x");
                 btnTicToc[x][y].setBounds(50 * x, startY + 50 * y, 50, 50 );
+                btnTicToc[x][y].addActionListener(this::onKlickTicTocBtn);
                 add(btnTicToc[x][y]);
             }
         }
@@ -53,6 +55,12 @@ public class TicTacToe extends JFrame {
         TicTacToe hauptfenster = new TicTacToe();
         // das Hauptfenster anzeigen
         hauptfenster.setVisible(true);
+    }
+
+    private void onKlickTicTocBtn(ActionEvent e) {
+//        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
+//        lblMessage.setText("Hallo, " + txtName.getText());
+        System.out.println(e);
     }
 
 /*    private static void initCharTicToc () {
