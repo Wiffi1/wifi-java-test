@@ -1,0 +1,69 @@
+package components;
+
+
+
+public class Handler {
+
+	private TeilnehmerFenster meinFenster;
+
+	public Handler(TeilnehmerFenster fenster) {
+		this.meinFenster = fenster;
+
+	}
+
+
+	private void onOK() {
+		System.out.println("OK Button ausgelöst");
+		// ein Teilnehmer-Objekt erzeugen und mit den eingegebenen Werten initialisieren
+		Teilnehmer tnNeu = new Teilnehmer();
+		tnNeu.setZuname(meinFenster.txtZuname.getText());
+		tnNeu.setVorname(meinFenster.txtVorname.getText());
+		tnNeu.setStrasse(meinFenster.txtStrasse.getText());
+		tnNeu.setPlz(meinFenster.txtPLZ.getText());
+		tnNeu.setOrt(meinFenster.txtOrt.getText());
+
+		// TODO weitere Werte
+
+
+		String info = tnNeu.toString();
+		System.out.println("Daten erfasst: ");
+		System.out.println(info);
+		
+		// TODO in Message box anzeigen
+	}
+
+	private void onCancel() {
+		System.out.println("Cancel Button ausgelöst");
+		// alle Eingaben löschen
+		meinFenster.txtZuname.setText("");
+		meinFenster.txtVorname.setText("");
+		meinFenster.txtPLZ.setText("");
+		meinFenster.txtOrt.setText("");
+		meinFenster.txtStrasse.setText("");
+		
+		// Default-radio-Button selektieren, der anderen wird automatisch de-selektiert 
+		meinFenster.rbMann.setSelected(true);
+		
+		meinFenster.cbWindows.setSelected(false);
+		meinFenster.cbUnix.setSelected(false);
+		meinFenster.cbProgrammierung.setSelected(false);
+		
+		meinFenster.lbWindowsVersionen.clearSelection();
+		meinFenster.lbUnixVersionen.clearSelection();
+		
+		meinFenster.taVorkenntnisse.setText("");
+	}
+
+
+	private void checkValid() {
+		boolean valid = !meinFenster.txtVorname.getText().isEmpty() && !meinFenster.txtZuname.getText().isEmpty()
+				&& !meinFenster.txtPLZ.getText().isEmpty() && !meinFenster.txtOrt.getText().isEmpty()
+				&& !meinFenster.txtStrasse.getText().isEmpty();
+
+		System.out.println("checkValid: gültig=" + valid);
+
+		// TODO: je nach Gültigkeit enablen oder disablen
+
+	}
+
+}
