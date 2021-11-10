@@ -6,9 +6,12 @@ import java.awt.event.ActionEvent;
 
 public class TicTacToe extends JFrame {
     // Attribute für alle Controls, die wir in den Callbacks usw. brauchen
-/*    final JTextField txtName;
-    final JLabel lblStatus;*/
+
     final JButton[][] btnTicToc = new JButton[3][3];
+    final JButton btnReset;
+//    final JLabel lblStatus;
+//    final JLabel lblSpieler;
+
     private char[][] charTicTac = {
             {'x', 'x', 'x'},
             {'x', 'x', 'x'},
@@ -46,7 +49,11 @@ public class TicTacToe extends JFrame {
             }
         }
 
-
+        startY = startY + 350;
+        btnReset = new JButton("Reset");
+        btnReset.setBounds(100, startY, 150, 50 );
+        btnReset.addActionListener(this::onKlickResetBtn);
+        add(btnReset);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -58,6 +65,12 @@ public class TicTacToe extends JFrame {
     }
 
     private void onKlickTicTocBtn(ActionEvent e) {
+//        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
+//        lblMessage.setText("Hallo, " + txtName.getText());
+        System.out.println(e);
+    }
+
+    private void onKlickResetBtn(ActionEvent e) {
 //        System.out.println("Click auf btnGruesse, name = " + txtName.getText());
 //        lblMessage.setText("Hallo, " + txtName.getText());
         System.out.println(e);
