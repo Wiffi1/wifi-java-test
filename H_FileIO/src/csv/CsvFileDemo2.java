@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Die Werte werden mit eigenen Formatern formatier und geparst
 public class CsvFileDemo2 {
 
 	private static Scanner scanner = new Scanner(System.in);
