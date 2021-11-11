@@ -12,13 +12,20 @@ public class ReadTextfileDemo {
 	}
 
 	static void readChunks(String filename, String encoding) {
-		// TODO: das File zum Lesen öffnen, mit der angegebenen Kodierung
-		try  {
+		try (BufferedReader reader = new BufferedReader(
+				new FileReader(filename, Charset.forName(encoding)))) {
 			char [] buffer = new char[16]; // Sehr klein, damit die Schleife mehrmals ausgeführt wird
 			int count;
+			String line;
 			// Speicherplatz für das Gelesene
 			StringBuilder content = new StringBuilder();
-			// TODO: Lesen
+
+			// Lesen
+//			line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				System.out.println("Zeile gelesen: " + line);
+				content.append(line);
+			}
 			
 			// alles gelesen -> Ausgeben
 			System.out.println("Vom File gelesen: ");
