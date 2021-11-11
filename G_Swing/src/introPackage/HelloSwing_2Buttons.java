@@ -13,7 +13,7 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
     final JLabel lblMessage;
     final JButton btnKlick1, btnKlick2;
 
-    public HelloSwing_2Buttons(){
+    public HelloSwing_2Buttons() {
         super("Erstes Swing Programm");
         setSize(300, 200);
 
@@ -66,6 +66,7 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
         btnKlick2.setBounds(startX + abstand * 2 + breite + 70, startY, 70, hoehe);
         // das Fenster selber als ActionListener-Implementierung registrieren
         btnKlick2.addActionListener(this);
+        // Action-Command setzen
         btnKlick2.setActionCommand("TEST2");
         add(btnKlick2);
 
@@ -85,7 +86,6 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
     }
 
 
-
     public static void main(String[] args) {
         HelloSwing_2Buttons hauptfenster = new HelloSwing_2Buttons();
         // das Hauptfenster anzeigen
@@ -96,16 +96,19 @@ public class HelloSwing_2Buttons extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // ist es Button 1 oder Button 2
         String quelle;
-        if (e.getSource() == btnKlick2) {
-            quelle = "Klick 1";
+        // je nachdem welcher Button das Event ausgelöst hat
+        if (e.getSource() == btnKlick1) {
+            quelle = "KLICK 1";
         } else {
-            quelle = "Klick 2";
+            quelle = "KLICK 2";
         }
-        System.out.println("Auslöser" + quelle);
+
+        System.out.println("Auslöser: " + quelle);
 
         switch (e.getActionCommand()) {
-            case "TEST1" -> System.out.println("Test1 ist dran");
-            case "TEST2" -> System.out.println("Test2 ist dran");
+            case "TEST1" -> System.out.println("Aktion 'TEST1' soll ausgeführt werden");
+            case "TEST2" -> System.out.println("'TEST2' ist dran...");
+
         }
     }
 }
