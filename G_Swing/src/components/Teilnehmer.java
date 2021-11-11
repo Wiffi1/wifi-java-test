@@ -4,12 +4,12 @@ package components;
 public class Teilnehmer {
 	private String zuname, vorname, plz, ort, strasse;
 	private String unixKenntnisse, windowsKenntnisse;
-	boolean programmierKenntnisse;
+	private boolean programmierKenntnisse;
 	static enum Geschlecht {
 		MAENNLICH, WEIBLICH
 	};
-	Geschlecht geschlecht;
-	String spezialKenntnisse;
+	private Geschlecht geschlecht;
+	private String spezialKenntnisse;
 
 	public String getZuname() {
 		return zuname;

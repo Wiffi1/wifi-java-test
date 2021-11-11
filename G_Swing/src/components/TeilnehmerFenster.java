@@ -2,6 +2,8 @@ package components;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -14,6 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.DocumentListener;
 
 public class TeilnehmerFenster extends JFrame {
 
@@ -34,7 +37,7 @@ public class TeilnehmerFenster extends JFrame {
 
 		this.setLayout(null);
 
-		// TODO Handler erzeugen
+		// Handler erzeugen, unter Angabe des Fensters
 		Handler myHandler = new Handler(this);
 		// Alle Komponenten werden in die ContentPane hinzugefügt
 		// Überschrift
@@ -44,22 +47,26 @@ public class TeilnehmerFenster extends JFrame {
 		getContentPane().add(createLabel(30, 80, 60, 20, "Zuname"));
 		txtZuname = createTextField(90, 80, 200, 20);
 		getContentPane().add(txtZuname);
-		// TODO Handler
-
+		// Handler (DocumentListener-Implementierung)
+		txtZuname.getDocument().addDocumentListener(myHandler);
 
 		getContentPane().add(createLabel(30, 105, 60, 20, "Vorname"));
 		getContentPane().add(txtVorname = createTextField(90, 105, 200, 20));
-		// TODO Handler
+		// Handler (DocumentListener-Implementierung)
+		txtVorname.getDocument().addDocumentListener(myHandler);
 
 		getContentPane().add(createLabel(30, 130, 60, 20, "PLZ / Ort"));
 		getContentPane().add(txtPLZ = createTextField(90, 130, 50, 20));
-		// TODO Handler
+		// Handler (DocumentListener-Implementierung)
+		txtPLZ.getDocument().addDocumentListener(myHandler);
 		getContentPane().add(txtOrt = createTextField(140, 130, 150, 20));
-		// TODO Handler
+		// Handler (DocumentListener-Implementierung)
+		txtOrt.getDocument().addDocumentListener(myHandler);
 
 		getContentPane().add(createLabel(30, 155, 60, 20, "Strasse"));
 		getContentPane().add(txtStrasse = createTextField(90, 155, 200, 20));
-		// TODO Handler
+		// Handler (DocumentListener-Implementierung)
+		txtStrasse.getDocument().addDocumentListener(myHandler);
 
 		// Optionsfeld
 		cbgGeschlecht = new ButtonGroup();
@@ -70,24 +77,29 @@ public class TeilnehmerFenster extends JFrame {
 
 		// CheckBoxen und Listen
 		getContentPane().add(cbWindows = createCheckBox(335, 75, 80, 20, "Windows"));
-
+		// Handler (ItemListener-Implementierung)
+		cbWindows.addItemListener(myHandler);
 		getContentPane().add(lbWindowsVersionen = createList(340, 96, 75, 53, false, true, "Windows 10", "Win2019", "Win2016"));
 
 		getContentPane().add(cbUnix = createCheckBox(425, 75, 80, 20, "Unix"));
-		// TODO Handler
-		getContentPane().add(lbUnixVersionen = createList(430, 96, 75, 53, false, false, "Linux", "Solaris"));
+		// Handler (ItemListener-Implementierung)
+		cbUnix.addItemListener(myHandler);
+		getContentPane().add(lbUnixVersionen = createList(430, 96, 75, 53, false, true, "Linux", "Solaris"));
 
 		getContentPane().add(cbProgrammierung = createCheckBox(520, 75, 150, 20, "Programmierung"));
-		cbProgrammierung.addActionListener();
+		// Handler (ItemListener-Implementierung)
+		cbProgrammierung.addItemListener(myHandler);
 
 		// Textarea für Spezialkenntnisse
 		getContentPane().add(taVorkenntnisse = createTextArea(340, 155, 300, 80, "Spezialkenntnisse"));
 
 		// Schaltflächen
 		getContentPane().add(btnOk = createButton(200, 270, 100, 23, "OK", "OK", false));
+		// Handler (ActionListener-Implementierung)
 		btnOk.addActionListener(myHandler);
 
 		getContentPane().add(btnVerwerfen = createButton(320, 270, 100, 23, "Verwerfen", "CANCEL", true));
+		// Handler (ActionListener-Implementierung)
 		btnVerwerfen.addActionListener(myHandler);
 
 		// Infomeldung
@@ -97,7 +109,7 @@ public class TeilnehmerFenster extends JFrame {
 		lblMeldung.setForeground(new Color(128, 0, 128));
 		lblMeldung.setHorizontalAlignment(JLabel.CENTER);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
 

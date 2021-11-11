@@ -1,12 +1,14 @@
 package components;
 
 
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 public class Handler implements ActionListener, ItemListener, DocumentListener {
 
@@ -17,13 +19,14 @@ public class Handler implements ActionListener, ItemListener, DocumentListener {
 
 	}
 
-	// Handler-Code für das Action-Event der beiden Buttons
+	// Handler-Code für das ActionEvent der beiden Buttons
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
+
+		switch (e.getActionCommand()){
 			case "OK" -> onOK();
 			case "CANCEL" -> onCancel();
-			default -> System.out.println("Ungültiges Acrioncomman: " + e.getActionCommand());
+			default -> System.out.println("Ungültiges ActionCommand: " + e.getActionCommand());
 		}
 
 	}
@@ -38,14 +41,50 @@ public class Handler implements ActionListener, ItemListener, DocumentListener {
 		tnNeu.setPlz(meinFenster.txtPLZ.getText());
 		tnNeu.setOrt(meinFenster.txtOrt.getText());
 
-		// TODO weitere Werte
+		// Geschlecht aus den Radiobuttons
+		Teilnehmer.Geschlecht geschlecht;
+		if(meinFenster.rbMann.isSelected()){
+			geschlecht = Teilnehmer.Geschlecht.MAENNLICH;
+		}else{
+			geschlecht = Teilnehmer.Geschlecht.WEIBLICH;
+		}
+		tnNeu.setGeschlecht(geschlecht);
 
+		// Checkboxen Windows, Unix
+		if(meinFenster.cbWindows.isSelected()){
+			// Liste mit den Selektierten Strings holen
+			List<String> werte = meinFenster.lbWindowsVersionen.getSelectedValuesList();
+			tnNeu.setWindowsKenntnisse(werte.toString());
+		}
+
+		if(meinFenster.cbUnix.isSelected()){
+			// Liste mit den Selektierten Strings holen
+			List<String> werte = meinFenster.lbUnixVersionen.getSelectedValuesList();
+			tnNeu.setUnixKenntnisse(werte.toString());
+		}
+
+		// Programmierkenntnisse
+		tnNeu.setProgrammierKenntnisse(meinFenster.cbProgrammierung.isSelected());
+
+		// Spezialkenntnisse
+		tnNeu.setSpezialKenntnisse(meinFenster.taVorkenntnisse.getText());
 
 		String info = tnNeu.toString();
 		System.out.println("Daten erfasst: ");
 		System.out.println(info);
 		
-		// TODO in Message box anzeigen
+		// in Message box anzeigen
+		JOptionPane.showConfirmDialog(
+				// Parentfenster für die Message box
+				meinFenster,
+				// Text der Nachricht
+				info,
+				// Titelzeile der Message box
+				"Daten erfasst",
+				// Button bzw. Button Kombinationen (OK-Button)
+				JOptionPane.DEFAULT_OPTION,
+				// Icon, das angezeigt werden soll
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void onCancel() {
@@ -71,6 +110,47 @@ public class Handler implements ActionListener, ItemListener, DocumentListener {
 	}
 
 
+
+
+	// Handler-Code für das ItemListener-Interface
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		System.out.println("ItemEvent: neuer Status " + e.getStateChange());
+		// herausfinden, ob das Control jetzt selektiert ist
+		boolean istSelektiert = e.getStateChange() == ItemEvent.SELECTED;
+		// wenn es die Windows-Checkbox ist
+		if(e.getSource() == meinFenster.cbWindows){
+			// Liste mit Windows-Versionen enablen oder disablen
+			meinFenster.lbWindowsVersionen.setEnabled(istSelektiert);
+		}else if(e.getSource() == meinFenster.cbUnix){
+			// Liste mit Unix-Versionen enablen oder disablen
+			meinFenster.lbUnixVersionen.setEnabled(istSelektiert);
+		}else {
+			System.out.println("Kein Handlercode vorgesehen");
+		}
+	}
+
+	// Handlercode für DocumentListener
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		System.out.println("insertUpdate");
+		checkValid();
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		System.out.println("removeUpdate");
+		checkValid();
+
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		System.out.println("changedUpdate");
+		checkValid();
+
+	}
+
 	private void checkValid() {
 		boolean valid = !meinFenster.txtVorname.getText().isEmpty() && !meinFenster.txtZuname.getText().isEmpty()
 				&& !meinFenster.txtPLZ.getText().isEmpty() && !meinFenster.txtOrt.getText().isEmpty()
@@ -78,28 +158,8 @@ public class Handler implements ActionListener, ItemListener, DocumentListener {
 
 		System.out.println("checkValid: gültig=" + valid);
 
-		// TODO: je nach Gültigkeit enablen oder disablen
-
-	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		System.out.println("ItemEvent: neuer Status " + e);
-		boolean istSelektiert
-	}
-
-	@Override
-	public void insertUpdate(DocumentEvent e) {
-
-	}
-
-	@Override
-	public void removeUpdate(DocumentEvent e) {
-
-	}
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
+		// je nach Gültigkeit enablen oder disablen
+		meinFenster.btnOk.setEnabled(valid);
 
 	}
 }
