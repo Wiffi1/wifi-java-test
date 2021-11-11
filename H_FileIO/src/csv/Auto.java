@@ -1,4 +1,4 @@
-package fileIO.csv;
+package csv;
 
 import java.time.LocalDate;
 

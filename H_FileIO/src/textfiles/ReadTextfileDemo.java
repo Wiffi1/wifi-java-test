@@ -1,4 +1,4 @@
-package fileIO.textfiles;
+package textfiles;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
