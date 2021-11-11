@@ -1,26 +1,27 @@
-package mitarbeiterverwaltungSerialisierung;
+/*Erstelle eine Verwaltungsklasse, welche alle Mitarbeiter (Mitarbeiter, Manager, Experten) in einer einzigen Liste führt. Die Klasse soll folgende Funktionalität zur Verfügung stellen:
+        •	Hinzufügen eines Mitarbeiters / Managers / Experten
+        •	Abrufen eines Mitarbeiters per Mitarbeiter-Nummer
+        •	Gehaltserhöhung für alle Mitarbeiter durchführen
+        •	Gehaltserhöhung für 1 Mitarbeiter durchführen
+        •	Ausgabe eines Mitarbeiters
+        •	Anzeige aller Mitarbeiter (optional: sortiert nach Name)
+        •	Optional: Anzeige aller Mitarbeiter, sortiert nach Typ/Eintrittsdatum
+        •	Austritt eines Mitarbeiters (Identifizierung über Mitarbeiter-Nummer)
+        Bis auf die Ausgabefunktionen soll die Verwaltungsklasse keine Ein- oder Ausgaben an der Konsole enthalten.
+        Wenn ein Problem oder Fehler auftritt, soll eine Exception geworfen werden. Im Main-Programm muss jeweils ein try-catch-Block die möglichen Exceptions behandeln.
+        Teste die Klasse in einem geeigneten Testprogramm.*/
 
-import serialization.model.Fahrzeug;
+package mitarbeiterverwaltungSerialisierung;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MitarbeiterRepository {
+public class MitarbeiterVerwaltung {
 
-    // Version von unserem Dokument-Format
-    private static final long serialVersionUID = 1L;
     private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
 
-    private String fileName;
-
-    public MitarbeiterRepository(String fileName) {
-//        this.mitarbeiterListe = mitarbeiterListe;
-        this.fileName = fileName;
-    }
-
-    /***** Mitarbeiterverwaltung Anfang***/
     public void maHinzufuegen(Mitarbeiter mitarbeiter) {
         mitarbeiterListe.add(mitarbeiter);
     }
@@ -101,6 +102,13 @@ public class MitarbeiterRepository {
         // einen ungültigen Index zurückliefern
         return -1;
     }
-/***** Mitarbeiterverwaltung Ende***/
 
+
+    //    public Mitarbeiter testGetMaByIndex(int index) {
+//        return mitarbeiterListe.get(index);
+//    }
+
+//    public Mitarbeiter mAabrufen(int MitarbeiterID) {
+//        return mitarbeiterListe.get(MitarbeiterID);
+//    }
 }
