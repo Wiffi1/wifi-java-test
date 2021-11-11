@@ -10,10 +10,10 @@
       <module fileurl="file://$PROJECT_DIR$/E_Generics/E_Generics.iml" filepath="$PROJECT_DIR$/E_Generics/E_Generics.iml" />
       <module fileurl="file://$PROJECT_DIR$/F_Collections/F_Collections.iml" filepath="$PROJECT_DIR$/F_Collections/F_Collections.iml" />
       <module fileurl="file://$PROJECT_DIR$/G_Swing/G_Swing.iml" filepath="$PROJECT_DIR$/G_Swing/G_Swing.iml" />
-      <module fileurl="file://$PROJECT_DIR$/H_FileIO/H_FileIO.iml" filepath="$PROJECT_DIR$/H_FileIO/H_FileIO.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZZ_MY_PLAYGROUND/ZZ_MY_PLAYGROUND.iml" filepath="$PROJECT_DIR$/ZZ_MY_PLAYGROUND/ZZ_MY_PLAYGROUND.iml" />
       <module fileurl="file://$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" filepath="$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" />
       <module fileurl="file://$PROJECT_DIR$/_DOCU/_DOCU.iml" filepath="$PROJECT_DIR$/_DOCU/_DOCU.iml" />
+      <module fileurl="file://$PROJECT_DIR$/H_FileIO/fileIODemos.iml" filepath="$PROJECT_DIR$/H_FileIO/fileIODemos.iml" />
     </modules>
   </component>
 </project>
