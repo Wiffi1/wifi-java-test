@@ -27,7 +27,7 @@ public class HelloSwing3 extends JFrame //implements ActionListener
         final int breite = 70, hoehe = 20;
 
         // Titelzeile
-        JLabel lblTitel = new JLabel("Hallo bei Swing (2)");
+        JLabel lblTitel = new JLabel("Hallo bei Swing (3)");
         lblTitel.setBounds(startX, startY, 225, 30);
         // Textausrichtung zentriert
         lblTitel.setHorizontalAlignment(SwingConstants.CENTER);
