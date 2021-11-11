@@ -9,7 +9,10 @@ import java.util.Scanner;
 /*
  Wenn ein Java Programm unter Windows im Command-Fenster ausgeführt wird,
  sollte die Codepage angepasst werden, damit die Zeichenfolgen-Codierung funktioniert:
- chcp 1252 
+    chcp 1252
+
+ starten mit
+    java -p out\production\H_FileIO -m fileIODemos/textfiles.WriteTextfileDemo
  */
 
 public class WriteTextfileDemo {
@@ -17,6 +20,8 @@ public class WriteTextfileDemo {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+        System.out.println("Default-Kodierung: " + Charset.defaultCharset());
 
         writeFile("Textfile1.txt", "UTF-8");
     }

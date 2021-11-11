@@ -4,77 +4,68 @@ import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class InputUtil {
-    // 1 Scanner Objekt für die Klasse (dh. für die ganze Anwendung)
-    private static Scanner input; /*= new Scanner(System.in)*/
+    // 1 Scanner-Objekt für die Klasse (dh. für die ganze Anwendung)
+    private static Scanner input/* = new Scanner(System.in)*/;
 
     // Alternative Initialisierung:
     static {
-        input =  new Scanner(System.in);
-        // stimmt mit NumberFormat nicht mehr.
-//        System.out.println(">>>>>>>>>> Achtung : Kommatrennzeichen ist der .");
+        input = new Scanner(System.in);
+        // Stimmt mit NumberFormat nicht mehr
+        //System.out.println(">>>>>Achtung: Kommatrennzeichen ist der .");
     }
 
-    // statische Methoden zum Einlesen verschiedener Datnrypen
-    public static  String readString() {
-        // Eine Zeile lesen, das Ergbnis ist der String ohne Zeilende;
+    // statische Methoden zum Einlesen verschiedener Datentypen
+    public static String readString() {
+        // eine Zeile lesen, das Ergebnis ist der String ohne Zeilenende
         return input.nextLine();
     }
 
     public static int readInt() {
         String strZahl = input.nextLine();
-
         try {
-            // aus einer Zeichenfolge eine ganze Zahl ermitteln
+            // aus eine Zeichenfolge eine ganze Zahl ermitteln
+//            int zahl = Integer.parseInt(strZahl);
+//            return zahl;
             return Integer.parseInt(strZahl);
         }
-        // Alle Fehler, die aufeten fangen
+        // alle Fehler, die auftreten können, behandeln
         catch (Exception e) {
             System.err.println("Fehlerhafte Eingabe: " + e.toString());
-            System.out.println("Neuer Versuch");
+            System.out.println("Neuer Versuch: ");
+            // die Methode rekursiv noch einmal aufrufen
             return readInt();
-        }
-    }
-
-    public static double readDoubleAlt() {
-        try {
-            // aus einer Zeichenfolge ein Double ermitteln
-            return Double.parseDouble(input.nextLine());
-        }
-        // Alle Fehler, die aufeten fangen
-        catch (Exception e) {
-            System.err.println("Fehlerhafte Eingabe: " + e.toString());
-            System.out.println("Neuer Versuch");
-            return readDoubleAlt();
         }
     }
 
     public static double readDouble() {
         try {
-            // aus einer Zeichenfolge ein Double ermitteln
+//            String strDouble = input.nextLine();
+//            return Double.parseDouble(strDouble);
+           // Neu: NumberFormat statt Double verwenden
+           // return Double.parseDouble(input.nextLine());
             NumberFormat fmt = NumberFormat.getNumberInstance();
-//            return Double.parseDouble(input.nextLine());
-            return fmt.parse(input.nextLine()).doubleValue();
-        }
-        // Alle Fehler, die aufeten fangen
-        catch (Exception e) {
+            return  fmt.parse(input.nextLine()).doubleValue();
+        } catch (Exception e) {
             System.err.println("Fehlerhafte Eingabe: " + e.toString());
-            System.out.println("Neuer Versuch");
+            System.out.println("Neuer Versuch: ");
+            // die Methode rekursiv noch einmal aufrufen
             return readDouble();
         }
     }
 
-    public static char readChar() {
+    public static char readChar(){
         try {
             String text = input.nextLine();
-
-            // aus einer Zeichenfolge ein Double ermitteln
-            return text.charAt(0);
-        }
-
-        // Alle Fehler, die aufeten fangen
-        catch (Exception e) {
+            if(text.length() > 0) {
+                return text.charAt(0);
+            }else{
+                System.err.println("Fehlerhafte Eingabe. Es muss mindestens ein Zeichen eingegeben werden");
+                return  readChar();
+            }
+        } catch (Exception e) {
             System.err.println("Fehlerhafte Eingabe: " + e.toString());
-            System.out.println("Neuer Versuch");
+            System.out.println("Neuer Versuch: ");
+            // die Methode rekursiv noch einmal aufrufen
             return readChar();
         }
     }
