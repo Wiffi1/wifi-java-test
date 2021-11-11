@@ -26,7 +26,7 @@ public class Auto {
 		this.erzeugt = erzeugt;
 		this.leistung = leistung;
 		this.farbe = farbe;
-		nr = nextNr;
+		nr = nextNr++;
 	}
 
 	public int getNr() {

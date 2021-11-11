@@ -1,5 +1,8 @@
 package csv;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +38,14 @@ public class CsvFileDemo {
 			System.out.println(auto);
 		}
 
-		// TODO: Daten speichern
-		try {
+		// Daten speichern
+		try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, Charset.forName("UTF-8")))) {
 
             for (Auto item : data) {
                 // für CSV müssen selber die Reihenfolge definineren
+				writer.printf("%d,%s;%.2f;%s;%d;%s\n",
+						item.getNr(), item.getMarke(), item.getPreis(),
+						item.getErzeugt(), item.getLeistung(), item.getFarbe());
             }
 			System.out.println("Daten gespeichert");
 			return true;
