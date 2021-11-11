@@ -38,7 +38,7 @@ public class ReadTextfileDemo {
             System.out.printf("Der Text ist %d Zeichen lang\n\n\n", text.length());
 
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Fehler beim Einlesen: " + e);
         }
     }
@@ -63,7 +63,7 @@ public class ReadTextfileDemo {
             System.out.println(text);
             System.out.printf("Der Text ist %d Zeichen lang\n\n\n", text.length());
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Fehler beim Einlesen: " + e);
         }
     }
