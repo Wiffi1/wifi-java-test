@@ -13,7 +13,7 @@ public class Fahrrad extends Fahrzeug
 	private double rahmengroesse;
 
 	private String typ;
-	
+	// transient=wird nicht serialisier/deserialisiert
 	transient private double rahmengroesseCm;
 
 	public Fahrrad(String marke, double preis, LocalDate erzeugt, double rahmengroesse, String typ) {
@@ -51,7 +51,7 @@ public class Fahrrad extends Fahrzeug
 			String.format("%n\tRahmengröße: %.2f Zoll (%.2f cm); Typ: %s", rahmengroesse, rahmengroesseCm, typ);
 	}
 	
-	// Custom Serialization: die Methode wird automatisch für das Objekt aufgerufen, 
+	// Custom Serialization: die Methode wird automatisch für das Objekt aufgerufen,
 	// wenn sie in dieser Signatur vorhanden ist
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
 		System.out.println("Custom Serialization für Klasse Fahrrad");

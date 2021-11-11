@@ -3,6 +3,7 @@ package serialization.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+// Die Klasse Fahrzeug und ihre Ableitungen als Seriaisierbar kennzeichnen
 public abstract class Fahrzeug implements Serializable {
 	
 	private static final long serialVersionUID = 1;

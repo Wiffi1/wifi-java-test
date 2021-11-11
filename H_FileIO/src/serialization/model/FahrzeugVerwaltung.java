@@ -1,6 +1,6 @@
 package serialization.model;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +28,10 @@ public class FahrzeugVerwaltung {
 
     // das erste Fahrzeug dieser Marke entfernen
     public boolean remove(String marke) {
-        for (int i = fahrzeuge.size() - 1; i <= 0; i--) {
+        for (int i = fahrzeuge.size() - 1; i >= 0; i--) {
             if (fahrzeuge.get(i).getMarke().equals(marke)) {
                 fahrzeuge.remove(i);
+
                 return true;
             }
         }
@@ -46,11 +47,27 @@ public class FahrzeugVerwaltung {
     }
 
     public void loadData() throws ClassNotFoundException, IOException {
-        // TODO: laden
-
+        // laden
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))){
+            // die Fahrzeuge "deserialisieren", dh aus dem Stream die Array-List und alle
+            // Fahrzeugobjekte wiederherstellen
+            // Ergebnis ist vom Typ Object -> casten auf den erwarteten Typ
+            @SuppressWarnings("unchecked")
+            List<Fahrzeug> temp = (List<Fahrzeug>) ois.readObject();
+            fahrzeuge = temp;
+            Fahrzeug.initNextNr(ois.readInt());
+            System.out.printf("%d Fahrzeuge vom File geladen\n",  fahrzeuge.size() );
+        }
     }
 
     public void saveData() throws IOException {
-        // TODO: Speichern
+        // Speichern
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
+            // Die Fahrzeug-Liste "serialisieren", d.h. alle Objekte mit ihren Attributen
+            // in den Stream speichern (Das Ergebnis ist ein Binär-File)
+            oos.writeObject(fahrzeuge);
+            // den Zähler für die Fahrzeugnummer auch speichern
+            oos.writeInt(Fahrzeug.getNextNr());
+        }
     }
 }
