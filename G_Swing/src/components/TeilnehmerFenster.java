@@ -46,6 +46,7 @@ public class TeilnehmerFenster extends JFrame {
 		getContentPane().add(txtZuname);
 		// TODO Handler
 
+
 		getContentPane().add(createLabel(30, 105, 60, 20, "Vorname"));
 		getContentPane().add(txtVorname = createTextField(90, 105, 200, 20));
 		// TODO Handler
@@ -69,7 +70,7 @@ public class TeilnehmerFenster extends JFrame {
 
 		// CheckBoxen und Listen
 		getContentPane().add(cbWindows = createCheckBox(335, 75, 80, 20, "Windows"));
-		// TODO Handler
+
 		getContentPane().add(lbWindowsVersionen = createList(340, 96, 75, 53, false, true, "Windows 10", "Win2019", "Win2016"));
 
 		getContentPane().add(cbUnix = createCheckBox(425, 75, 80, 20, "Unix"));
@@ -77,6 +78,7 @@ public class TeilnehmerFenster extends JFrame {
 		getContentPane().add(lbUnixVersionen = createList(430, 96, 75, 53, false, false, "Linux", "Solaris"));
 
 		getContentPane().add(cbProgrammierung = createCheckBox(520, 75, 150, 20, "Programmierung"));
+		cbProgrammierung.addActionListener();
 
 		// Textarea für Spezialkenntnisse
 		getContentPane().add(taVorkenntnisse = createTextArea(340, 155, 300, 80, "Spezialkenntnisse"));
