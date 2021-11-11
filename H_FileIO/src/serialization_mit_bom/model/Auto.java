@@ -1,4 +1,4 @@
-package serialization.model;
+﻿package serialization_mit_bom.model;
 
 import java.time.LocalDate;
 public class Auto extends Fahrzeug

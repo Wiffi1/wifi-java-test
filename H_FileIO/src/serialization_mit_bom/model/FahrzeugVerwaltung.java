@@ -1,4 +1,4 @@
-package serialization.model;
+package serialization_mit_bom.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ public class FahrzeugVerwaltung {
     }
 
 
-//    public List<Fahrzeug> getFahrzeuge() {
-//        return fahrzeuge;
-//    }
+    public List<Fahrzeug> getFahrzeuge() {
+        return fahrzeuge;
+    }
 
     // ein Fahrzeug in der Liste einfügen
     public void add(Fahrzeug fz) {

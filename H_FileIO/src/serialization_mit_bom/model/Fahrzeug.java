@@ -1,4 +1,4 @@
-package serialization.model;
+﻿package serialization_mit_bom.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;

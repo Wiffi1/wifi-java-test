@@ -10,3 +10,17 @@ C:\JavaSWDev\JavaAufbau\IntelliJ_Projekte
 
 java -p out\production\H_FileIO -m fileIODemos/textfiles.WriteTextfileDemo
 C:\JavaSWDev\JavaAufbau\Intellij_Projekte>java -p out\producion\H_FileIO -m fileIODemos/textfiles.writeTextfileDemo
+
+C:\JavaSWDev\JavaAufbau\Intellij_Projekte>java -p out\producion\H_FileIO -m fileIODemos/textfiles.writeTextfileDemo
+
+
+
+chcp 1252
+
+H_FileIO
+java -p out\production\H_FileIO -m H_FileIO/textfiles.writeTextfileDemo
+
+H_FileI0
+java -p out\production\H_FileIO -m fileIODemos/textfiles.writeTextfileDemo
+
+java -p out\production\H_FileIO -m fileIODemos/textfiles.writeTextfileDemo

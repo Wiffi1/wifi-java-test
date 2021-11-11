@@ -1,8 +1,7 @@
-package serialization.model;
+﻿package serialization_mit_bom.model;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 public class Fahrrad extends Fahrzeug 
 //nicht nötig, wird vererbt
