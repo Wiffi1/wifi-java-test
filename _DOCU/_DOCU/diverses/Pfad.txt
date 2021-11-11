@@ -1,0 +1,12 @@
+Pfad für JavaBasis-Kurs
+C:\JavaSWDev\JavaBasis\Workspace
+
+Pfad für JavaAufbau-Kurs
+C:\JavaSWDev\JavaAufbau\Workspace
+
+Pfad für IntelliJ
+C:\JavaSWDev\JavaAufbau\IntelliJ_Projekte
+
+
+java -p out\production\H_FileIO -m fileIODemos/textfiles.WriteTextfileDemo
+C:\JavaSWDev\JavaAufbau\Intellij_Projekte>java -p out\producion\H_FileIO -m fileIODemos/textfiles.writeTextfileDemo
