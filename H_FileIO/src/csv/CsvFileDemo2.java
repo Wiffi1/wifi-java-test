@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CsvFileDemo {
+public class CsvFileDemo2 {
 
 	private static Scanner scanner = new Scanner(System.in);
 
@@ -61,34 +61,16 @@ public class CsvFileDemo {
 
     static void loadCsv(String fileName) {
         List<Auto> fahrzeuge = new ArrayList<>();
-        // Scanner zum zeilenweisen lesen öffnen
+        // BufferedReader zum zeilenweisen lesen öffnen
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8))) {
             String line;
             // TODO solange es Zeilen zu lesen gibt
 			while ((line = reader.readLine()) != null) {
 				String[] values = line.split(";");
-
-				// Scanner zum Verarbeiten einer Zeile erzeigen
-				Scanner lineScanner = new Scanner(line);
-				// Trennzeichen
-				lineScanner.useDelimiter(";");
-
 				// Werte sind in dieser Reihennfolge im Array
-				//				"%d,%s;%.2f;%s;%d;%s\n
 //				item.getNr(), item.getMarke(), item.getPreis(),
 //						item.getErzeugt(), item.getLeistung(), item.getFarbe()
 				Auto item = new Auto();
-				item.setNr(lineScanner.nextInt());
-				System.out.println("Autoo-Objekt erzeugen: " + item);
-				System.out.printf("lineScanner.next()");
-				item.setMarke(lineScanner.next());
-				item.setPreis(lineScanner.nextDouble());
-				item.setErzeugt(LocalDate.parse(lineScanner.next()));
-				item.setLeistung(lineScanner.nextInt());
-				item.setFarbe(lineScanner.next());
-				lineScanner.close();
-				System.out.println("Autoo-Objekt erzeugen: " + item);
-				fahrzeuge.add(item);
 			}
 
             System.out.println("Daten gelesen:");
