@@ -100,7 +100,8 @@ public class TicTacToe extends JFrame {
         int z = clickedBtnId / 3;
 
         System.out.printf("clickedFieldCount %d", clickedFieldCount);
-        if (clickedFieldCount >= 8) {
+        if (clickedFieldCount >= 9) {
+            // do nothing das Spiel ist aus
         } else if (gewinner == ' ') {
             if (charTicTac[z][s] == spieler1 || charTicTac[z][s] == spieler2) {
                 lblStatus.setText("Status: Fehler");
@@ -111,7 +112,6 @@ public class TicTacToe extends JFrame {
                 lblStatus.setText("Status");
 
                 ++clickedFieldCount;
-                lblStatus.setText("Status: Keine Zug mehr möglich!");
 
                 if (hatSpielerGewonnen(spieler1)) {
                     gewinner = spieler1;
@@ -119,9 +119,8 @@ public class TicTacToe extends JFrame {
                 } else if (hatSpielerGewonnen(spieler2)) {
                     gewinner = spieler2;
                     lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler2));
-                } else if (clickedFieldCount >= 8) {
-                    lblStatus.setText(String.format("DAS SPIEL IST AUS", spieler2));
-                }
+                } else if (clickedFieldCount >= 9) {
+                    lblStatus.setText(String.format("UNENTSCHIEDEN, es ist kein Zug mehr möglich", spieler1));                }
             }
         }
     }
