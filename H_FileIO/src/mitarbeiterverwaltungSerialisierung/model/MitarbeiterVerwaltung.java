@@ -11,7 +11,10 @@
         Wenn ein Problem oder Fehler auftritt, soll eine Exception geworfen werden. Im Main-Programm muss jeweils ein try-catch-Block die möglichen Exceptions behandeln.
         Teste die Klasse in einem geeigneten Testprogramm.*/
 
-package mitarbeiterverwaltungSerialisierung;
+package mitarbeiterverwaltungSerialisierung.model;
+
+import mitarbeiterverwaltungSerialisierung.OrderBy;
+import mitarbeiterverwaltungSerialisierung.model.Mitarbeiter;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package mitarbeiterverwaltungSerialisierung;
+package mitarbeiterverwaltungSerialisierung.model;
 
 import java.time.LocalDate;
 

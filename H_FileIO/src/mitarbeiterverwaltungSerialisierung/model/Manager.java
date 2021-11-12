@@ -1,4 +1,4 @@
-package mitarbeiterverwaltungSerialisierung;
+package mitarbeiterverwaltungSerialisierung.model;
 
 //Manager erhalten jährlich einen Bonus, welcher bei der Gehaltserhöhung (s.u.) um denselben Prozentsatz wie das Gehalt erhöht wird.
 

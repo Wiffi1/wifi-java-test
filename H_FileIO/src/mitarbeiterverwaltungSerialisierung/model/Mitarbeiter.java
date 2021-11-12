@@ -26,7 +26,7 @@
         Teste die Klassen mit einem passenden Testprogramm!
         */
 
-package mitarbeiterverwaltungSerialisierung;
+package mitarbeiterverwaltungSerialisierung.model;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -43,7 +43,7 @@ public class Mitarbeiter {
     private LocalDate eintrittsdatum;
     private double grundgehalt;
 
-    Mitarbeiter(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt) {
+    public Mitarbeiter(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt) {
         this.id = ++idCount;
         this.name = name;
         this.eintrittsdatum = eintrittsdatum;

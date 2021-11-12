@@ -1,8 +1,8 @@
 package mitarbeiterverwaltungSerialisierung;
 
-import serialization.model.Auto;
-import serialization.model.Fahrrad;
-import serialization.model.LKW;
+import mitarbeiterverwaltungSerialisierung.model.Experte;
+import mitarbeiterverwaltungSerialisierung.model.Manager;
+import mitarbeiterverwaltungSerialisierung.model.Mitarbeiter;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,11 +51,11 @@ public class MitarbeiterRepositoryDemo {
         Mitarbeiter manager1 = new Manager("Franz I Manager1",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 1000);
         Mitarbeiter manager2 = new Manager("Franz II Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
 
-        maRepository.maHinzufuegen(mitarbeiter);
+/*        maRepository.maHinzufuegen(mitarbeiter);
         maRepository.maHinzufuegen(experte1);
         maRepository.maHinzufuegen(experte2);
         maRepository.maHinzufuegen(manager1);
-        maRepository.maHinzufuegen(manager2);
+        maRepository.maHinzufuegen(manager2);*/
 
 
     }
