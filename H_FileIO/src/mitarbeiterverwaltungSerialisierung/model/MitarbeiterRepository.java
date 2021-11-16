@@ -40,6 +40,8 @@ public class MitarbeiterRepository {
                 maFile.showAll();*/
             }
 
+            loadData();
+
         } catch (ClassNotFoundException | IndexOutOfBoundsException | IOException e) {
 //        } catch (IndexOutOfBoundsException e) {
             System.out.println("Es ist ein Fehler aufgetreten:");
@@ -61,6 +63,11 @@ public class MitarbeiterRepository {
         maVerwaltung.maHinzufuegen(manager2);*/
 
         mitarbeiterListe.add(mitarbeiter);
+        mitarbeiterListe.add(experte1);
+        mitarbeiterListe.add(experte2);
+        mitarbeiterListe.add(manager1);
+        mitarbeiterListe.add(manager2);
+
         stringListe.add("ersterString");
     }
 
@@ -74,10 +81,9 @@ public class MitarbeiterRepository {
 //            oos.writeObject(maVerwaltung);
 
 //            oos.writeObject(maVerwaltung.mitarbeiterListe);
+            oos.writeObject(mitarbeiterListe);
 
-//            oos.writeObject(mitarbeiterListe);
-
-            oos.writeObject(stringListe);
+//            oos.writeObject(stringListe);
 
 
             // den Zähler für die Fahrzeugnummer auch speichern

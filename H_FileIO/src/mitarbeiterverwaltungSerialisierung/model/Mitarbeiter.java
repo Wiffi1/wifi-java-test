@@ -28,16 +28,17 @@
 
 package mitarbeiterverwaltungSerialisierung.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Mitarbeiter {
+public class Mitarbeiter implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
-//    static private int anzMonatsgehaelter = 12;
+    static private int anzMonatsgehaelter = 12;
 
-//    private static int idCount = 0;
+    private static int idCount = 0;
 
     private int id;
     private String name;
