@@ -5,6 +5,9 @@ package mitarbeiterverwaltungSerialisierung.model;
 import java.time.LocalDate;
 
 public class Manager extends Mitarbeiter {
+
+    private static final long serialVersionUID = 2L;
+
     // Höhe des Bonus ist Verhandlungssache, deshalb nicht static genommen.
     private double bonus;
 

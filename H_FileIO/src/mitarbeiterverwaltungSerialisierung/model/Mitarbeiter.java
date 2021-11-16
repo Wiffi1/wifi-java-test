@@ -33,9 +33,11 @@ import java.time.Period;
 
 public class Mitarbeiter {
 
-    static private int anzMonatsgehaelter = 12;
+    private static final long serialVersionUID = 2L;
 
-    private static int idCount = 0;
+//    static private int anzMonatsgehaelter = 12;
+
+//    private static int idCount = 0;
 
     private int id;
     private String name;
@@ -44,7 +46,7 @@ public class Mitarbeiter {
     private double grundgehalt;
 
     public Mitarbeiter(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt) {
-        this.id = ++idCount;
+//        this.id = ++idCount;
         this.name = name;
         this.eintrittsdatum = eintrittsdatum;
         this.geburtsdatum = geburtsdatum;
@@ -64,9 +66,9 @@ public class Mitarbeiter {
     }
     void gehaltserhoehung(double betrag) {}
 
-    public static int getAnzMonatsgehaelter() {
-        return anzMonatsgehaelter;
-    }
+//    public static int getAnzMonatsgehaelter() {
+//        return anzMonatsgehaelter;
+//    }
 
     private void setGrundgehalt(double grundgehalt) {
         this.grundgehalt = grundgehalt;

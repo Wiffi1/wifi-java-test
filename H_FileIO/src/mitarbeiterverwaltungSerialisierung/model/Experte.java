@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 // Experten verfügen über ein Fachgebiet (String) und erhalten das Gehalt 15x jährlich
 public class Experte extends Mitarbeiter {
-//public class Experte {
+
+    private static final long serialVersionUID = 2L;
 
     private String fachgebiet;
     static private int anzMonatsgehaelter = 15;

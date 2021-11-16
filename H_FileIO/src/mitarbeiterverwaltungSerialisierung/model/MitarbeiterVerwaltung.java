@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MitarbeiterVerwaltung {
 
-    private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
+    public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
 
     public void maHinzufuegen(Mitarbeiter mitarbeiter) {
         mitarbeiterListe.add(mitarbeiter);
