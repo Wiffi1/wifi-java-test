@@ -46,12 +46,20 @@ public class Mitarbeiter implements Serializable {
     private LocalDate eintrittsdatum;
     private double grundgehalt;
 
+    public static int getNextId() {
+        return ++idCount;
+    }
+
     public Mitarbeiter(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt) {
-//        this.id = ++idCount;
+        this.id = ++idCount;
         this.name = name;
         this.eintrittsdatum = eintrittsdatum;
         this.geburtsdatum = geburtsdatum;
         this.grundgehalt = grundgehalt;
+    }
+
+    public static void initNextId(int readInt) {
+        idCount = readInt;
     }
 
     public String getType() {
