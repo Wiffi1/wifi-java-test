@@ -23,8 +23,18 @@ public class IntroGridController {
 
     @FXML
     private void initialize() {
+
+        // Änderungen im Textfeld reagieren
+        txtName.textProperty().addListener((o, oldVal, newVal) ->
+        // Wenn das Textfeld jetzt leer ist, den Button disablen
+        // sonst den Button enablen
+                btnOk.setDisable(newVal == null || newVal.isBlank()));
         addEntry("App startup finished");
+
+        // Anfangs sden Button disablen
+        btnOk.setDisable(true);
     }
+
 
     @FXML
     private void onClickButton(ActionEvent ae) {
