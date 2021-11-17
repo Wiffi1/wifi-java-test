@@ -8,4 +8,5 @@ module swdev2021.samples.I.JavaFx {
     // erlauben, dass Java FX ein Objekt unserer Main-Klasse erzeugen darf,
     opens introFx;
     opens introFxml;
+    opens students;
 }
