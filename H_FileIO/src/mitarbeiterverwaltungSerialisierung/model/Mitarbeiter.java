@@ -28,10 +28,13 @@
 
 package mitarbeiterverwaltungSerialisierung.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Mitarbeiter {
+public class Mitarbeiter implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     static private int anzMonatsgehaelter = 12;
 
@@ -43,12 +46,20 @@ public class Mitarbeiter {
     private LocalDate eintrittsdatum;
     private double grundgehalt;
 
+    public static int getNextId() {
+        return ++idCount;
+    }
+
     public Mitarbeiter(String name, LocalDate geburtsdatum, LocalDate eintrittsdatum, double grundgehalt) {
         this.id = ++idCount;
         this.name = name;
         this.eintrittsdatum = eintrittsdatum;
         this.geburtsdatum = geburtsdatum;
         this.grundgehalt = grundgehalt;
+    }
+
+    public static void initNextId(int readInt) {
+        idCount = readInt;
     }
 
     public String getType() {
@@ -64,9 +75,9 @@ public class Mitarbeiter {
     }
     void gehaltserhoehung(double betrag) {}
 
-    public static int getAnzMonatsgehaelter() {
-        return anzMonatsgehaelter;
-    }
+//    public static int getAnzMonatsgehaelter() {
+//        return anzMonatsgehaelter;
+//    }
 
     private void setGrundgehalt(double grundgehalt) {
         this.grundgehalt = grundgehalt;
