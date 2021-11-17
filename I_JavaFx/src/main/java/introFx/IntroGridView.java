@@ -65,6 +65,16 @@ public class IntroGridView extends GridPane {
         lvMessages.setMinWidth(250);
 
         addEntry("Application startup finished");
+
+        // Änderungen im Textfeld reagieren
+        txtName.textProperty().addListener((o, oldVal, newVal) ->
+                // Wenn das Textfeld jetzt leer ist, den Button disablen
+                // sonst den Button enablen
+                btnOk.setDisable(newVal == null || newVal.isBlank()));
+        addEntry("App startup finished");
+
+        // Anfangs sden Button disablen
+        btnOk.setDisable(true);
     }
 
     private void onClickButton(ActionEvent ae) {
