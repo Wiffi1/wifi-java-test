@@ -36,4 +36,10 @@ public class EditStudentController {
 
     }
 
+    // den Studenten übergeben (vorläufig nur string)
+
+    public void setStudentName(String name) {
+        txtName.setText(name);
+    }
+
 }
