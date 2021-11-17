@@ -26,13 +26,15 @@ public class TicTacToe extends JFrame {
     };
 
     public TicTacToe() {
-        super("Erstes Swing Programm");
+//        super("Erstes Swing Programm");
         setSize(600, 600);
 
         setLayout(null);
 
         int startX = 20, startY = 20, abstand = 5;
-        final int breite = 70, hoehe = 20;
+//        final int breite = 70, hoehe = 20;
+        final int zeilenHoehe = 50;
+        final int startXspielfeld = 150;
 
         // Titelzeile
         JLabel lblTitel = new JLabel("TicTacToe");
@@ -44,45 +46,43 @@ public class TicTacToe extends JFrame {
         lblTitel.setFont(titleFont);
         add(lblTitel);
 
-        startY = startY + 50;
+        startY = startY + zeilenHoehe;
 
         for (int s = 0; s < 3; s++) {
             for (int z = 0; z < 3; z++) {
                 btnTicToc[z][s] = new JButton(String.valueOf(charTicTac[z][s]));
-                btnTicToc[z][s].setBounds(50 * s, startY + 50 * z, 50, 50 );
+                btnTicToc[z][s].setBounds(startXspielfeld + s * zeilenHoehe, startY + z * zeilenHoehe, zeilenHoehe, zeilenHoehe );
                 btnTicToc[z][s].addActionListener(this::onKlickTicTocBtn);
                 btnTicToc[z][s].setActionCommand(String.valueOf(z*3 + s));
                 add(btnTicToc[z][s]);
             }
         }
 
-        startY = startY + 350;
+        startY = startY + 180;
+
+        lblSpieler = new JLabel("Spieler");
+        lblSpieler.setBounds(70, startY, 225, 30);
+        // Textausrichtung zentriert
+        lblSpieler.setHorizontalAlignment(SwingConstants.CENTER);
+        add(lblSpieler);
+
+        startY = startY + 50;
+
         btnReset = new JButton("Reset");
-        btnReset.setBounds(100, startY, 150, 50 );
+        btnReset.setBounds(startXspielfeld, startY, 150, zeilenHoehe );
         btnReset.addActionListener(this::onKlickResetBtn);
         add(btnReset);
 
-        startY = startY + 50;
+        startY = startY + 70;
 
-        lblStatus = new JLabel("Status");
-        lblStatus.setBounds(startX, startY, 225, 30);
+        lblStatus = new JLabel("Status1");
+        lblStatus.setBounds(startX, startY, 400, 30);
         // Textausrichtung zentriert
         lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
         // Größere Schrift, fett und kursiv
-//        Font titleFont = new Font("Arial", Font.BOLD | Font.ITALIC, 20);
-//        lblTitel.setFont(titleFont);
+        Font font = new Font("Arial", Font.BOLD | Font.ITALIC, 20);
+        lblStatus.setFont(font);
         add(lblStatus);
-
-        startY = startY + 50;
-
-        lblSpieler = new JLabel("Spieler");
-        lblSpieler.setBounds(startX, startY, 225, 30);
-        // Textausrichtung zentriert
-        lblSpieler.setHorizontalAlignment(SwingConstants.CENTER);
-        // Größere Schrift, fett und kursiv
-        Font spielerFont = new Font("Arial", Font.BOLD | Font.ITALIC, 20);
-        lblSpieler.setFont(spielerFont);
-        add(lblSpieler);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -100,7 +100,8 @@ public class TicTacToe extends JFrame {
         int z = clickedBtnId / 3;
 
         System.out.printf("clickedFieldCount %d", clickedFieldCount);
-        if (clickedFieldCount >= 8) {
+        if (clickedFieldCount >= 9) {
+            // do nothing das Spiel ist aus
         } else if (gewinner == ' ') {
             if (charTicTac[z][s] == spieler1 || charTicTac[z][s] == spieler2) {
                 lblStatus.setText("Status: Fehler");
@@ -108,20 +109,24 @@ public class TicTacToe extends JFrame {
                 spieler = (spieler == spieler1) ? spieler2 : spieler1;
                 charTicTac[z][s] = spieler;
                 btnTicToc[z][s].setText(String.valueOf(spieler));
+                setLblSpieler(spieler);
                 lblStatus.setText("Status");
 
                 ++clickedFieldCount;
-                lblStatus.setText("Status: Keine Zug mehr möglich!");
 
                 if (hatSpielerGewonnen(spieler1)) {
                     gewinner = spieler1;
                     lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler1));
+                    setSpielfeldEnabled(false);
                 } else if (hatSpielerGewonnen(spieler2)) {
                     gewinner = spieler2;
                     lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler2));
-                } else if (clickedFieldCount >= 8) {
-                    lblStatus.setText(String.format("DAS SPIEL IST AUS", spieler2));
+                    setSpielfeldEnabled(false);
+                } else if (clickedFieldCount >= 9) {
+                    lblStatus.setText(String.format("UNENTSCHIEDEN, es ist kein Zug mehr möglich", spieler1));
+                    setSpielfeldEnabled(false);
                 }
+
             }
         }
     }
@@ -135,6 +140,7 @@ public class TicTacToe extends JFrame {
         }
         gewinner = ' ';
         clickedFieldCount = 0;
+        setSpielfeldEnabled(true);
         System.out.println(e);
     }
 
@@ -159,4 +165,15 @@ public class TicTacToe extends JFrame {
         return gewonnen;
     }
 
+    private void setSpielfeldEnabled(boolean b) {
+        for (int z = 0; z < 3; z++) {
+            for (int s = 0; s < 3; s++) {
+                btnTicToc[z][s].setEnabled(b);
+            }
+        }
+    }
+
+    private void setLblSpieler(char spieler) {
+        lblSpieler.setText("Spieler: " + spieler);
+    }
 }
