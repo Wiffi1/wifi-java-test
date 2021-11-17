@@ -37,39 +37,12 @@ public class MitarbeiterRepository {
             } else {
                 // Sonst: Laden, anzeigen, usw...
                 loadData();
-/*                maFile.loadData();
-                maFile.showAll();*/
             }
-
-//            loadData();
-
         } catch (ClassNotFoundException | IndexOutOfBoundsException | IOException e) {
 //        } catch (IndexOutOfBoundsException e) {
             System.out.println("Es ist ein Fehler aufgetreten:" + e);
             e.printStackTrace();
         }
-    }
-
-    private void initalSaveData() {
-        Mitarbeiter mitarbeiter = new Mitarbeiter("Georg Angestellter", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
-        Mitarbeiter experte1 = new Experte("Gustav Expert", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "c#");
-        Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
-        Mitarbeiter manager1 = new Manager("Franz I Manager1",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 1000);
-        Mitarbeiter manager2 = new Manager("Franz II Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
-
-        maVerwaltung.maHinzufuegen(mitarbeiter);
-        maVerwaltung.maHinzufuegen(experte1);
-        maVerwaltung.maHinzufuegen(experte2);
-        maVerwaltung.maHinzufuegen(manager1);
-        maVerwaltung.maHinzufuegen(manager2);
-
-        mitarbeiterListe.add(mitarbeiter);
-        mitarbeiterListe.add(experte1);
-        mitarbeiterListe.add(experte2);
-        mitarbeiterListe.add(manager1);
-        mitarbeiterListe.add(manager2);
-
-        stringListe.add("ersterString");
     }
 
     public void saveData() throws IOException {
@@ -91,8 +64,6 @@ public class MitarbeiterRepository {
 
             oos.writeObject(maVerwaltung.mitarbeiterListe);
             oos.writeInt(Mitarbeiter.getNextId());
-//            oos.writeInt(42);
-
             // den Zähler für die Fahrzeugnummer auch speichern
 //            oos.writeInt(mitarbeiterListe.getNextNr());
         }
@@ -107,16 +78,8 @@ public class MitarbeiterRepository {
             @SuppressWarnings("unchecked")
 
             List<Mitarbeiter> temp = (List<Mitarbeiter>) ois.readObject();
-
             maVerwaltung.mitarbeiterListe = temp;
-//            Mitarbeiter.
-
-//            Fahrzeug.initNextNr(ois.readInt());
-
             Mitarbeiter.initNextId(ois.readInt());
-
-//            mitarbeiterListe = temp;
-//            Fahrzeug.initNextNr(ois.readInt());
 //            System.out.printf("%d Fahrzeuge vom File geladen\n",  fahrzeuge.size() );
 //            System.out.printf("\n %d xxxxMitarbeiter vom File geladen\n",  temp.size() );
         }
@@ -128,7 +91,6 @@ public class MitarbeiterRepository {
             saveData();
         } catch (Exception e) {
             System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiters --");
-//            System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
         System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
     }
@@ -148,7 +110,40 @@ public class MitarbeiterRepository {
         maVerwaltung.alleAnzeigen(orderBy);
     }
 
+    public List<Mitarbeiter> alleLaden(OrderBy orderBy) throws IOException, ClassNotFoundException {
+        loadData();
+        return maVerwaltung.mitarbeiterListe;
+    }
 
-//    maGehaltErhoehen
+    public Mitarbeiter maLaden(int mitarbeiterID) {
+        Mitarbeiter ma = maVerwaltung.getMitarbeiterById(mitarbeiterID);
+        return ma;
+    }
 
 }
+
+
+
+
+/*
+    private void initalSaveData() {
+        Mitarbeiter mitarbeiter = new Mitarbeiter("Georg Angestellter", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
+        Mitarbeiter experte1 = new Experte("Gustav Expert", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "c#");
+        Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
+        Mitarbeiter manager1 = new Manager("Franz I Manager1",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 1000);
+        Mitarbeiter manager2 = new Manager("Franz II Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
+
+        maVerwaltung.maHinzufuegen(mitarbeiter);
+        maVerwaltung.maHinzufuegen(experte1);
+        maVerwaltung.maHinzufuegen(experte2);
+        maVerwaltung.maHinzufuegen(manager1);
+        maVerwaltung.maHinzufuegen(manager2);
+
+        mitarbeiterListe.add(mitarbeiter);
+        mitarbeiterListe.add(experte1);
+        mitarbeiterListe.add(experte2);
+        mitarbeiterListe.add(manager1);
+        mitarbeiterListe.add(manager2);
+
+        stringListe.add("ersterString");
+    }*/

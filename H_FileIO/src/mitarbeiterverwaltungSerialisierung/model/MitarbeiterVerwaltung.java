@@ -76,7 +76,7 @@ public class MitarbeiterVerwaltung {
         return ma;
     }
 
-    private Mitarbeiter getMitarbeiterById(int mitarbeiterID) {
+    public Mitarbeiter getMitarbeiterById(int mitarbeiterID) {
         int index = findeMitarbeiterIndex(mitarbeiterID);
         if (index == -1) {
             throw new IndexOutOfBoundsException();
