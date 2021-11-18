@@ -5,16 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
+import java.util.Scanner;
 
 public class EditorController {
 
     @FXML public TextArea txtEditor;
 
     private FileChooser fileDialog;
+    private String filename;
+
+    static Scanner input = new Scanner(System.in);
 
     public EditorController() {
         // Filedialog initialisieren
@@ -29,7 +31,7 @@ public class EditorController {
         File file = fileDialog.showOpenDialog(txtEditor.getScene().getWindow());
         if (file != null) {
             // wenn ein File ausgewählt wurde
-            String filename = file.getAbsolutePath();
+            filename = file.getAbsolutePath();
             System.out.println("Selektiert (öffnen" + filename);
             // todo File öffnen, einlesen und in der Textarea anzeigen
 
@@ -86,7 +88,41 @@ public class EditorController {
     }
 
 
-    private void saveFile() {
-
+    @FXML
+    public void onSave(ActionEvent actionEvent) {
+        String textToSave = txtEditor.getText();
+        writeFile(filename, textToSave, "UTF-8");
     }
+
+
+    void writeFile(String fileName, String textToSave, String encoding) {
+
+        System.out.println("Text zeilenweise eingeben, Beenden mit Leerzeile");
+
+        // schreiben
+        // FileWriter verwendet standardmäßig das Encoding der VM,
+        // unter Windows ist das ANSI (CP 1252)
+        // mit dem Charset legen wir das Encoding selber fest
+        // mit try-with-resources wird der Stream automatisch geschlossen
+        try (BufferedWriter writer = new BufferedWriter(
+                new FileWriter(fileName, Charset.forName(encoding)))) {
+
+/*            String line;
+            // Solange eine nicht-leere Zeichenfolge eingegeben wurde
+            while ((line = input.nextLine()) != null && !line.isEmpty()) {
+                writer.write(line);
+                // Zeilenumbruch schreiben
+                writer.newLine();
+            }
+            // das Schließen wird jetzt automatisch im finally-Block gemacht
+            // writer.close();*/
+
+            writer.write(textToSave);
+
+
+        } catch (IOException e) {
+            System.out.println("Fehler beim Speichern: " + e);
+        }
+    }
+
 }
