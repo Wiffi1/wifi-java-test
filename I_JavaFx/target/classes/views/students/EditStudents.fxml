@@ -62,7 +62,7 @@
       <Label text="Sprache" GridPane.rowIndex="7" />
       <Label text="Kommentar" GridPane.rowIndex="8" />
       <DatePicker fx:id="dtpGeburtstag" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextArea fx:id="txtCommentar" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextArea fx:id="txtKommentar" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <ComboBox fx:id="cmbSprache" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>

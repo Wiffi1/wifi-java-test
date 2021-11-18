@@ -14,7 +14,7 @@ public class EditStudentController {
     @FXML private RadioButton rbWeiblich;
     @FXML private RadioButton rbDivers;
     @FXML private DatePicker dtpGeburtstag;
-    @FXML private TextArea txtCommentar;
+    @FXML private TextArea txtKommentar;
     @FXML private ComboBox<String> cmbSprache;
     @FXML private CheckBox cbXml;
     @FXML private CheckBox cbHtml;
@@ -59,7 +59,7 @@ public class EditStudentController {
         student.setId(Integer.parseInt(txtId.getText()));
         student.setName(txtName.getText().trim());
         student.setCity(txtStadt.getText().trim());
-        student.setComment(txtCommentar.getText().trim());
+        student.setComment(txtKommentar.getText().trim());
         student.setAreaCode(Integer.parseInt(txtPlz.getText().trim()));
 
         // Radiobuttons: je nach Button das passende Geschlecht
@@ -77,6 +77,10 @@ public class EditStudentController {
 
         // Datepicker
         student.setBirthDate(dtpGeburtstag.getValue());
+
+        if (txtKommentar.getText() != null) {
+            student.setComment(txtKommentar.getText().trim());
+        }
 
         // Checkboxen
         student.setHtml(cbHtml.isSelected());
@@ -109,7 +113,7 @@ public class EditStudentController {
         txtId.setText(Integer.toString(student.getId()));
         txtName.setText(student.getName());
         txtStadt.setText(student.getCity());
-        txtCommentar.setText(student.getComment());
+        txtKommentar.setText(student.getComment());
         txtPlz.setText(Integer.toString(student.getAreaCode()));
 
         if (student.getGender() != null) {
