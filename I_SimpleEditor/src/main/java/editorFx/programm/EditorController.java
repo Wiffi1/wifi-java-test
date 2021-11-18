@@ -21,14 +21,43 @@ public class EditorController {
 //    static Scanner input = new Scanner(System.in);
 
     // todo je nachdem, ob es Änderungen im angezeigten Dokument gibt oder nicht.
-    private boolean isChanged = true;
+    // Defaultwert eines boolean ist false!!
+    private boolean isChanged;
 
     public EditorController() {
         // Filedialog initialisieren
         fileDialog = new FileChooser();
         fileDialog.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text-Dateien", "*.txt"));
         fileDialog.getExtensionFilters().add(new FileChooser.ExtensionFilter("Alle Dateien", "*.*"));
+    }
 
+    @FXML
+    private void initialize() {
+
+        // Änderungen im Textfeld reagieren
+        txtEditor.textProperty().addListener((o, oldVal, newVal) -> {
+            // bei Änderung in der Textarea für später merken, dass sich was geändert hat
+            isChanged = true;
+        });
+
+        /*            System.out.println("xxxxxxxxxxxxxxxxxxx: " + o);
+            System.out.println(oldVal);
+            System.out.println(newVal);*/
+/*            if (newVal != newVal) {
+                isChanged = true;
+            } else {
+                isChanged = false;;
+            }*/
+
+        // Wenn das Textfeld jetzt leer ist, den Button disablen
+        // sonst den Button enablen
+
+        //                btnOk.setDisable(newVal == null || newVal.isBlank())
+/*
+        addEntry("App startup finished");
+        // Anfangs sden Button disablen
+        btnOk.setDisable(true);
+*/
     }
 
     @FXML
@@ -132,8 +161,23 @@ public class EditorController {
 
     @FXML
     private void onSaveAt(ActionEvent actionEvent) {
-//        fileDialog.showSaveDialog();
-//        fileDialog.
+        save();
+    }
+
+    void save() {
+        File file = fileDialog.showOpenDialog(txtEditor.getScene().getWindow());
+        if (file != null) {
+            // wenn ein File ausgewählt wurde
+            filename = file.getAbsolutePath();
+            System.out.println("Selektiert (öffnen" + filename);
+            // todo File speichern, einlesen und in der Textarea anzeigen
+            System.out.println("Filename: " + filename);
+//            String text = readChunks(filename, "UTF-8");
+//            txtEditor.setText(text);
+        } else {
+            // Dialsog wurde abgerochen
+            System.out.println("Es wurde kein File selektiert");
+        }
     }
 
     void writeFile(String fileName, String textToSave, String encoding) {
