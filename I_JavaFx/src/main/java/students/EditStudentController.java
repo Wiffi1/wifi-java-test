@@ -27,7 +27,30 @@ public class EditStudentController {
         // ein paar Sprachen eintragen
         cmbSprache.getItems().add("Deutsch");
         cmbSprache.getItems().add("Englisch");
+
+        // Den ok button enablen disablen je nach eingaben
+        txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+        txtStadt.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+        txtPlz.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+        // Bei Radiobuttons auf Änderungen der selectedToggle-Eigenschaft der ButtonGroup reagieren
+        grpGeschlecht.selectedToggleProperty().addListener((o, oldval, newval) -> checkGueltig());
+        // Bei Datepicker und Combobox die value-Eigenschaft
+        dtpGeburtstag.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
+        cmbSprache.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
     }
+
+    private void checkGueltig() {
+        boolean gueltig = txtName.getText() != null && !txtName.getText().isBlank()
+                && txtStadt.getText() != null && !txtStadt.getText() .isBlank()
+                && txtPlz.getText() != null && !txtPlz.getText() .isBlank()
+                && grpGeschlecht.getSelectedToggle() != null
+                && dtpGeburtstag.getValue() != null
+                && cmbSprache.getValue() != null;
+        System.out.println("Gültig; " + gueltig);
+        // Den Button je nach Gültigkeit enablen/disablen
+        btnOK.setDisable(!gueltig);
+    }
+
 
     @FXML
     private void onOK(ActionEvent ae) {
