@@ -2,8 +2,11 @@ package editorFx.programm;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -15,14 +18,17 @@ public class EditorController {
 
     private FileChooser fileDialog;
     private String filename;
+//    static Scanner input = new Scanner(System.in);
 
-    static Scanner input = new Scanner(System.in);
+    // todo je nachdem, ob es Änderungen im angezeigten Dokument gibt oder nicht.
+    private boolean isChanged = true;
 
     public EditorController() {
         // Filedialog initialisieren
         fileDialog = new FileChooser();
         fileDialog.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text-Dateien", "*.txt"));
         fileDialog.getExtensionFilters().add(new FileChooser.ExtensionFilter("Alle Dateien", "*.*"));
+
     }
 
     @FXML
@@ -48,10 +54,40 @@ public class EditorController {
 
     @FXML
     private void onBeenden(ActionEvent actionEvent) {
+        schliessen();
     }
 
     @FXML
     private void onAbout(ActionEvent actionEvent) {
+    }
+
+    public void schliessen() {
+        if (frageNachAenderungen()) {
+            ((Stage) txtEditor.getScene().getWindow()).close();
+        };
+    }
+
+    private boolean frageNachAenderungen() {
+        if (isChanged) {
+            Alert msgBox = new Alert(Alert.AlertType.CONFIRMATION, "Änderungen speichern?",
+                    ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            msgBox.setHeaderText("");
+            msgBox.setTitle("Editor");
+            ButtonType result = msgBox.showAndWait().get();
+            if (result.equals(ButtonType.YES)) {
+                // todo Document speichern und beenden
+                System.out.println("TODO Programm speichern!");
+                // Wenn alles ok fortsetzen
+                return true;
+            } else if (result.equals(ButtonType.NO)) {
+                // nicht speichern aber beenden
+                return true;
+            } else {
+                // nicht speichern, nicht beenden
+                return false;
+            }
+        }
+        return true;
     }
 
     static String readChunks(String filename, String encoding) {
@@ -89,11 +125,16 @@ public class EditorController {
 
 
     @FXML
-    public void onSave(ActionEvent actionEvent) {
+    private void onSave(ActionEvent actionEvent) {
         String textToSave = txtEditor.getText();
         writeFile(filename, textToSave, "UTF-8");
     }
 
+    @FXML
+    private void onSaveAt(ActionEvent actionEvent) {
+//        fileDialog.showSaveDialog();
+//        fileDialog.
+    }
 
     void writeFile(String fileName, String textToSave, String encoding) {
 
@@ -124,5 +165,7 @@ public class EditorController {
             System.out.println("Fehler beim Speichern: " + e);
         }
     }
+
+
 
 }

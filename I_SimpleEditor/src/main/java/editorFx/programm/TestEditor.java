@@ -19,7 +19,7 @@ public class TestEditor extends Application {
         // den Scene Graph laden
         Parent root = loader.load();
         // den Controller holen
-//        EditStudentController controller = loader.getController();
+        EditorController controller = loader.getController();
         // und konfigurieren
         // ein neues Objekt erfassen
 //        controller.setStudent(null);
@@ -29,6 +29,14 @@ public class TestEditor extends Application {
         // den Scene graph im Hauptfenster
         stage.setScene(scene);
         stage.setTitle("Editor");
+
+        // den close-request abfangen und die schliesen-Methode ads cController aufrufen
+        stage.setOnCloseRequest(we -> {
+            controller.schliessen();
+            // verhindern, dass das Event weier verarbeitet wird.
+            we.consume();
+        });
+
         // Hauptfenster anzeigen
         stage.show();
     }
