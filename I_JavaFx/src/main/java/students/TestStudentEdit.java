@@ -22,7 +22,8 @@ public class TestStudentEdit extends Application {
         // den Controller holen
         EditStudentController controller = loader.getController();
         // und konfigurieren
-        controller.setStudentName("Michaela");
+        // ein neues Objekt erfassen
+        controller.setStudent(null);
 
         // DenContainer für unser View-Objekt erzeugen (=Scene Graph)
         Scene scene = new Scene(root, 400, 400);

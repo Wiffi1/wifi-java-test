@@ -10,7 +10,7 @@ public class EditStudentController {
     @FXML private TextField txtName;
     @FXML private TextField txtPlz;
     @FXML private TextField txtStadt;
-    @FXML private RadioButton rbMaennlic;
+    @FXML private RadioButton rbMaennlich;
     @FXML private RadioButton rbWeiblich;
     @FXML private RadioButton rbDivers;
     @FXML private DatePicker dtpGeburtstag;
@@ -43,7 +43,7 @@ public class EditStudentController {
 //        Gender gender =
 
         Gender gender;
-         if (grpGeschlecht.getSelectedToggle() == rbMaennlic) {
+         if (grpGeschlecht.getSelectedToggle() == rbMaennlich) {
              gender = Gender.MALE;
          } else if (grpGeschlecht.getSelectedToggle() == rbWeiblich) {
              gender = Gender.FEMALE;
@@ -76,8 +76,38 @@ public class EditStudentController {
 
     // den Studenten übergeben (vorläufig nur string)
 
-    public void setStudentName(String name) {
-        txtName.setText(name);
+    public void setStudent(Student student) {
+        // Wenn es ein neuer Student ist ein neues Objekt erzeugen
+        if (student == null) {
+          student = new Student();
+//          student.setId(0);
+        }
+
+        txtId.setText(Integer.toString(student.getId()));
+        txtName.setText(student.getName());
+        txtStadt.setText(student.getCity());
+        txtCommentar.setText(student.getComment());
+        txtPlz.setText(Integer.toString(student.getAreaCode()));
+
+        if (student.getGender() != null) {
+            // Radiobutton
+            switch (student.getGender()) {
+                case MALE -> rbMaennlich.setSelected(true);
+                case FEMALE -> rbWeiblich.setSelected(true);
+                case OTHER -> rbDivers.setSelected(true);
+            }
+        }
+
+        //Datepicker
+        dtpGeburtstag.setValue(student.getBirthDate());
+
+        // Checkboxen
+        cbHtml.setSelected(student.isHtml());
+        cbXml.setSelected(student.isXml());
+        cbFXML.setSelected(student.isFxml());
+
+        //Combobox
+        cmbSprache.setValue(student.getLanguage());
     }
 
 }

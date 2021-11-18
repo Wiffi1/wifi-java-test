@@ -35,7 +35,7 @@
    <children>
       <Label text="Student erfassen" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" />
       <Label text="Id" GridPane.rowIndex="1" />
-      <TextField fx:id="txtId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Name" GridPane.rowIndex="2" />
       <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="PLZ" GridPane.rowIndex="3" />
@@ -73,8 +73,8 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
          <children>
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancel" text="Abbrechen" />
             <Button fx:id="btnOK" mnemonicParsing="false" onAction="#onOK" text="OK" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancel" text="Abbrechen" />
          </children>
       </HBox>
    </children>
