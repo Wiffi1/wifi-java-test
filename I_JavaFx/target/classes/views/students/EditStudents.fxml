@@ -66,7 +66,7 @@
       <ComboBox fx:id="cmbSprache" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
-            <CheckBox fx:id="cbXtml" mnemonicParsing="false" text="XML" />
+            <CheckBox fx:id="cbXml" mnemonicParsing="false" text="XML" />
             <CheckBox fx:id="cbHtml" mnemonicParsing="false" text="HTML" />
             <CheckBox fx:id="cbFXML" mnemonicParsing="false" text="FXML" />
          </children>
