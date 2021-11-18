@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>sw2021</groupId>
-    <artifactId>I_JavaFx</artifactId>
+    <groupId>swdev2021.example</groupId>
+    <artifactId>I_SimpleEditor</artifactId>
     <version>1.0</version>
 
     <build>
