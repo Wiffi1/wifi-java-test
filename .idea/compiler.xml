@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="I_JavaFx" target="17" />
-      <module name="I_SimpleEditor" target="17" />
+      <module name="I_JavaFx" target="16" />
+      <module name="I_SimpleEditor" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

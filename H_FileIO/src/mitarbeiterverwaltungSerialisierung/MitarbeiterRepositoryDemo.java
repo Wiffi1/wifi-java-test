@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class MitarbeiterRepositoryDemo {
 
     private static String fileName = "maSerialze.bin";
-    private static MitarbeiterRepository maRepository = new MitarbeiterRepository(fileName);
+    private static Repository maRepository = new Repository(fileName);
     
     public static void main(String[] args) {
         // gespeicherte Daten einlesen
@@ -93,6 +93,14 @@ public class MitarbeiterRepositoryDemo {
         maRepository.maHinzufuegen(experte2);
         maRepository.maHinzufuegen(manager1);
         maRepository.maHinzufuegen(manager2);*/
+
+        maRepository.add(mitarbeiter);
+        maRepository.add(experte1);
+        maRepository.add(experte2);
+        maRepository.add(manager1);
+        maRepository.add(manager2);
+
+        maRepository.saveData();
     }
 
 
@@ -107,9 +115,14 @@ public class MitarbeiterRepositoryDemo {
         }
     }*/
 
-    public static void maHinzufuegen(Mitarbeiter ersatzExperte) {
+    public static void maHinzufuegen(Mitarbeiter mitarbeiter) {
 //        maRepository.maHinzufuegen(ersatzExperte);
-        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
+        try {
+            maRepository.add(mitarbeiter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", mitarbeiter);
     }
 
 /*    public static void maAusgeben(int mitarbeiterID) {

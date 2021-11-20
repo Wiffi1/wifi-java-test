@@ -14,7 +14,6 @@
 package mitarbeiterverwaltungSerialisierung.model;
 
 import mitarbeiterverwaltungSerialisierung.OrderBy;
-import mitarbeiterverwaltungSerialisierung.model.Mitarbeiter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,7 @@ import java.util.List;
 public class MitarbeiterVerwaltung {
 
     public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
-    private static MitarbeiterRepository repository;
+    private static Repository repository;
 
 /*    public MitarbeiterVerwaltung(String filename) {
         this.mitarbeiterListe = mitarbeiterListe;

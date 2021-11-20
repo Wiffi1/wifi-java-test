@@ -1,30 +1,24 @@
 package mitarbeiterverwaltungSerialisierung.model;
 
 import mitarbeiterverwaltungSerialisierung.OrderBy;
-import mitarbeiterverwaltungSerialisierung.model.Experte;
-import mitarbeiterverwaltungSerialisierung.model.Manager;
-import mitarbeiterverwaltungSerialisierung.model.Mitarbeiter;
-import mitarbeiterverwaltungSerialisierung.model.MitarbeiterVerwaltung;
-import serialization.model.Fahrzeug;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MitarbeiterRepository {
+public class Repository {
 
     // Version von unserem Dokument-Format
-//    private static final long serialVersionUID = 2L;
-//    private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
-    private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
-    private MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung();
-    private List<String> stringListe = new ArrayList<>();
+    private static final long serialVersionUID = 2L;
+    private List<Mitarbeiter> list = new ArrayList<>();
     private String fileName;
 
-    private List<Mitarbeiter> maListe = new ArrayList<>();
+    /*    private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
+    private MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung();
+    private List<String> stringListe = new ArrayList<>();
+   */
 
-    public MitarbeiterRepository(String fileName) {
+    public Repository(String fileName) {
 //        this.mitarbeiterListe = mitarbeiterListe;
         this.fileName = fileName;
         System.out.println(this.fileName);
@@ -52,18 +46,23 @@ public class MitarbeiterRepository {
             // Die Fahrzeug-Liste "serialisieren", d.h. alle Objekte mit ihren Attributen
             // in den Stream speichern (Das Ergebnis ist ein Binär-File)
 
-//            oos.writeObject(maVerwaltung.mitarbeiterListe);
+//            oos.writeObject(list);
 //            oos.writeObject(maVerwaltung);
-//            oos.writeObject(maVerwaltung.mitarbeiterListe);
+//            oos.writeObject(list);
 //            oos.writeObject(mitarbeiterListe);
 //            oos.writeObject(stringListe);
 
 //            https://www.tutorialspoint.com/can-we-serialize-static-variables-in-java
 
-            System.out.println("malistexx");
-            System.out.printf("......%s", maVerwaltung.mitarbeiterListe);
+            System.out.println("load'Data");
+//            System.out.printf("\ngespeicherte Liste%s", list);
 
-            oos.writeObject(maVerwaltung.mitarbeiterListe);
+            System.out.printf("%d In File gespeichert\n",  list.size() );
+            for (Mitarbeiter listItem : list) {
+                System.out.printf("\t%s\n", listItem);
+            }
+
+            oos.writeObject(list);
             oos.writeInt(Mitarbeiter.getNextId());
             // den Zähler für die Fahrzeugnummer auch speichern
 //            oos.writeInt(mitarbeiterListe.getNextNr());
@@ -79,30 +78,33 @@ public class MitarbeiterRepository {
             @SuppressWarnings("unchecked")
 
             List<Mitarbeiter> temp = (List<Mitarbeiter>) ois.readObject();
-            maVerwaltung.mitarbeiterListe = temp;
+            list = temp;
             Mitarbeiter.initNextId(ois.readInt());
-//            System.out.printf("%d Fahrzeuge vom File geladen\n",  fahrzeuge.size() );
-//            System.out.printf("\n %d xxxxMitarbeiter vom File geladen\n",  temp.size() );
+            System.out.printf("%d Mitarbeiter vom File geladen\n",  list.size() );
+            System.out.printf("\n %d Mitarbeiter vom File geladen\n",  temp.size() );
+            for (Mitarbeiter listItem : list) {
+                System.out.printf("\t%s\n", listItem);
+            }
         }
     }
 
     public List<Mitarbeiter> getAll(OrderBy orderBy) throws IOException, ClassNotFoundException {
         loadData();
-        return maVerwaltung.mitarbeiterListe;
+        return list;
     }
 
     public Mitarbeiter get(int index) {
-        Mitarbeiter ma = maVerwaltung.getMitarbeiterById(index);
+        Mitarbeiter ma = list.get(index);
         return ma;
     }
 
     public void add(Mitarbeiter ma) throws IOException {
-        maListe.add(ma);
+        list.add(ma);
         saveData();
     }
 
     public void remove(int index) throws IOException {
-        maListe.remove(index);
+        list.remove(index);
         saveData();
     }
 
