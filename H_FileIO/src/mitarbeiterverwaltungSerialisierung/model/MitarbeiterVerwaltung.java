@@ -15,41 +15,46 @@ package mitarbeiterverwaltungSerialisierung.model;
 
 import mitarbeiterverwaltungSerialisierung.OrderBy;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class MitarbeiterVerwaltung {
 
-    public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
+//    public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
     private static Repository repository;
 
-/*    public MitarbeiterVerwaltung(String filename) {
-        this.mitarbeiterListe = mitarbeiterListe;
-    }*/
-
-    public void maHinzufuegen(Mitarbeiter mitarbeiter) {
-        mitarbeiterListe.add(mitarbeiter);
+    public MitarbeiterVerwaltung(String filename) {
+//        this.mitarbeiterListe = mitarbeiterListe;
+         this.repository = new Repository(filename);
     }
 
-    public double maGehaltErhoehen(int mitarbeiterID , double prozent) {
+    public void maHinzufuegen(Mitarbeiter mitarbeiter) throws IOException {
+        repository.add(mitarbeiter);
+    }
+
+    public double maGehaltErhoehen(int mitarbeiterID , double prozent) throws IOException, ClassNotFoundException {
         Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
-        return ma.maGehaltErhoehen(prozent);
+        // todo ma zurückgeben statt Gehalt?
+        ma.maGehaltErhoehen(prozent);
+        int index = getMitarbeiterIndexFromId(mitarbeiterID);
+        return repository.update(index, ma);
     }
 
-    public void alleGehaltErhoehen(double prozent) {
+    public void alleGehaltErhoehen(double prozent) throws IOException, ClassNotFoundException {
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
         for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
             maGehaltErhoehen(mitarbeiter.getId(), prozent);
         }
     }
 
-    public void maAusgeben(int MitarbeiterID) {
+    public void maAusgeben(int MitarbeiterID) throws IOException, ClassNotFoundException {
         Mitarbeiter ma = getMitarbeiterById(MitarbeiterID);
         System.out.printf("\t%s", ma);
     }
 
-    public void alleAnzeigen(OrderBy orderBy) {
+    public void alleAnzeigen(OrderBy orderBy) throws IOException, ClassNotFoundException {
 
         Comparator<Mitarbeiter> comparator;
         comparator = switch (orderBy){
@@ -65,6 +70,7 @@ public class MitarbeiterVerwaltung {
             case TYPE_EINTRITTSDATUM -> "Type/Eintrittsdatum";
         };
 
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
         Collections.sort(mitarbeiterListe, comparator);
 
         System.out.printf("\n***** Mitarbeiterliste sortiert nach %s *****\n", sortiertNach);
@@ -74,28 +80,30 @@ public class MitarbeiterVerwaltung {
         }
     }
 
-    public Mitarbeiter maAusscheiden(int mitarbeiterID) {
+    public Mitarbeiter maAusscheiden(int mitarbeiterID) throws IOException, ClassNotFoundException {
         Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
         mitarbeiterListe.remove(ma);
         return ma;
     }
 
-    public Mitarbeiter getMitarbeiterById(int mitarbeiterID) {
-        int index = findeMitarbeiterIndex(mitarbeiterID);
+    public Mitarbeiter getMitarbeiterById(int mitarbeiterID) throws IOException, ClassNotFoundException {
+        int index = getMitarbeiterIndexFromId(mitarbeiterID);
         if (index == -1) {
             throw new IndexOutOfBoundsException();
         } else {
-            return mitarbeiterListe.get(index);
+            return repository.get(index);
         }
     }
 
     // den Index des Mitarbeiters im Array suchen
-    private int findeMitarbeiterIndex(int mitarbeiterID) {
+    private int getMitarbeiterIndexFromId(int mitarbeiterID) throws IOException, ClassNotFoundException {
         // Mitarbeiter suchen
         // indexOf-Methode der Liste ist nicht zielführend, weil wir nicht
         // eine Zahl mit einem Mitarbeiter-Objekt vergleichen können
         //int x = liste.indexOf(nr)
         // daher selber das passende Objekt suchen
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
         for (int i = 0; i < mitarbeiterListe.size(); i++) {
             Mitarbeiter mTemp = mitarbeiterListe.get(i);
             // wenn die Nummer gleich der gesuchten Nummer ist

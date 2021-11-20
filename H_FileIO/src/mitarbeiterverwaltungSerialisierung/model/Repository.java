@@ -88,13 +88,21 @@ public class Repository {
         }
     }
 
-    public List<Mitarbeiter> getAll(OrderBy orderBy) throws IOException, ClassNotFoundException {
+    public List<Mitarbeiter> getAll() throws IOException, ClassNotFoundException {
         loadData();
         return list;
     }
 
     public Mitarbeiter get(int index) {
         Mitarbeiter ma = list.get(index);
+        return ma;
+    }
+
+    public Mitarbeiter update(int index, Mitarbeiter ma) throws IOException {
+        Mitarbeiter tmpMa = list.get(index);
+        // ich glaube, das funzt so noch nicht.
+        tmpMa = ma;
+        saveData();
         return ma;
     }
 

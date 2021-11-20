@@ -5,14 +5,25 @@ import mitarbeiterverwaltungSerialisierung.model.Manager;
 import mitarbeiterverwaltungSerialisierung.model.Mitarbeiter;
 import mitarbeiterverwaltungSerialisierung.model.MitarbeiterVerwaltung;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class MitarbeiterVerwaltungsDemo {
 
-    private static MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung();
+    private static MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung("maVerwaltSerialize.bin");
 
     public static void main(String[] args) {
 
+        try {
+            testMaVerwaltung();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testMaVerwaltung() throws IOException, ClassNotFoundException {
         Mitarbeiter mitarbeiter = new Mitarbeiter("Georg Angestellter", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
         Mitarbeiter experte1 = new Experte("Gustav Expert", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "c#");
         Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
@@ -87,7 +98,7 @@ public class MitarbeiterVerwaltungsDemo {
         }
     }
 
-    public static void maHinzufuegen(Mitarbeiter ersatzExperte) {
+    public static void maHinzufuegen(Mitarbeiter ersatzExperte) throws IOException {
         maVerwaltung.maHinzufuegen(ersatzExperte);
         System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
     }
