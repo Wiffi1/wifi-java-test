@@ -28,7 +28,7 @@ public class MitarbeiterRepositoryDemo {
 
     private static void diverseTests() {
 
-        maRepository.alleAnzeigen(OrderBy.NO_ORDER);
+//        maRepository.alleAnzeigen(OrderBy.NO_ORDER);
 
 
         System.out.println("\n** Mitarbeiter Experte2 wird ausgeschieden **");
@@ -40,7 +40,7 @@ public class MitarbeiterRepositoryDemo {
         System.out.println("\n** Ein neuer Experte wird eingestellt **");
         Mitarbeiter ersatzExperte = new Experte("Franz III Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "Typescript");
         maHinzufuegen(ersatzExperte);
-        maRepository.alleAnzeigen(OrderBy.NO_ORDER);
+//        maRepository.alleAnzeigen(OrderBy.NO_ORDER);
 
  /*       System.out.println("\n** Mitarbeiter mit nicht vorhandener ID wird versucht, auszuscheiden **");
         int idNichtVorhandenerMa = experte2.getId();
@@ -88,11 +88,11 @@ public class MitarbeiterRepositoryDemo {
         Mitarbeiter manager1 = new Manager("Franz I Manager1",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 1000);
         Mitarbeiter manager2 = new Manager("Franz III Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
 
-        maRepository.maHinzufuegen(mitarbeiter);
+/*        maRepository.maHinzufuegen(mitarbeiter);
         maRepository.maHinzufuegen(experte1);
         maRepository.maHinzufuegen(experte2);
         maRepository.maHinzufuegen(manager1);
-        maRepository.maHinzufuegen(manager2);
+        maRepository.maHinzufuegen(manager2);*/
     }
 
 
@@ -108,7 +108,7 @@ public class MitarbeiterRepositoryDemo {
     }*/
 
     public static void maHinzufuegen(Mitarbeiter ersatzExperte) {
-        maRepository.maHinzufuegen(ersatzExperte);
+//        maRepository.maHinzufuegen(ersatzExperte);
         System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
     }
 
@@ -122,6 +122,7 @@ public class MitarbeiterRepositoryDemo {
     }*/
 
     public static void maAusscheiden(int mitarbeiterID) {
+/*
         try {
             Mitarbeiter tmpMa = maRepository.maAusscheiden(mitarbeiterID);
             System.out.println("\tfolgender Mitarbeiter wurde ausgeschieden:");
@@ -130,5 +131,6 @@ public class MitarbeiterRepositoryDemo {
             System.out.println("\t-- ACHTUNG! Fehler beim Ausscheiden eines Mitarbeiter --");
             System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
+*/
     }
 }

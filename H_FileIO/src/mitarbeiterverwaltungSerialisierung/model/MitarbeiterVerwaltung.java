@@ -24,6 +24,11 @@ import java.util.List;
 public class MitarbeiterVerwaltung {
 
     public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
+    private static MitarbeiterRepository repository;
+
+/*    public MitarbeiterVerwaltung(String filename) {
+        this.mitarbeiterListe = mitarbeiterListe;
+    }*/
 
     public void maHinzufuegen(Mitarbeiter mitarbeiter) {
         mitarbeiterListe.add(mitarbeiter);

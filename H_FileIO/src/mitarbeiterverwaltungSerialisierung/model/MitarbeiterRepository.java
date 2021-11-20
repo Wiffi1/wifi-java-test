@@ -20,8 +20,9 @@ public class MitarbeiterRepository {
     private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
     private MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung();
     private List<String> stringListe = new ArrayList<>();
-
     private String fileName;
+
+    private List<Mitarbeiter> maListe = new ArrayList<>();
 
     public MitarbeiterRepository(String fileName) {
 //        this.mitarbeiterListe = mitarbeiterListe;
@@ -85,39 +86,24 @@ public class MitarbeiterRepository {
         }
     }
 
-    public void maHinzufuegen(Mitarbeiter ersatzExperte) {
-        maVerwaltung.maHinzufuegen(ersatzExperte);
-        try {
-            saveData();
-        } catch (Exception e) {
-            System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiters --");
-        }
-        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
-    }
-
-    public Mitarbeiter maAusscheiden(int mitarbeiterID) {
-        Mitarbeiter ma = maVerwaltung.maAusscheiden(mitarbeiterID);
-        try {
-            saveData();
-        } catch (Exception e) {
-            System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiters --");
-//            System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
-        }
-        return ma;
-    }
-
-    public void alleAnzeigen(OrderBy orderBy) {
-        maVerwaltung.alleAnzeigen(orderBy);
-    }
-
-    public List<Mitarbeiter> alleLaden(OrderBy orderBy) throws IOException, ClassNotFoundException {
+    public List<Mitarbeiter> getAll(OrderBy orderBy) throws IOException, ClassNotFoundException {
         loadData();
         return maVerwaltung.mitarbeiterListe;
     }
 
-    public Mitarbeiter maLaden(int mitarbeiterID) {
-        Mitarbeiter ma = maVerwaltung.getMitarbeiterById(mitarbeiterID);
+    public Mitarbeiter get(int index) {
+        Mitarbeiter ma = maVerwaltung.getMitarbeiterById(index);
         return ma;
+    }
+
+    public void add(Mitarbeiter ma) throws IOException {
+        maListe.add(ma);
+        saveData();
+    }
+
+    public void remove(int index) throws IOException {
+        maListe.remove(index);
+        saveData();
     }
 
 }
@@ -147,3 +133,30 @@ public class MitarbeiterRepository {
 
         stringListe.add("ersterString");
     }*/
+
+
+/*
+*     public void maHinzufuegen(Mitarbeiter ersatzExperte) {
+        maVerwaltung.maHinzufuegen(ersatzExperte);
+        try {
+            saveData();
+        } catch (Exception e) {
+            System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiters --");
+        }
+        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
+    }
+
+    public Mitarbeiter maAusscheiden(int mitarbeiterID) {
+        Mitarbeiter ma = maVerwaltung.maAusscheiden(mitarbeiterID);
+        try {
+            saveData();
+        } catch (Exception e) {
+            System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiters --");
+        }
+        return ma;
+    }
+
+    public void alleAnzeigen(OrderBy orderBy) {
+        maVerwaltung.alleAnzeigen(orderBy);
+    }
+* */
