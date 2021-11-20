@@ -43,7 +43,7 @@ public class Repository {
     public void saveData() throws IOException {
         // Speichern
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
-            // Die Fahrzeug-Liste "serialisieren", d.h. alle Objekte mit ihren Attributen
+            // Die Liste "serialisieren", d.h. alle Objekte mit ihren Attributen
             // in den Stream speichern (Das Ergebnis ist ein Binär-File)
 
 //            oos.writeObject(list);

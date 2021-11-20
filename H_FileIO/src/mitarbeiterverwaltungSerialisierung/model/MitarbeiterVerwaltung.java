@@ -39,7 +39,8 @@ public class MitarbeiterVerwaltung {
         // todo ma zurückgeben statt Gehalt?
         ma.maGehaltErhoehen(prozent);
         int index = getMitarbeiterIndexFromId(mitarbeiterID);
-        return repository.update(index, ma);
+        Mitarbeiter tmpMa = repository.update(index, ma);
+        return tmpMa.getGrundgehalt();
     }
 
     public void alleGehaltErhoehen(double prozent) throws IOException, ClassNotFoundException {
