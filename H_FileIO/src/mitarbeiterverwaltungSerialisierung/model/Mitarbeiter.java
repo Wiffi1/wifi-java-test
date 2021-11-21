@@ -62,6 +62,10 @@ public class Mitarbeiter implements Serializable {
         idCount = readInt;
     }
 
+/*    public static int getNextId() {
+        return ++idCount;
+    }*/
+
     public String getType() {
 //        System.out.println("getClass().getName() " + getClass().getName());
         return getClass().getName();

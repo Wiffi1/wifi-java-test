@@ -23,7 +23,7 @@ import java.util.List;
 public class MitarbeiterVerwaltung {
 
 //    public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
-    private static Repository repository;
+    private static RepositoryInterface repository;
 
     public MitarbeiterVerwaltung(String filename) {
 //        this.mitarbeiterListe = mitarbeiterListe;
@@ -84,6 +84,7 @@ public class MitarbeiterVerwaltung {
     public Mitarbeiter maAusscheiden(int mitarbeiterID) throws IOException, ClassNotFoundException {
         Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
         List<Mitarbeiter> mitarbeiterListe = repository.getAll();
+        int index = getMitarbeiterIndexFromId(mitarbeiterID);
         mitarbeiterListe.remove(ma);
         return ma;
     }

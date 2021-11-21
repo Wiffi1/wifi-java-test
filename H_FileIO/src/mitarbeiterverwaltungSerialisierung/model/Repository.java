@@ -6,20 +6,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository {
+public class Repository<T> implements  RepositoryInterface {
 
     // Version von unserem Dokument-Format
     private static final long serialVersionUID = 2L;
     private List<Mitarbeiter> list = new ArrayList<>();
     private String fileName;
 
-    /*    private List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
-    private MitarbeiterVerwaltung maVerwaltung = new MitarbeiterVerwaltung();
-    private List<String> stringListe = new ArrayList<>();
-   */
-
     public Repository(String fileName) {
-//        this.mitarbeiterListe = mitarbeiterListe;
         this.fileName = fileName;
         System.out.println(this.fileName);
         try {
@@ -46,34 +40,28 @@ public class Repository {
             // Die Liste "serialisieren", d.h. alle Objekte mit ihren Attributen
             // in den Stream speichern (Das Ergebnis ist ein Binär-File)
 
-//            oos.writeObject(list);
-//            oos.writeObject(maVerwaltung);
-//            oos.writeObject(list);
-//            oos.writeObject(mitarbeiterListe);
-//            oos.writeObject(stringListe);
-
 //            https://www.tutorialspoint.com/can-we-serialize-static-variables-in-java
 
-            System.out.println("load'Data");
-//            System.out.printf("\ngespeicherte Liste%s", list);
+            System.out.println("save'Data");
 
-            System.out.printf("%d In File gespeichert\n",  list.size() );
+            System.out.printf("uuuuuu%d In File gespeichert\n",  list.size() );
             for (Mitarbeiter listItem : list) {
                 System.out.printf("\t%s\n", listItem);
             }
 
             oos.writeObject(list);
-            oos.writeInt(Mitarbeiter.getNextId());
-            // den Zähler für die Fahrzeugnummer auch speichern
+            // den Zähler für den index auch speichern
 //            oos.writeInt(mitarbeiterListe.getNextNr());
+            oos.writeInt(Mitarbeiter.getNextId());
+
         }
     }
 
     public void loadData() throws ClassNotFoundException, IOException {
         // laden
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))){
-            // die Fahrzeuge "deserialisieren", dh aus dem Stream die Array-List und alle
-            // Fahrzeugobjekte wiederherstellen
+            // die Liste "deserialisieren", dh aus dem Stream die Array-List und alle
+            // Mitarbeiter wiederherstellen
             // Ergebnis ist vom Typ Object -> casten auf den erwarteten Typ
             @SuppressWarnings("unchecked")
 
