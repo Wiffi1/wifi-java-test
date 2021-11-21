@@ -15,7 +15,8 @@ public class MitarbeiterVerwaltungsDemo {
     public static void main(String[] args) {
 
         try {
-            testMaVerwaltung();
+            testMaVerwaltungOld();
+//            testMaVerwaltung();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -24,6 +25,29 @@ public class MitarbeiterVerwaltungsDemo {
     }
 
     private static void testMaVerwaltung() throws IOException, ClassNotFoundException {
+/*        Mitarbeiter mitarbeiter = new Mitarbeiter("Mitarbeiter-Test3", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
+        maVerwaltung.maHinzufuegen(mitarbeiter);
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+
+        Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
+        maVerwaltung.maHinzufuegen(experte2);
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+        System.out.printf("id auszuscheiden %d\n", experte2.getId());
+        maAusscheiden(experte2.getId());*/
+
+        maAusscheiden(2);
+        maAusscheiden(20);
+
+        Mitarbeiter mitarbeiter = new Mitarbeiter("Mitarbeiter-Test4", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
+        maVerwaltung.maHinzufuegen(mitarbeiter);
+
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+
+        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit id=5 um 33% **");
+        maGehaltErhoehen(17, 33);
+    }
+
+    private static void testMaVerwaltungOld() throws IOException, ClassNotFoundException {
         Mitarbeiter mitarbeiter = new Mitarbeiter("Georg Angestellter", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
         Mitarbeiter experte1 = new Experte("Gustav Expert", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "c#");
         Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");

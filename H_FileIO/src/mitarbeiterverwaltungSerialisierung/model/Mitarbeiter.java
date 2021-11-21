@@ -62,6 +62,10 @@ public class Mitarbeiter implements Serializable {
         idCount = readInt;
     }
 
+    public static int getCurrentId() {
+        return idCount;
+    }
+
 /*    public static int getNextId() {
         return ++idCount;
     }*/

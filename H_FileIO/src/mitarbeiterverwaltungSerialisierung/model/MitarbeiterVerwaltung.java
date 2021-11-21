@@ -22,11 +22,9 @@ import java.util.List;
 
 public class MitarbeiterVerwaltung {
 
-//    public List<Mitarbeiter> mitarbeiterListe = new ArrayList<>();
     private static RepositoryInterface repository;
 
     public MitarbeiterVerwaltung(String filename) {
-//        this.mitarbeiterListe = mitarbeiterListe;
          this.repository = new Repository(filename);
     }
 
@@ -35,11 +33,10 @@ public class MitarbeiterVerwaltung {
     }
 
     public double maGehaltErhoehen(int mitarbeiterID , double prozent) throws IOException, ClassNotFoundException {
-        Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
+        Mitarbeiter ma = repository.getById(mitarbeiterID);
         // todo ma zurückgeben statt Gehalt?
         ma.maGehaltErhoehen(prozent);
-        int index = getMitarbeiterIndexFromId(mitarbeiterID);
-        Mitarbeiter tmpMa = repository.update(index, ma);
+        Mitarbeiter tmpMa = repository.updateById(mitarbeiterID, ma);
         return tmpMa.getGrundgehalt();
     }
 
@@ -51,7 +48,7 @@ public class MitarbeiterVerwaltung {
     }
 
     public void maAusgeben(int MitarbeiterID) throws IOException, ClassNotFoundException {
-        Mitarbeiter ma = getMitarbeiterById(MitarbeiterID);
+        Mitarbeiter ma = repository.getById(MitarbeiterID);
         System.out.printf("\t%s", ma);
     }
 
@@ -82,50 +79,8 @@ public class MitarbeiterVerwaltung {
     }
 
     public Mitarbeiter maAusscheiden(int mitarbeiterID) throws IOException, ClassNotFoundException {
-        Mitarbeiter ma = getMitarbeiterById(mitarbeiterID);
-        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
-        int index = getMitarbeiterIndexFromId(mitarbeiterID);
-        mitarbeiterListe.remove(ma);
-        return ma;
-    }
-
-    public Mitarbeiter getMitarbeiterById(int mitarbeiterID) throws IOException, ClassNotFoundException {
-        int index = getMitarbeiterIndexFromId(mitarbeiterID);
-        if (index == -1) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            return repository.get(index);
-        }
-    }
-
-    // den Index des Mitarbeiters im Array suchen
-    private int getMitarbeiterIndexFromId(int mitarbeiterID) throws IOException, ClassNotFoundException {
-        // Mitarbeiter suchen
-        // indexOf-Methode der Liste ist nicht zielführend, weil wir nicht
-        // eine Zahl mit einem Mitarbeiter-Objekt vergleichen können
-        //int x = liste.indexOf(nr)
-        // daher selber das passende Objekt suchen
-        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
-        for (int i = 0; i < mitarbeiterListe.size(); i++) {
-            Mitarbeiter mTemp = mitarbeiterListe.get(i);
-            // wenn die Nummer gleich der gesuchten Nummer ist
-            if(mTemp.getId() == mitarbeiterID){
-                // den Index zurückliefern
-                return i;
-            }
-        }
-
-        // wenn wir die Nummer nicht gefunden haben,
-        // einen ungültigen Index zurückliefern
-        return -1;
+        return repository.removeById(mitarbeiterID);
     }
 
 
-    //    public Mitarbeiter testGetMaByIndex(int index) {
-//        return mitarbeiterListe.get(index);
-//    }
-
-//    public Mitarbeiter mAabrufen(int MitarbeiterID) {
-//        return mitarbeiterListe.get(MitarbeiterID);
-//    }
 }

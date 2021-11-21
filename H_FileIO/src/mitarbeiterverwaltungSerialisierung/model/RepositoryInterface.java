@@ -6,8 +6,9 @@ import java.util.List;
 public interface RepositoryInterface {
 
     public List<Mitarbeiter> getAll() throws IOException, ClassNotFoundException;
-    public Mitarbeiter get(int index) ;
-    public Mitarbeiter update(int index, Mitarbeiter ma) throws IOException;
+    public Mitarbeiter getById(int id) ;
+    public Mitarbeiter updateById(int id, Mitarbeiter ma) throws IOException;
     public void add(Mitarbeiter ma) throws IOException;
-    public void remove(int index) throws IOException;
+    public Mitarbeiter removeById(int id) throws IOException;
+//    public void remove(int mitarbeiterID);
 }
