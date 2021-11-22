@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MitarbeiterVerwaltung {
 
-    private static RepositoryInterface repository;
+    private static RepositoryInterface<Mitarbeiter> repository;
 
     public MitarbeiterVerwaltung(String filename) {
          this.repository = new Repository(filename);

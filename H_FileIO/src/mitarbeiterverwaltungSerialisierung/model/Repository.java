@@ -1,14 +1,15 @@
 package mitarbeiterverwaltungSerialisierung.model;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository<T> implements  RepositoryInterface {
+public class Repository<T> implements  RepositoryInterface<T> {
 
     // Version von unserem Dokument-Format
     private static final long serialVersionUID = 2L;
-    private List<Mitarbeiter> list = new ArrayList<>();
+    private List<T> list = new ArrayList<T>();
     private String fileName;
     private int debugLevel = 0;
 
@@ -41,7 +42,7 @@ public class Repository<T> implements  RepositoryInterface {
 
             if (debugLevel == 2) {
                 System.out.printf("uuuuuu%d In File gespeichert\n",  list.size() );
-                for (Mitarbeiter listItem : list) {
+                for (T listItem : list) {
                     System.out.printf("\t%s\n", listItem);
                 }
             }
@@ -59,49 +60,49 @@ public class Repository<T> implements  RepositoryInterface {
             // Mitarbeiter wiederherstellen
             // Ergebnis ist vom Typ Object -> casten auf den erwarteten Typ
             @SuppressWarnings("unchecked")
-            List<Mitarbeiter> temp = (List<Mitarbeiter>) ois.readObject();
+            List<T> temp = (List<T>) ois.readObject();
             list = temp;
             Mitarbeiter.initNextId(ois.readInt());
 
             if (debugLevel == 1) {
                 System.out.printf("%d Items vom File geladen\n",  list.size() );
                 System.out.printf("\n %d Items vom File geladen\n",  temp.size() );
-                for (Mitarbeiter listItem : list) {
+                for (T listItem : list) {
                     System.out.printf("\t%s\n", listItem);
                 }
             }
         }
     }
 
-    public List<Mitarbeiter> getAll() throws IOException, ClassNotFoundException {
+    public List<T> getAll() throws IOException, ClassNotFoundException {
         loadData();
         return list;
     }
 
-    public Mitarbeiter getById(int id) {
+    public T getById(int id) {
         int index = getIndexFromId(id);
         if (index == -1) {
             throw new IndexOutOfBoundsException();
         }
-        Mitarbeiter ma = list.get(index);
+        T ma = list.get(index);
         return ma;
     }
 
-    public Mitarbeiter updateById(int id, Mitarbeiter ma) throws IOException {
-        Mitarbeiter tmpMa = getById(id);
-        // ich glaube, das funzt so noch nicht.
+    public T updateById(int id, T ma) throws IOException {
+        T tmpMa = getById(id);
+        // todo so lassen oder verbessern?
         tmpMa = ma;
         saveData();
         return ma;
     }
 
-    public void add(Mitarbeiter ma) throws IOException {
+    public void add(T ma) throws IOException {
         list.add(ma);
         saveData();
     }
 
-    public Mitarbeiter removeById(int id) throws IOException {
-        Mitarbeiter ma = getById(id);
+    public T removeById(int id) throws IOException {
+        T ma = getById(id);
         int index = getIndexFromId(id);
         list.remove(index);
         saveData();
@@ -115,10 +116,25 @@ public class Repository<T> implements  RepositoryInterface {
         // eine Zahl mit einem Mitarbeiter-Objekt vergleichen können
         //int x = liste.indexOf(nr)
         // daher selber das passende Objekt suchen
-//        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
         for (int i = 0; i < list.size(); i++) {
-            Mitarbeiter mTemp = list.get(i);
-            // wenn die Nummer gleich der gesuchten Nummer ist
+
+            // todo kann man das hier generisch machen?
+//            Mitarbeiter mTemp = (Mitarbeiter) list.get(i);
+            T mTemp1 = (T) list.get(i);
+
+
+//            https://stackoverflow.com/questions/8918550/cast-via-reflection-and-use-of-class-cast
+//            mTemp1.getClass().getDeclaredFields().
+            Field[] fields = mTemp1.getClass().getDeclaredFields();
+            for (int j = 0; j < fields.length; j++) {
+                System.out.println("fields##: " + fields[j].getName());
+            }
+
+//            System.out.printf("");
+//            klass.getMethod(methodName, null).invoke();
+
+            Mitarbeiter mTemp = (Mitarbeiter) list.get(i);
+            // wenn die Id gleich der gesuchten Id ist
             if(mTemp.getId() == mitarbeiterID){
                 // den Index zurückliefern
                 return i;
@@ -129,4 +145,14 @@ public class Repository<T> implements  RepositoryInterface {
         // einen ungültigen Index zurückliefern
         return -1;
     }
+
+
+/*    public <T> T getObject(Class<T> type){
+        Object o = getSomeObject();
+        if (type.isInstance(o)){
+            return type.cast(o);
+        } else {
+            return null;
+        }
+    }*/
 }
