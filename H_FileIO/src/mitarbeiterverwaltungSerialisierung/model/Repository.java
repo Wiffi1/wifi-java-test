@@ -2,6 +2,8 @@ package mitarbeiterverwaltungSerialisierung.model;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,20 +127,55 @@ public class Repository<T> implements  RepositoryInterface<T> {
 
 //            https://stackoverflow.com/questions/8918550/cast-via-reflection-and-use-of-class-cast
 //            mTemp1.getClass().getDeclaredFields().
-            Field[] fields = mTemp1.getClass().getDeclaredFields();
+/*            Field[] fields = mTemp1.getClass().getDeclaredFields();
             for (int j = 0; j < fields.length; j++) {
                 System.out.println("fields##: " + fields[j].getName());
-            }
+            }*/
 
-//            System.out.printf("");
-//            klass.getMethod(methodName, null).invoke();
-
-            Mitarbeiter mTemp = (Mitarbeiter) list.get(i);
+/*            Mitarbeiter mTemp = (Mitarbeiter) list.get(i);
             // wenn die Id gleich der gesuchten Id ist
             if(mTemp.getId() == mitarbeiterID){
                 // den Index zurückliefern
                 return i;
+            }*/
+
+            int id1 = -1;
+            try {
+                Method method = mTemp1.getClass().getMethod("getId");
+                try {
+                    id1 = (int) method.invoke(mTemp1);
+                    if(id1 == mitarbeiterID){
+                        // den Index zurückliefern
+                        System.out.printf("id: %d", id1);
+                        return i;
+                    }
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
             }
+
+/*            Method[] methods = mTemp1.getClass().getMethods();
+            int id = -1;
+            for (int k = 0; k < methods.length; k++) {
+                System.out.println("methods##: " + methods[k].getName());
+                if (methods[k].getName().equals("getId")) {
+                    try {
+                        id = (int) methods[k].invoke(mTemp1);
+                        System.out.printf("!!!!!!!!!!!!!!§§§§§§§§§§§§§§§§§ %d", id);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }*/
+
+
         }
 
         // wenn wir die Nummer nicht gefunden haben,
