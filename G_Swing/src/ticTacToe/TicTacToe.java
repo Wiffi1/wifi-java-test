@@ -26,19 +26,17 @@ public class TicTacToe extends JFrame {
     };
 
     public TicTacToe() {
-//        super("Erstes Swing Programm");
-        setSize(600, 600);
+        setSize(500, 500);
 
         setLayout(null);
 
-        int startX = 20, startY = 20, abstand = 5;
-//        final int breite = 70, hoehe = 20;
+        int startX = 0, startY = 20;
         final int zeilenHoehe = 50;
-        final int startXspielfeld = 150;
+        final int startXspielfeld = 166;
 
         // Titelzeile
         JLabel lblTitel = new JLabel("TicTacToe");
-        lblTitel.setBounds(startX, startY, 225, 30);
+        lblTitel.setBounds(0, startY, 500, 30);
         // Textausrichtung zentriert
         lblTitel.setHorizontalAlignment(SwingConstants.CENTER);
         // Größere Schrift, fett und kursiv
@@ -61,9 +59,10 @@ public class TicTacToe extends JFrame {
         startY = startY + 180;
 
         lblSpieler = new JLabel("Spieler");
-        lblSpieler.setBounds(70, startY, 225, 30);
-        // Textausrichtung zentriert
         lblSpieler.setHorizontalAlignment(SwingConstants.CENTER);
+        Font spielerFont = new Font("Arial", Font.BOLD | Font.ITALIC, 16);
+        lblSpieler.setFont(spielerFont);
+        lblSpieler.setBounds(startXspielfeld, startY, 150, 30);
         add(lblSpieler);
 
         startY = startY + 50;
@@ -75,8 +74,8 @@ public class TicTacToe extends JFrame {
 
         startY = startY + 70;
 
-        lblStatus = new JLabel("Status1");
-        lblStatus.setBounds(startX, startY, 400, 30);
+        lblStatus = new JLabel("");
+        lblStatus.setBounds(startX, startY, 500, 30);
         // Textausrichtung zentriert
         lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
         // Größere Schrift, fett und kursiv
@@ -99,31 +98,31 @@ public class TicTacToe extends JFrame {
         int s = clickedBtnId % 3;
         int z = clickedBtnId / 3;
 
-        System.out.printf("clickedFieldCount %d", clickedFieldCount);
+//        System.out.printf("clickedFieldCount %d", clickedFieldCount);
         if (clickedFieldCount >= 9) {
             // do nothing das Spiel ist aus
         } else if (gewinner == ' ') {
             if (charTicTac[z][s] == spieler1 || charTicTac[z][s] == spieler2) {
-                lblStatus.setText("Status: Fehler");
+                lblStatus.setText("Dieser Zug ist nicht möglich!");
             } else {
                 spieler = (spieler == spieler1) ? spieler2 : spieler1;
                 charTicTac[z][s] = spieler;
                 btnTicToc[z][s].setText(String.valueOf(spieler));
                 setLblSpieler(spieler);
-                lblStatus.setText("Status");
+                lblStatus.setText("");
 
                 ++clickedFieldCount;
 
                 if (hatSpielerGewonnen(spieler1)) {
                     gewinner = spieler1;
-                    lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler1));
+                    lblStatus.setText(String.format("Spieler %s hat gewonnen! ", spieler1));
                     setSpielfeldEnabled(false);
                 } else if (hatSpielerGewonnen(spieler2)) {
                     gewinner = spieler2;
-                    lblStatus.setText(String.format("SPIELER %s HAT GEWONNEN!! ", spieler2));
+                    lblStatus.setText(String.format("Spieler %s hat gewonnen! ", spieler2));
                     setSpielfeldEnabled(false);
                 } else if (clickedFieldCount >= 9) {
-                    lblStatus.setText(String.format("UNENTSCHIEDEN, es ist kein Zug mehr möglich", spieler1));
+                    lblStatus.setText("Unentschieden, kein Zug mehr möglich!");
                     setSpielfeldEnabled(false);
                 }
 
@@ -141,7 +140,8 @@ public class TicTacToe extends JFrame {
         gewinner = ' ';
         clickedFieldCount = 0;
         setSpielfeldEnabled(true);
-        System.out.println(e);
+        lblStatus.setText("");
+//        System.out.println(e);
     }
 
     private boolean hatSpielerGewonnen(char player) {
@@ -149,11 +149,13 @@ public class TicTacToe extends JFrame {
         for (int z = 0; z < 3; z++) {
             if (charTicTac[z][0] == player && charTicTac[z][1] == player && charTicTac[z][2] == player) {
                 gewonnen = true;
+                break;
             }
         }
         for (int s = 0; s < 3; s++) {
             if (charTicTac[0][s] == player && charTicTac[1][s] == player && charTicTac[2][s] == player) {
                 gewonnen = true;
+                break;
             }
         }
 
