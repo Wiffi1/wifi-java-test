@@ -33,7 +33,7 @@ public class MitarbeiterVerwaltung {
         int foundIndex = -1;
         try {
             // https://stackoverflow.com/questions/17526608/how-to-find-an-object-in-an-arraylist-by-property
-            List<Mitarbeiter> maList = repository.getAll();
+            List<Mitarbeiter> maList = repository.getAll(true);
 
             if (maList != null) {
                 for (int i = 0; i < maList.size(); i++) {
@@ -53,8 +53,10 @@ public class MitarbeiterVerwaltung {
 //            System.out.println("Den Mitarbeiter gibt es schon");
             throw new InvalidParameterException("Den Mitarbeiter gibt es schon");
         } else {
+            System.out.println("nach hinzufügen getCurrentId %d" + Mitarbeiter.getCurrentId());
             repository.add(mitarbeiter);
         }
+        System.out.println("nach hinzufügen getCurrentId %d" + Mitarbeiter.getCurrentId());
     }
 
     public double maGehaltErhoehen(int mitarbeiterID , double prozent) throws IOException {
@@ -66,7 +68,7 @@ public class MitarbeiterVerwaltung {
     }
 
     public void alleGehaltErhoehen(double prozent) throws IOException, ClassNotFoundException {
-        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll(true);
         for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
             maGehaltErhoehen(mitarbeiter.getId(), prozent);
         }
@@ -78,7 +80,7 @@ public class MitarbeiterVerwaltung {
     }
 
     public void alleAnzeigen(OrderBy orderBy) throws IOException, ClassNotFoundException {
-
+        System.out.println("alleAnzeigen getCurrentId %d" + Mitarbeiter.getCurrentId());
         Comparator<Mitarbeiter> comparator;
         comparator = switch (orderBy){
             case NO_ORDER -> Comparator.comparing(Mitarbeiter::getId);
@@ -93,7 +95,7 @@ public class MitarbeiterVerwaltung {
             case TYPE_EINTRITTSDATUM -> "Type/Eintrittsdatum";
         };
 
-        List<Mitarbeiter> mitarbeiterListe = repository.getAll();
+        List<Mitarbeiter> mitarbeiterListe = repository.getAll(false);
 
         if (mitarbeiterListe == null || mitarbeiterListe.size() <= 0 ) {
             System.out.println("Es sind noch keine Mitarbeiter vorhanden");

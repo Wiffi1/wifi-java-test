@@ -66,6 +66,9 @@ public class MitarbeiterVerwaltungsDemo {
         Mitarbeiter manager2 = new Manager("Franz II Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
 
         maHinzufuegen(mitarbeiter);
+        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+
+
         maHinzufuegen(experte1);
         maHinzufuegen(experte2);
         maHinzufuegen(manager1);

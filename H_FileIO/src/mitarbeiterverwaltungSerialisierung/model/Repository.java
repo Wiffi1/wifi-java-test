@@ -108,10 +108,12 @@ public class Repository<T> implements  RepositoryInterface<T> {
         }
     }
 
-    public List<T> getAll() throws IOException, ClassNotFoundException {
+    public List<T> getAll(boolean doNotLoadList) throws IOException, ClassNotFoundException {
         File maFile = new File(fileName);
         if (maFile.exists()) {
-            loadData();
+            if (!doNotLoadList) {
+                loadData();
+            }
             return list;
         } else {
             return null;
@@ -137,6 +139,9 @@ public class Repository<T> implements  RepositoryInterface<T> {
     }
 
     public T removeById(int id) throws IOException {
+        System.out.println("removeById id %d" + id);
+        System.out.println("removeById getCurrentId %d" + Mitarbeiter.getCurrentId());
+
         T ma = getById(id);
         int index = getIndexFromId(id);
         list.remove(index);
