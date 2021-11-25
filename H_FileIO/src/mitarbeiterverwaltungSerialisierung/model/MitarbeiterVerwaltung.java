@@ -16,25 +16,50 @@ package mitarbeiterverwaltungSerialisierung.model;
 import mitarbeiterverwaltungSerialisierung.OrderBy;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class MitarbeiterVerwaltung {
 
-    private static RepositoryInterface<Mitarbeiter> repository;
+    private RepositoryInterface<Mitarbeiter> repository;
 
     public MitarbeiterVerwaltung(String filename) {
-         this.repository = new Repository(filename);
+         this.repository = new Repository<Mitarbeiter>(filename);
     }
 
     public void maHinzufuegen(Mitarbeiter mitarbeiter) throws IOException {
-        repository.add(mitarbeiter);
+        int foundIndex = -1;
+        try {
+            // https://stackoverflow.com/questions/17526608/how-to-find-an-object-in-an-arraylist-by-property
+            List<Mitarbeiter> maList = repository.getAll();
+
+            if (maList != null) {
+                for (int i = 0; i < maList.size(); i++) {
+                    Mitarbeiter mTemp = maList.get(i);
+                    // Einfacher Vergleich auf den Namen des Mitarbeiters, um zu verhindern,
+                    // dass es doppelte Einträge gibt (die sind beim Testen lästig).
+                    if (mTemp.getName().equals(mitarbeiter.getName())) {
+                        // den Index zurückliefern
+                        foundIndex = i;
+                    }
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (foundIndex > -1) {
+//            System.out.println("Den Mitarbeiter gibt es schon");
+            throw new InvalidParameterException("Den Mitarbeiter gibt es schon");
+        } else {
+            repository.add(mitarbeiter);
+        }
     }
 
-    public double maGehaltErhoehen(int mitarbeiterID , double prozent) throws IOException, ClassNotFoundException {
+    public double maGehaltErhoehen(int mitarbeiterID , double prozent) throws IOException {
         Mitarbeiter ma = repository.getById(mitarbeiterID);
-        // todo ma zurückgeben statt Gehalt?
+        // todo gesamten ma zurückgeben statt nur Gehalt?
         ma.maGehaltErhoehen(prozent);
         Mitarbeiter tmpMa = repository.updateById(mitarbeiterID, ma);
         return tmpMa.getGrundgehalt();
@@ -47,7 +72,7 @@ public class MitarbeiterVerwaltung {
         }
     }
 
-    public void maAusgeben(int MitarbeiterID) throws IOException, ClassNotFoundException {
+    public void maAusgeben(int MitarbeiterID) {
         Mitarbeiter ma = repository.getById(MitarbeiterID);
         System.out.printf("\t%s", ma);
     }
@@ -69,16 +94,22 @@ public class MitarbeiterVerwaltung {
         };
 
         List<Mitarbeiter> mitarbeiterListe = repository.getAll();
-        Collections.sort(mitarbeiterListe, comparator);
 
-        System.out.printf("\n***** Mitarbeiterliste sortiert nach %s *****\n", sortiertNach);
-        System.out.printf("In der Gruppe sind %d Personen\n", mitarbeiterListe.size());
-        for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
-            System.out.printf("\t%s\n", mitarbeiter);
+        if (mitarbeiterListe == null || mitarbeiterListe.size() <= 0 ) {
+            System.out.println("Es sind noch keine Mitarbeiter vorhanden");
+        } else {
+            Collections.sort(mitarbeiterListe, comparator);
+
+            System.out.printf("\n***** Mitarbeiterliste sortiert nach %s *****\n", sortiertNach);
+            System.out.printf("In der Gruppe sind %d Personen\n", mitarbeiterListe.size());
+            for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
+                System.out.printf("\t%s\n", mitarbeiter);
+            }
         }
+
     }
 
-    public Mitarbeiter maAusscheiden(int mitarbeiterID) throws IOException, ClassNotFoundException {
+    public Mitarbeiter maAusscheiden(int mitarbeiterID) throws IOException {
         return repository.removeById(mitarbeiterID);
     }
 

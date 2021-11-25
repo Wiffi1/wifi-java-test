@@ -28,12 +28,14 @@
 
 package mitarbeiterverwaltungSerialisierung.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Mitarbeiter implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2L;
 
     static private int anzMonatsgehaelter = 12;
@@ -65,10 +67,6 @@ public class Mitarbeiter implements Serializable {
     public static int getCurrentId() {
         return idCount;
     }
-
-/*    public static int getNextId() {
-        return ++idCount;
-    }*/
 
     public String getType() {
 //        System.out.println("getClass().getName() " + getClass().getName());

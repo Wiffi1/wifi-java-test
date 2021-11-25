@@ -15,54 +15,65 @@ public class MitarbeiterVerwaltungsDemo {
     public static void main(String[] args) {
 
         try {
-            testMaVerwaltungOld();
-//            testMaVerwaltung();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            testMaVerwaltung_simple();
+            testMaVerwaltung_extended();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private static void testMaVerwaltung() throws IOException, ClassNotFoundException {
-/*        Mitarbeiter mitarbeiter = new Mitarbeiter("Mitarbeiter-Test3", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
-        maVerwaltung.maHinzufuegen(mitarbeiter);
+    private static void testMaVerwaltung_simple() throws IOException, ClassNotFoundException {
+
+        System.out.println("\n!!Beginn von Test testMaVerwaltung_simple - folgende Mitarbeiter wurden vom File geladen !!");
         maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
-        Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
-        maVerwaltung.maHinzufuegen(experte2);
+        Mitarbeiter mitarbeiter = new Mitarbeiter("Mitarbeiter1", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
+        maHinzufuegen(mitarbeiter);
         maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
-        System.out.printf("id auszuscheiden %d\n", experte2.getId());
-        maAusscheiden(experte2.getId());*/
 
-        maAusscheiden(2);
-        maAusscheiden(20);
-
-        Mitarbeiter mitarbeiter = new Mitarbeiter("Mitarbeiter-Test4", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
-        maVerwaltung.maHinzufuegen(mitarbeiter);
+        System.out.println("\nGehalt aller Mitarbeiter wird verdoppelt");
+        maVerwaltung.alleGehaltErhoehen(100);
 
         maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
-        System.out.println("\n** Lohnerhoehung für Mitarbeiter mit id=5 um 33% **");
-        maGehaltErhoehen(17, 33);
+        System.out.println("\nGehalt von Mitarbeiter mit id 1 wird halbiert");
+        maVerwaltung.maGehaltErhoehen(1, -50);
+
+        maVerwaltung.maAusgeben(1);
+
+
+//        Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
+//        maHinzufuegen(experte2);
+//        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+//
+//        System.out.println("###Testfall Mitarbeiter korrekt ausgeschieden###");
+//        System.out.printf("\nid auszuscheiden %d\n", experte2.getId());
+//        maAusscheiden(experte2.getId());
+//        System.out.println("Jetzt sollte nur noch ein Mitarbeiter vorhanden sein");
+//        maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
+//
+//        System.out.println("###Testfall Mitarbeiter kann nicht ausgeschieden werden, da id nicht vorhanden###");
+//        System.out.printf("\nid auszuscheiden %d\n", 2);
+//        maAusscheiden(2);
+
     }
 
-    private static void testMaVerwaltungOld() throws IOException, ClassNotFoundException {
+    private static void testMaVerwaltung_extended() throws IOException, ClassNotFoundException {
         Mitarbeiter mitarbeiter = new Mitarbeiter("Georg Angestellter", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 1500.0);
         Mitarbeiter experte1 = new Experte("Gustav Expert", LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, "c#");
         Mitarbeiter experte2 = new Experte("Daniel Düsentrieb", LocalDate.of(2001, 1, 1), LocalDate.of(2010, 1, 1), 1000.0, "Java1");
         Mitarbeiter manager1 = new Manager("Franz I Manager1",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 1000);
         Mitarbeiter manager2 = new Manager("Franz II Manager2",  LocalDate.of(2002, 2, 2), LocalDate.of(2012, 2, 2), 2000.0, 2000);
 
-        maVerwaltung.maHinzufuegen(mitarbeiter);
-        maVerwaltung.maHinzufuegen(experte1);
-        maVerwaltung.maHinzufuegen(experte2);
-        maVerwaltung.maHinzufuegen(manager1);
-        maVerwaltung.maHinzufuegen(manager2);
+        maHinzufuegen(mitarbeiter);
+        maHinzufuegen(experte1);
+        maHinzufuegen(experte2);
+        maHinzufuegen(manager1);
+        maHinzufuegen(manager2);
 
         maVerwaltung.alleAnzeigen(OrderBy.NO_ORDER);
 
-        System.out.println("\n** Mitarbeiter Experte2 wird ausgeschieden **");
+        System.out.println("\n** Mitarbeiter \"Daniel Düsentrieb\" wird ausgeschieden **");
         maAusscheiden(experte2.getId());
 
         System.out.println("\n** Ein neuer Experte wird eingestellt **");
@@ -106,6 +117,7 @@ public class MitarbeiterVerwaltungsDemo {
             System.out.println("\tfolgender Mitarbeiter wurde ausgeschieden:");
             System.out.printf("\t\t%s\n", tmpMa);
         } catch (Exception e) {
+//            System.out.println(e);
             System.out.println("\t-- ACHTUNG! Fehler beim Ausscheiden eines Mitarbeiter --");
             System.out.printf("\t-- Mitarbeiter mit id %d wurde nicht gefunden (und ist möglicheweise bereits ausgeschieden) \n", mitarbeiterID);
         }
@@ -122,10 +134,18 @@ public class MitarbeiterVerwaltungsDemo {
         }
     }
 
-    public static void maHinzufuegen(Mitarbeiter ersatzExperte) throws IOException {
-        maVerwaltung.maHinzufuegen(ersatzExperte);
-        System.out.printf("\tfolgender Esperte wurde eingstellt: \t%s\n", ersatzExperte);
+    public static void maHinzufuegen(Mitarbeiter mitarbeiter) {
+        System.out.println();
+        try {
+            maVerwaltung.maHinzufuegen(mitarbeiter);
+            System.out.println("\tfolgender Mitarbeiter wurde hinzugefügt:");
+            System.out.printf("\t\t%s\n", mitarbeiter);
+        } catch (Exception e) {
+            System.out.println("\t-- ACHTUNG! Fehler beim Hinzufügen eines Mitarbeiter --");
+            System.out.printf("\t-- Mitarbeiter \"%s\" konnte nicht angelegt werden, da es bereits einen Mitarbeiter mit disem Name gibt \n", mitarbeiter.getName());
+        }
     }
+
 
     public static void maAusgeben(int mitarbeiterID) {
         try {
