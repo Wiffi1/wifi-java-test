@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.Scanner;
 
 public class EditorController {
 
@@ -18,7 +17,6 @@ public class EditorController {
 
     private FileChooser fileDialog;
     private String filename;
-//    static Scanner input = new Scanner(System.in);
 
     // todo je nachdem, ob es Änderungen im angezeigten Dokument gibt oder nicht.
     // Defaultwert eines boolean ist false!!
@@ -33,31 +31,11 @@ public class EditorController {
 
     @FXML
     private void initialize() {
-
         // Änderungen im Textfeld reagieren
         txtEditor.textProperty().addListener((o, oldVal, newVal) -> {
             // bei Änderung in der Textarea für später merken, dass sich was geändert hat
             isChanged = true;
         });
-
-        /*            System.out.println("xxxxxxxxxxxxxxxxxxx: " + o);
-            System.out.println(oldVal);
-            System.out.println(newVal);*/
-/*            if (newVal != newVal) {
-                isChanged = true;
-            } else {
-                isChanged = false;;
-            }*/
-
-        // Wenn das Textfeld jetzt leer ist, den Button disablen
-        // sonst den Button enablen
-
-        //                btnOk.setDisable(newVal == null || newVal.isBlank())
-/*
-        addEntry("App startup finished");
-        // Anfangs sden Button disablen
-        btnOk.setDisable(true);
-*/
     }
 
     @FXML
@@ -93,7 +71,7 @@ public class EditorController {
     public void schliessen() {
         if (frageNachAenderungen()) {
             ((Stage) txtEditor.getScene().getWindow()).close();
-        };
+        }
     }
 
     private boolean frageNachAenderungen() {
@@ -104,8 +82,7 @@ public class EditorController {
             msgBox.setTitle("Editor");
             ButtonType result = msgBox.showAndWait().get();
             if (result.equals(ButtonType.YES)) {
-                // todo Document speichern und beenden
-                System.out.println("TODO Programm speichern!");
+                save();
                 // Wenn alles ok fortsetzen
                 return true;
             } else if (result.equals(ButtonType.NO)) {
@@ -154,35 +131,47 @@ public class EditorController {
 
 
     @FXML
+    private void onNeu(ActionEvent actionEvent) {
+        System.out.println("neues file");
+        if (frageNachAenderungen() && isChanged) {
+            ((Stage) txtEditor.getScene().getWindow()).close();
+            saveAt();
+        }
+    }
+
+    @FXML
     private void onSave(ActionEvent actionEvent) {
-        String textToSave = txtEditor.getText();
-        writeFile(filename, textToSave, "UTF-8");
+        save();
     }
 
     @FXML
     private void onSaveAt(ActionEvent actionEvent) {
-        save();
+        saveAt();
     }
 
-    void save() {
-        File file = fileDialog.showOpenDialog(txtEditor.getScene().getWindow());
+    void saveAt() {
+        File file = fileDialog.showSaveDialog(txtEditor.getScene().getWindow());
         if (file != null) {
             // wenn ein File ausgewählt wurde
             filename = file.getAbsolutePath();
             System.out.println("Selektiert (öffnen" + filename);
             // todo File speichern, einlesen und in der Textarea anzeigen
             System.out.println("Filename: " + filename);
-//            String text = readChunks(filename, "UTF-8");
-//            txtEditor.setText(text);
+            String textToSave = txtEditor.getText();
+            writeFile(filename, textToSave, "UTF-8");
         } else {
-            // Dialsog wurde abgerochen
+            // Dialsog wurde abgebrochen
             System.out.println("Es wurde kein File selektiert");
         }
     }
 
-    void writeFile(String fileName, String textToSave, String encoding) {
+    void save() {
+        String textToSave = txtEditor.getText();
+        writeFile(filename, textToSave, "UTF-8");
+    }
 
-        System.out.println("Text zeilenweise eingeben, Beenden mit Leerzeile");
+    void writeFile(String fileName, String textToSave, String encoding) {
+        System.out.printf("\nText wird gespeichert in file %s", fileName);
 
         // schreiben
         // FileWriter verwendet standardmäßig das Encoding der VM,
@@ -192,14 +181,7 @@ public class EditorController {
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter(fileName, Charset.forName(encoding)))) {
 
-/*            String line;
-            // Solange eine nicht-leere Zeichenfolge eingegeben wurde
-            while ((line = input.nextLine()) != null && !line.isEmpty()) {
-                writer.write(line);
-                // Zeilenumbruch schreiben
-                writer.newLine();
-            }
-            // das Schließen wird jetzt automatisch im finally-Block gemacht
+            // das Schließen wird jetzt automatisch im finally-Block gemacht ?????
             // writer.close();*/
 
             writer.write(textToSave);
@@ -210,6 +192,25 @@ public class EditorController {
         }
     }
 
-
-
 }
+
+
+
+
+        /*            System.out.println("xxxxxxxxxxxxxxxxxxx: " + o);
+            System.out.println(oldVal);
+            System.out.println(newVal);*/
+/*            if (newVal != newVal) {
+                isChanged = true;
+            } else {
+                isChanged = false;;
+            }*/
+
+// Wenn das Textfeld jetzt leer ist, den Button disablen
+// sonst den Button enablen
+//                btnOk.setDisable(newVal == null || newVal.isBlank())
+/*
+        addEntry("App startup finished");
+        // Anfangs sden Button disablen
+        btnOk.setDisable(true);
+*/
