@@ -32,29 +32,30 @@ public class StudentListController {
 
 	@FXML
 	private void initialize() {
-		
+		System.out.println("init studentlist");
 
 	}
 
 	@FXML
 	public void addStudent() {
-		
+		System.out.println("add student");
 
 	}
 
 	@FXML
 	public void editStudent() {
-		
+		System.out.println("edit student");
 	}
 
 	@FXML
 	public void deleteStudent() {
-		
+		System.out.println("delete student");
 	}
 
 
 	@FXML
 	public void reload() {
+		System.out.println("reload");
 
 	}
 
