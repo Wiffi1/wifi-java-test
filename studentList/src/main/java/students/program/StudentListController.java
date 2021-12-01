@@ -4,6 +4,7 @@ import common.MessageBox;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -41,6 +42,11 @@ public class StudentListController {
 
 	@FXML
 	private ListView<Student> lstStudents;
+
+	@FXML
+	// Node ist eine Basisklasse von allen Containern -> damit könnte ich im FXML-File
+	// auch einen anderen Container verwenden, ohne den Controller zu ändern.
+	private Node boxSelStudent;
 
 	public StudentListController() {
 		// das Observable-Property-Objekt
@@ -81,8 +87,9 @@ public class StudentListController {
 		// Handler für Änderungen
 		lstStudents.getSelectionModel().selectedItemProperty().addListener(
 			// in der ObservableProperty das Objekt eintragen, das jetzt selektiert ist
-			(o, oldVa, newVal) -> {
+			(o, oldVal, newVal) -> {
 				selectedStudent.set(newVal);
+				boxSelStudent.setVisible(newVal != null);
 			});
 	}
 

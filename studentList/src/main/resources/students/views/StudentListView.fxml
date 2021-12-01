@@ -30,42 +30,42 @@
 		</HBox>
 		<HBox>
 			<Label text="Name: " styleClass="caption" />
-			<Label text="TODO name" />
+			<Label text="${controller.selectedStudent.name}" />
 
 		</HBox>
 		<HBox>
 			<Label text="Adresse: " styleClass="caption" />
-			<Label text="TODO areaCode" />
+			<Label text="${controller.selectedStudent.areaCode}" />
 			<Label text=" " />
-			<Label text="TODO city" />
+			<Label text="${controller.selectedStudent.city}" />
 		</HBox>
 		<HBox>
 			<Label text="Geburtsdatum: " styleClass="caption" />
-			<Label text="TODO birthDate" />
+			<Label text="${controller.selectedStudent.birthDate}" />
 		</HBox>
 		<HBox>
 			<Label text="Geschlecht: " styleClass="caption" />
-			<Label text="TODO gender" />
+			<Label text="${controller.selectedStudent.gender}" />
 		</HBox>
 		<HBox>
 			<Label text="HTML: " styleClass="caption" />
-			<Label text="TODO html" />
+			<Label text="${controller.selectedStudent.html}" />
 		</HBox>
 		<HBox>
 			<Label text="XML: " styleClass="caption" />
-			<Label text="TODO xml" />
+			<Label text="${controller.selectedStudent.xml}" />
 		</HBox>
 		<HBox>
 			<Label text="FXML: " styleClass="caption" />
-			<Label text="TODO fxml" />
+			<Label text="${controller.selectedStudent.fxml}" />
 		</HBox>
 		<HBox>
 			<Label text="Sprache: " styleClass="caption" />
-			<Label text="TODO language" />
+			<Label text="${controller.selectedStudent.languageId}" />
 		</HBox>
 		<HBox>
 			<Label text="Kommentar: " styleClass="caption" />
-			<Label text="TODO comment" />
+			<Label text="${controller.selectedStudent.comment}" />
 		</HBox>
 	</VBox>
 
