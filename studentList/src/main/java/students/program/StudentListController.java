@@ -1,5 +1,6 @@
 package students.program;
 
+import common.FxmlHelper;
 import common.MessageBox;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import students.model.Student;
 import students.repository.LanguageRepository;
 import students.repository.StudentRepository;
@@ -16,6 +18,7 @@ import students.repository.StudentRepositoryException;
 import students.repository.serialization.LanguageSerializeRepository;
 import students.repository.serialization.StudentSerializeRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 public class StudentListController {
@@ -146,5 +149,12 @@ public class StudentListController {
 		};
 	}
 
+	private Student editStudent(Student s) throws IOException {
+		Stage dialogStage = new Stage();
+		FxmlHelper.initStage(dialogStage, "/students/views/EditStudentView.fxml", "Student:in erfassen");
+
+		dialogStage.show();
+		return s;
+	}
 
 }
