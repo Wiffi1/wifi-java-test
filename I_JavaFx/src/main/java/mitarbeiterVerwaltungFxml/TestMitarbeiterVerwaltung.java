@@ -26,7 +26,7 @@ public class TestMitarbeiterVerwaltung extends Application  {
         MitArbeiterController controller = loader.getController();
         // und konfigurieren
         // ein neues Objekt erfassen
-//        controller.setMitarbeiter(null);
+        controller.setMitarbeiter(null);
 
         // DenContainer für unser View-Objekt erzeugen (=Scene Graph)
         Scene scene = new Scene(root, 400, 400);
