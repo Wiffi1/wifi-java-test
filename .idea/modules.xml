@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" filepath="$PROJECT_DIR$/Z_Loesungen/Z_Loesungen.iml" />
       <module fileurl="file://$PROJECT_DIR$/_DOCU/_DOCU.iml" filepath="$PROJECT_DIR$/_DOCU/_DOCU.iml" />
       <module fileurl="file://$PROJECT_DIR$/H_FileIO/fileIODemos.iml" filepath="$PROJECT_DIR$/H_FileIO/fileIODemos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/studentList/studentList.iml" filepath="$PROJECT_DIR$/studentList/studentList.iml" />
     </modules>
   </component>
 </project>

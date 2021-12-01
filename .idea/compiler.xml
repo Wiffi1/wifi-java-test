@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="I_JavaFx" />
+        <module name="studentList" />
         <module name="I_SimpleEditor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="I_JavaFx" target="16" />
       <module name="I_SimpleEditor" target="16" />
+      <module name="studentList" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
