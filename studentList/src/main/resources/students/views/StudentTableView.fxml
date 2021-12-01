@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="20.0" prefHeight="600" prefWidth="700" stylesheets="@studentStyles.css" vgap="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="students.program.StudentTableController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <!-- caption -->
+    <Label styleClass="title" text="Student repository" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <GridPane.margin>
+            <Insets bottom="20.0"/>
+        </GridPane.margin>
+    </Label>
+
+
+	<!-- Table View -->
+	<TableView fx:id="tblStudents" items="${controller.students}" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn fx:id="colId" minWidth="50" resizable="true" text="ID" />
+            <TableColumn fx:id="colName" minWidth="100" resizable="true" text="Name"/>
+            <TableColumn fx:id="colAreaCode" styleClass="number" text="PLZ"/>
+            <TableColumn fx:id="colCity" text="Ort"/>
+            <TableColumn fx:id="colBirthdate" text="Geburtstag"/>
+            <TableColumn fx:id="colGender" text="Geschlecht"/>
+            <TableColumn fx:id="colHtml" styleClass="center" text="HTML"/>
+            <TableColumn fx:id="colXml" styleClass="center" text="XML"/>
+            <TableColumn fx:id="colFxml" styleClass="center" text="FXML"/>
+        </columns>
+	</TableView>
+
+    <GridPane fx:id="boxSelStudent" hgap="5.0" vgap="5.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+
+
+        <Label styleClass="subTitle" text="Selected Student" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+        <HBox GridPane.rowIndex="1">
+            <Label styleClass="caption" text="Id: " />
+            <Label text="${controller.selectedStudent.id}" />
+        </HBox>
+        <HBox GridPane.rowIndex="2">
+            <Label styleClass="caption" text="Name: " />
+            <Label text="${controller.selectedStudent.name}" />
+        </HBox>
+        <HBox GridPane.rowIndex="3">
+            <Label styleClass="caption" text="Adresse: " />
+            <Label text="${controller.selectedStudent.areaCode}" />
+            <Label text=" " />
+            <Label text="${controller.selectedStudent.city}" />
+        </HBox>
+        <HBox GridPane.rowIndex="4">
+            <Label styleClass="caption" text="Geburtsdatum: " />
+            <Label text="${controller.selectedStudent.birthDate}" />
+        </HBox>
+        <HBox GridPane.rowIndex="5">
+            <Label styleClass="caption" text="Geschlecht: " />
+            <Label text="${controller.selectedStudent.gender}" />
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label styleClass="caption" text="HTML: " />
+            <Label text="${controller.selectedStudent.html}" />
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label styleClass="caption" text="XML: " />
+            <Label text="${controller.selectedStudent.xml}" />
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label styleClass="caption" text="FXML: " />
+            <Label text="${controller.selectedStudent.fxml}" />
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label styleClass="caption" text="Sprache: " />
+            <Label text="${controller.selectedStudent.languageId}" />
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <Label styleClass="caption" text="Kommentar: " />
+            <Label text="${controller.selectedStudent.comment}" />
+        </HBox>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints minHeight="20.0" prefHeight="30.0" />
+            <RowConstraints minHeight="20.0" prefHeight="30.0" />
+            <RowConstraints minHeight="20.0" prefHeight="30.0" />
+            <RowConstraints minHeight="20.0" prefHeight="30.0" />
+            <RowConstraints minHeight="20.0" prefHeight="30.0" />
+        </rowConstraints>
+
+    </GridPane>
+    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
+        <Button fx:id="btnAdd" onAction="#addStudent" text="Neu" />
+        <Button fx:id="btnEdit" onAction="#editStudent" text="Bearbeiten" />
+        <Button fx:id="btnDelete" onAction="#deleteStudent" text="Löschen" />
+        <Button fx:id="btnReload" onAction="#reload" text="Neu laden" />
+
+    </HBox>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+    </rowConstraints>
+
+
+</GridPane>
