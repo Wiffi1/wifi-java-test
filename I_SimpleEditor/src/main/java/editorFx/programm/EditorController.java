@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -14,6 +15,8 @@ import java.nio.charset.Charset;
 public class EditorController {
 
     @FXML public TextArea txtEditor;
+    @FXML public MenuItem menuItem_onNeu;
+    @FXML public MenuItem menuItem_onSave;
 
     private FileChooser fileDialog;
     private String filename;
@@ -34,28 +37,47 @@ public class EditorController {
         // Änderungen im Textfeld reagieren
         txtEditor.textProperty().addListener((o, oldVal, newVal) -> {
             // bei Änderung in der Textarea für später merken, dass sich was geändert hat
+
+//            menuItem_onNeu.setDisable(false);
+//            menuItem_onSave.setDisable(false);
             isChanged = true;
         });
     }
 
     @FXML
     private void onOeffnen(ActionEvent actionEvent) {
-        // Ein File zum Öffnen auswählen (mit einem Hauptfenster als Paren)
-        File file = fileDialog.showOpenDialog(txtEditor.getScene().getWindow());
-        if (file != null) {
-            // wenn ein File ausgewählt wurde
-            filename = file.getAbsolutePath();
-            System.out.println("Selektiert (öffnen" + filename);
-            // todo File öffnen, einlesen und in der Textarea anzeigen
+        System.out.println("onNeu - neues File");
+        if (textSpeichernKeinAbbruch()) {
+            // Ein File zum Öffnen auswählen (mit einem Hauptfenster als Parent)
+            File file = fileDialog.showOpenDialog(txtEditor.getScene().getWindow());
+            if (file != null) {
+                // wenn ein File ausgewählt wurde
+                filename = file.getAbsolutePath();
+                System.out.println("Selektiert (öffnen" + filename);
+                // todo File öffnen, einlesen und in der Textarea anzeigen
 
 //            readLines("Textfile1.txt", "UTF-8");
-            System.out.println("Filename: " + filename);
-            String text = readChunks(filename, "UTF-8");
+                System.out.println("Filename: " + filename);
+                String text = readChunks(filename, "UTF-8");
 
-            txtEditor.setText(text);
+                txtEditor.setText(text);
+            } else {
+                // Dialog wurde abgebrochen
+                System.out.println("Es wurde kein File selektiert");
+            }
+        }
+    }
+
+
+    @FXML
+    private void onNeu(ActionEvent actionEvent) {
+        System.out.println("onNeu - neuer Text");
+        if (!isChanged) {
+            txtEditor.setText("");
         } else {
-            // Dialsog wurde abgerochen
-            System.out.println("Es wurde kein File selektiert");
+            if (textSpeichernKeinAbbruch()) {
+                txtEditor.setText("");
+            }
         }
     }
 
@@ -69,31 +91,32 @@ public class EditorController {
     }
 
     public void schliessen() {
-        if (frageNachAenderungen()) {
+        if (textSpeichernKeinAbbruch()) {
             ((Stage) txtEditor.getScene().getWindow()).close();
         }
     }
 
-    private boolean frageNachAenderungen() {
-        if (isChanged) {
-            Alert msgBox = new Alert(Alert.AlertType.CONFIRMATION, "Änderungen speichern?",
-                    ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-            msgBox.setHeaderText("");
-            msgBox.setTitle("Editor");
-            ButtonType result = msgBox.showAndWait().get();
-            if (result.equals(ButtonType.YES)) {
+    private boolean textSpeichernKeinAbbruch() {
+        Alert msgBox = new Alert(Alert.AlertType.CONFIRMATION, "Änderungen speichern?",
+                ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        msgBox.setHeaderText("");
+        msgBox.setTitle("Editor");
+        ButtonType result = msgBox.showAndWait().get();
+        if (result.equals(ButtonType.YES)) {
+            if (!(filename == null)) {
                 save();
-                // Wenn alles ok fortsetzen
-                return true;
-            } else if (result.equals(ButtonType.NO)) {
-                // nicht speichern aber beenden
-                return true;
             } else {
-                // nicht speichern, nicht beenden
-                return false;
+                saveAt();
             }
+            // Wenn alles ok fortsetzen
+            return true;
+        } else if (result.equals(ButtonType.NO)) {
+            // nicht speichern aber beenden
+            return true;
+        } else {
+            // nicht speichern, nicht beenden
+            return false;
         }
-        return true;
     }
 
     static String readChunks(String filename, String encoding) {
@@ -129,19 +152,13 @@ public class EditorController {
         return text;
     }
 
-
-    @FXML
-    private void onNeu(ActionEvent actionEvent) {
-        System.out.println("neues file");
-        if (frageNachAenderungen() && isChanged) {
-            ((Stage) txtEditor.getScene().getWindow()).close();
-            saveAt();
-        }
-    }
-
     @FXML
     private void onSave(ActionEvent actionEvent) {
-        save();
+        if (!(filename == null)) {
+            save();
+        } else {
+            saveAt();
+        }
     }
 
     @FXML
@@ -170,9 +187,11 @@ public class EditorController {
         writeFile(filename, textToSave, "UTF-8");
     }
 
+//    https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
+
     void writeFile(String fileName, String textToSave, String encoding) {
         System.out.printf("\nText wird gespeichert in file %s", fileName);
-
+        // todo Fehlerbehandlung
         // schreiben
         // FileWriter verwendet standardmäßig das Encoding der VM,
         // unter Windows ist das ANSI (CP 1252)
@@ -183,34 +202,12 @@ public class EditorController {
 
             // das Schließen wird jetzt automatisch im finally-Block gemacht ?????
             // writer.close();*/
-
             writer.write(textToSave);
-
-
+//            menuItem_onNeu.setDisable(true);
+//            menuItem_onSave.setDisable(true);
         } catch (IOException e) {
             System.out.println("Fehler beim Speichern: " + e);
         }
     }
 
 }
-
-
-
-
-        /*            System.out.println("xxxxxxxxxxxxxxxxxxx: " + o);
-            System.out.println(oldVal);
-            System.out.println(newVal);*/
-/*            if (newVal != newVal) {
-                isChanged = true;
-            } else {
-                isChanged = false;;
-            }*/
-
-// Wenn das Textfeld jetzt leer ist, den Button disablen
-// sonst den Button enablen
-//                btnOk.setDisable(newVal == null || newVal.isBlank())
-/*
-        addEntry("App startup finished");
-        // Anfangs sden Button disablen
-        btnOk.setDisable(true);
-*/
