@@ -19,11 +19,13 @@
 
 	<ListView fx:id="lstStudents" GridPane.rowIndex="1" minWidth="250" />
 
-	<VBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="5" >
+	<VBox fx:id="boxSelStudent" GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="5" >
 		<Label text="Alle Details:" styleClass="subTitle" />
 		<HBox>
 			<Label text="Id: " styleClass="caption" />
-			<Label text="TODO id" />
+			<!--	Binding-Ausdruck: die id aus dem selektierten Studenten holen
+				selctedStudent is unsere Observble Property -->
+			<Label text="${controller.selectedStudent.id}" />
 
 		</HBox>
 		<HBox>
