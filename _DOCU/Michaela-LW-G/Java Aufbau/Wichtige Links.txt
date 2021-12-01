@@ -1,0 +1,23 @@
+Open JDK
+https://openjdk.java.net/
+
+Open JDK Installationspakete 
+https://adoptium.net
+
+Dokumentation zur Java SDK
+https://docs.oracle.com/en/java/javase/17/docs/api/index.html
+
+Eclipse
+https://www.eclipse.org/downloads/packages/
+
+IntelliJ
+https://www.jetbrains.com/de-de/idea/download/
+
+Tutorial zu Java 8 
+https://docs.oracle.com/javase/tutorial/
+
+Open JFX
+https://openjfx.io/
+
+Scene Builder
+https://gluonhq.com/products/scene-builder/
