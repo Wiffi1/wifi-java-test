@@ -110,15 +110,15 @@ public class StudentTableController {
         System.out.println("init StudentList");
 
         // TODO: Spalten korrekt anzeigen
-//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colAreaCode.setCellValueFactory(new PropertyValueFactory<>("areaCode"));
-//        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-//        colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
-//        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-//        colHtml.setCellValueFactory(new PropertyValueFactory<>("html"));
-//        colXml.setCellValueFactory(new PropertyValueFactory<>("xml"));
-//        colFxml.setCellValueFactory(new PropertyValueFactory<>("fxml"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAreaCode.setCellValueFactory(new PropertyValueFactory<>("areaCode"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
+        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        colHtml.setCellValueFactory(new PropertyValueFactory<>("html"));
+        colXml.setCellValueFactory(new PropertyValueFactory<>("xml"));
+        colFxml.setCellValueFactory(new PropertyValueFactory<>("fxml"));
 
         // TODO die CellFactories setzen
 //        colBirthdate.setCellFactory(this::localDateCell);
