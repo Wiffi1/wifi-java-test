@@ -1,6 +1,8 @@
 package students.program;
 
 import common.MessageBox;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -47,17 +49,33 @@ public class EditStudentController {
         cmbSprache.setButtonCell(new LanguageListCell());
 
         // Den ok button enablen disablen je nach eingaben
-        txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+        // Variante 1 Listener registrieren und die Property entsprechend setzten
+/*        txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
         txtStadt.textProperty().addListener((o, oldval, newval) -> checkGueltig());
         txtPlz.textProperty().addListener((o, oldval, newval) -> checkGueltig());
         // Bei Radiobuttons auf Änderungen der selectedToggle-Eigenschaft der ButtonGroup reagieren
         grpGeschlecht.selectedToggleProperty().addListener((o, oldval, newval) -> checkGueltig());
         // Bei Datepicker und Combobox die value-Eigenschaft
         dtpGeburtstag.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
-        cmbSprache.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
+        cmbSprache.valueProperty().addListener((o, oldval, newval) -> checkGueltig());*/
+
+        // ein Binding erzeugen, dass bei Änderungen von den beteiligten Properties die
+        // isGueltig Methofe aufruft
+        BooleanBinding isValid = Bindings.createBooleanBinding(this::isGueltig,
+                            txtName.textProperty(), txtStadt.textProperty(), txtPlz.textProperty(),
+                             grpGeschlecht.selectedToggleProperty(), dtpGeburtstag.valueProperty(),
+                               cmbSprache.valueProperty());
+        btnOK.disableProperty().bind(isValid.not());
     }
 
+
     private void checkGueltig() {
+        boolean gueltig = isGueltig();
+        // Den Button je nach Gültigkeit enablen/disablen
+        btnOK.setDisable(!gueltig);
+    }
+
+    private boolean isGueltig() {
         boolean gueltig = txtName.getText() != null && !txtName.getText().isBlank()
                 && txtStadt.getText() != null && !txtStadt.getText() .isBlank()
                 && txtPlz.getText() != null && !txtPlz.getText() .isBlank()
@@ -65,10 +83,8 @@ public class EditStudentController {
                 && dtpGeburtstag.getValue() != null
                 && cmbSprache.getValue() != null;
         System.out.println("Gültig; " + gueltig);
-        // Den Button je nach Gültigkeit enablen/disablen
-        btnOK.setDisable(!gueltig);
+        return gueltig;
     }
-
 
     @FXML
     private void onOK(ActionEvent ae) {

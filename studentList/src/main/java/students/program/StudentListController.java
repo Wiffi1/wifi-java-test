@@ -2,6 +2,7 @@ package students.program;
 
 import common.FxmlHelper;
 import common.MessageBox;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -92,6 +93,7 @@ public class StudentListController {
 				setSelectedStudent(newVal);
 			});
 
+		//	Variante 1 Listener initialisieren
 		selectedStudent.addListener((o, oldVal, newVal) -> {
 			boxSelStudent.setVisible(newVal != null);
 			btnEdit.setDisable(newVal == null);
@@ -101,6 +103,13 @@ public class StudentListController {
 		boxSelStudent.setVisible(false);
 		btnEdit.setDisable(true);
 		btnDelete.setDisable(true);
+
+		// Variante 2: Bindings verwenden
+/*
+		boxSelStudent.visibleProperty().bind(
+			Bindings.createBooleanBinding(() -> getSelectedStudent() != null), s);
+*/
+
 	}
 
 	@FXML
@@ -196,7 +205,7 @@ public class StudentListController {
 //		FxmlHelper.initStage(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 //		FxmlHelper.initAsDialog(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 
-		EditStudentController controller = FxmlHelper.initAsDialog(dialogStage,
+		EditStudentController_Validation controller = FxmlHelper.initAsDialog(dialogStage,
 			"/students/views/EditStudents.fxml", title);
 
 		// dem Controller das Objekt zur Anzeige übergeben
