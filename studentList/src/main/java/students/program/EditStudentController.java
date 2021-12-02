@@ -1,5 +1,6 @@
 package students.program;
 
+import common.MessageBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -71,49 +72,55 @@ public class EditStudentController {
 
     @FXML
     private void onOK(ActionEvent ae) {
-        // Die Daten auslesen und in ein Student-Objekt übernehmen
-        Student student = new Student();
-        student.setId(Integer.parseInt(txtId.getText()));
-        student.setName(txtName.getText().trim());
-        student.setCity(txtStadt.getText().trim());
-        student.setComment(txtKommentar.getText().trim());
-        student.setAreaCode(Integer.parseInt(txtPlz.getText().trim()));
 
-        // Radiobuttons: je nach Button das passende Geschlecht
+        try {
+            // Die Daten auslesen und in ein Student-Objekt übernehmen
+            Student student = new Student();
+            student.setId(Integer.parseInt(txtId.getText()));
+            student.setName(txtName.getText().trim());
+            student.setCity(txtStadt.getText().trim());
+            student.setComment(txtKommentar.getText().trim());
+            student.setAreaCode(Integer.parseInt(txtPlz.getText().trim()));
+
+            // Radiobuttons: je nach Button das passende Geschlecht
 //        Gender gender =
 
-        Gender gender;
-         if (grpGeschlecht.getSelectedToggle() == rbMaennlich) {
-             gender = Gender.MALE;
-         } else if (grpGeschlecht.getSelectedToggle() == rbWeiblich) {
-             gender = Gender.FEMALE;
-         } else {
-             gender = Gender.OTHER;
-         }
-         student.setGender(gender);
+            Gender gender;
+            if (grpGeschlecht.getSelectedToggle() == rbMaennlich) {
+                gender = Gender.MALE;
+            } else if (grpGeschlecht.getSelectedToggle() == rbWeiblich) {
+                gender = Gender.FEMALE;
+            } else {
+                gender = Gender.OTHER;
+            }
+            student.setGender(gender);
 
-        // Datepicker
-        student.setBirthDate(dtpGeburtstag.getValue());
+            // Datepicker
+            student.setBirthDate(dtpGeburtstag.getValue());
 
-        if (txtKommentar.getText() != null) {
-            student.setComment(txtKommentar.getText().trim());
+            if (txtKommentar.getText() != null) {
+                student.setComment(txtKommentar.getText().trim());
+            }
+
+            // Checkboxen
+            student.setHtml(cbHtml.isSelected());
+            student.setXml(cbXml.isSelected());
+            student.setFxml(cbFXML.isSelected());
+
+            // Combobox
+            Language language = cmbSprache.getValue();
+
+            student.setLanguageId(language.getId());
+
+            System.out.println("Studentn erfasst " + student);
+
+            // ergebnis für später merken und das fenster schließen
+            result = student;
+            ((Stage)txtId.getScene().getWindow()).close();
+        } catch (Exception e) {
+            MessageBox.show("Erfassen", "Fehler beim Erfassen: " + e.getMessage()
+                , Alert.AlertType.ERROR, ButtonType.OK);
         }
-
-        // Checkboxen
-        student.setHtml(cbHtml.isSelected());
-        student.setXml(cbXml.isSelected());
-        student.setFxml(cbFXML.isSelected());
-
-        // Combobox
-        Language language = cmbSprache.getValue();
-
-        student.setLanguageId(language.getId());
-
-        System.out.println("Studentn erfasst " + student);
-
-        // ergebnis für später merken und das fenster schließen
-        result = student;
-        ((Stage)txtId.getScene().getWindow()).close();
     }
 
     @FXML

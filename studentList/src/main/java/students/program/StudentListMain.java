@@ -27,7 +27,10 @@ public class StudentListMain extends Application {
 		primaryStage.setTitle("Collection Binding Demo");*/
 
 		// unsere neue schlaue Methode aufrufen
-		FxmlHelper.initStage(primaryStage, "/students/views/StudentListView.fxml", "Collection Binding Demo");
+		StudentListController controller = FxmlHelper.initStage(primaryStage, "/students/views/StudentListView.fxml", "Collection Binding Demo");
+
+		// dem Cont
+		controller.setRepositoryPath("studentList/Repository.seri");
 
 		primaryStage.show();
 

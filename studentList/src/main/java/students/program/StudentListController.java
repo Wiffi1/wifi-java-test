@@ -81,8 +81,6 @@ public class StudentListController {
 	@FXML
 	private void initialize() {
 		System.out.println("init studentlist");
-		// fürs erste
-		setRepositoryPath("studentList/Repository.seri");
 
 		// unsere ListCell-Factory-Methid verwenden
 		lstStudents.setCellFactory(this::createStudentListCell);
