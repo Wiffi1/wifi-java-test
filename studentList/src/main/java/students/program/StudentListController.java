@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import students.model.Student;
 import students.repository.LanguageRepository;
@@ -220,4 +222,20 @@ public class StudentListController {
 		return result;
 	}
 
+/*	@FXML
+	private void onClicked(MouseEvent e) {
+		if (e.getClickCount() == 2) {
+			// den Callback für den Edit-Button aufrufen
+			editStudent();
+		}
+	}
+
+	@FXML
+	private void onKey(KeyEvent e) {
+		switch (e.getCode()) {
+			case ENTER -> editStudent();
+			// ACHTUNG löscht ohne Rückfrage
+			case DELETE -> deleteStudent();
+		}
+	}*/
 }

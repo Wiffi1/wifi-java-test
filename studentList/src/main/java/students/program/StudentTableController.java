@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import students.model.Gender;
@@ -196,15 +197,19 @@ public class StudentTableController {
     public void deleteStudent() {
         System.out.println("deleteStudent");
         try{
-            // aus dem Repository löschen
-            studentRepository.deleteStudent(getSelectedStudent().getId());
-            // aus dem ListView entfernen
-            tblStudents.getItems().remove(getSelectedStudent());
+            ButtonType antwort = MessageBox.show("Löschen", "Studenti:in löschen "
+                        , Alert.AlertType.CONFIRMATION, ButtonType.OK, ButtonType.CANCEL);
+
+            if (antwort.equals(ButtonType.OK)) {
+                // aus dem Repository löschen
+                studentRepository.deleteStudent(getSelectedStudent().getId());
+                // aus dem ListView entfernen
+                tblStudents.getItems().remove(getSelectedStudent());
+            }
         }catch (StudentRepositoryException e) {
             e.printStackTrace();
             MessageBox.show("Löschen", "Fehler beim Löschen eine*s Student*in: "
                     + e.getMessage(), Alert.AlertType.ERROR);
-
         }
 
     }
@@ -285,8 +290,12 @@ public class StudentTableController {
     }
 
     @FXML
-    private void onKey(MouseEvent e) {
-
+    private void onKey(KeyEvent e) {
+        switch (e.getCode()) {
+            case ENTER -> editStudent();
+            // ACHTUNG löscht ohne Rückfrage
+            case DELETE -> deleteStudent();
+        }
     }
 
 }
