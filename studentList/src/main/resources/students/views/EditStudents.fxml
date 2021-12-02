@@ -40,7 +40,7 @@
       <Label text="Geschlecht" GridPane.rowIndex="4" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <RadioButton fx:id="rbMaennlic" mnemonicParsing="false" text="Männlich">
+            <RadioButton fx:id="rbMaennlich" mnemonicParsing="false" text="Männlich">
                <toggleGroup>
                   <ToggleGroup fx:id="grpGeschlecht" />
                </toggleGroup></RadioButton>

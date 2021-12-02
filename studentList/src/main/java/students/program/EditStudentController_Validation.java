@@ -34,13 +34,13 @@ public class EditStudentController_Validation {
     @FXML
     private RadioButton rbDivers;
     @FXML
-    private DatePicker dtpGeburtsdatum;
+    private DatePicker dtpGeburtstag;
     @FXML
     private CheckBox cbHtml;
     @FXML
     private CheckBox cbXml;
     @FXML
-    private CheckBox cbFxml;
+    private CheckBox cbFXML;
 
     // Combobox soll Language-Objekte anzeigen
     @FXML
@@ -48,7 +48,7 @@ public class EditStudentController_Validation {
     @FXML
     private TextArea txtKommentar;
     @FXML
-    private Button btnAbbrechen;
+    private Button btnCancel;
     @FXML
     private Button btnOK;
 
@@ -77,7 +77,7 @@ public class EditStudentController_Validation {
         BooleanBinding isValid = ValidationBindings.requiredBinding(txtName, "Name")
                 .and(ValidationBindings.integerInRange(txtPlz,"Postleitzahl", 1000, 99999))
                 .and(ValidationBindings.requiredBinding(txtStadt, "Ort"))
-                .and(ValidationBindings.requiredBinding(dtpGeburtsdatum, "Geburtstag"))
+                .and(ValidationBindings.requiredBinding(dtpGeburtstag, "Geburtstag"))
                 .and(ValidationBindings.requiredBinding(cmbSprache, "Sprache"))
                 .and(ValidationBindings.requiredBinding(grpGeschlecht, rbMaennlich.getParent() ));
         btnOK.disableProperty().bind(isValid.not());
@@ -88,7 +88,7 @@ public class EditStudentController_Validation {
                 && txtStadt.getText() != null && !txtStadt.getText().isBlank()
                 && txtPlz.getText() != null && !txtPlz.getText().isBlank()
                 && grpGeschlecht.getSelectedToggle() != null
-                && dtpGeburtsdatum.getValue() != null
+                && dtpGeburtstag.getValue() != null
                 && cmbSprache.getValue() != null;
         System.out.println("Gültig=" + gueltig);
         // den Button je nach Gültigkeit enablen/disablen
@@ -123,12 +123,12 @@ public class EditStudentController_Validation {
             student.setGender(gender);
 
             // DatePicker: den Value verwenden
-            student.setBirthDate(dtpGeburtsdatum.getValue());
+            student.setBirthDate(dtpGeburtstag.getValue());
 
             // Checkboxen: selected-Property
             student.setHtml(cbHtml.isSelected());
             student.setXml(cbXml.isSelected());
-            student.setFxml(cbFxml.isSelected());
+            student.setFxml(cbFXML.isSelected());
 
             // ComboBox: den Value verwenden
             Language language = cmbSprache.getValue();
@@ -184,12 +184,12 @@ public class EditStudentController_Validation {
         }
 
         // DatePicker: den Value setzen
-        dtpGeburtsdatum.setValue(student.getBirthDate());
+        dtpGeburtstag.setValue(student.getBirthDate());
 
         // Checkboxen
         cbHtml.setSelected(student.isHtml());
         cbXml.setSelected(student.isXml());
-        cbFxml.setSelected(student.isFxml());
+        cbFXML.setSelected(student.isFxml());
 
         // ComboBox
         // Sprache
