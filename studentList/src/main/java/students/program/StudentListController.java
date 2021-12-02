@@ -109,7 +109,7 @@ public class StudentListController {
 	public void addStudent() {
 		System.out.println("add student");
 		try {
-			editStudent(null);
+			editStudent(null, "Hinzufügen");
 		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
 			MessageBox.show("Ändern", "Fehler beim Hinzufügen einer Student:in" + e.getMessage(),
@@ -121,7 +121,7 @@ public class StudentListController {
 	public void editStudent() {
 		System.out.println("edit student");
 		try {
-			editStudent(getSelectedStudent());
+			editStudent(getSelectedStudent(), "Ändern");
 		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
 			MessageBox.show("Ändern", "Fehler beim Ändern einer Student:in" + e.getMessage(),
@@ -171,13 +171,13 @@ public class StudentListController {
 		};
 	}
 
-	private Student editStudent(Student s) throws IOException, StudentRepositoryException {
+	private Student editStudent(Student s, String title) throws IOException, StudentRepositoryException {
 		Stage dialogStage = new Stage();
 //		FxmlHelper.initStage(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 //		FxmlHelper.initAsDialog(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 
 		EditStudentController controller = FxmlHelper.initAsDialog(dialogStage,
-			"/students/views/EditStudents.fxml", "Student:in erfassen");
+			"/students/views/EditStudents.fxml", title);
 
 		// dem Controller das Objekt zur Anzeige übergeben
 		controller.setStudent(s, languageRepository.selectAll());
