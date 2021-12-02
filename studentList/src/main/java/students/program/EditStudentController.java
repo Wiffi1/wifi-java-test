@@ -105,13 +105,11 @@ public class EditStudentController {
         student.setFxml(cbFXML.isSelected());
 
         // Combobox
-//        String language = cmbSprache.getValue();
+        Language language = cmbSprache.getValue();
 
-        // todo Sprache
-//        student.setLanguage(language);
+        student.setLanguageId(language.getId());
 
         System.out.println("Studentn erfasst " + student);
-        // todo später das Fenster schließen
 
         // ergebnis für später merken und das fenster schließen
         result = student;

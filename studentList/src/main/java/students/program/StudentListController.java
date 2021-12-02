@@ -109,7 +109,12 @@ public class StudentListController {
 	public void addStudent() {
 		System.out.println("add student");
 		try {
-			editStudent(null, "Hinzufügen");
+			Student newStudent = editStudent(null, "Hinzufügen");
+			if (newStudent != null) {
+				studentRepository.insertStudent(newStudent);
+				// kompletten relaod machen, damit wird die Liste akutaliserun gge.. die krrekte ID für das neue Objekt verwendet
+				reload();
+			}
 		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
 			MessageBox.show("Ändern", "Fehler beim Hinzufügen einer Student:in" + e.getMessage(),
@@ -184,6 +189,9 @@ public class StudentListController {
 
 		// anzeigen und warten, bis die Maske geschlossen wurde
 		dialogStage.showAndWait();
+
+		Student result = controller.getResult();
+		System.out.println("Student vom Edit-Dialgo erhalten: " + result);
 
 		return null;
 	}
