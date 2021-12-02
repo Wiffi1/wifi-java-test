@@ -99,12 +99,21 @@ public class StudentListController {
 	@FXML
 	public void addStudent() {
 		System.out.println("add student");
-
+		try {
+			editStudent(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	public void editStudent() {
 		System.out.println("edit student");
+		try {
+			editStudent(getSelectedStudent());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -151,10 +160,16 @@ public class StudentListController {
 
 	private Student editStudent(Student s) throws IOException {
 		Stage dialogStage = new Stage();
-		FxmlHelper.initStage(dialogStage, "/students/views/EditStudentView.fxml", "Student:in erfassen");
+//		FxmlHelper.initStage(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
+//		FxmlHelper.initAsDialog(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 
-		dialogStage.show();
-		return s;
+		EditStudentController controller = FxmlHelper.initAsDialog(dialogStage,
+			"/students/views/EditStudents.fxml", "Student:in erfassen");
+		controller.setStudent(s);
+
+		// anzeigen und warten, bis die Maske geschlossen wurde
+		dialogStage.showAndWait();
+		return null;
 	}
 
 }
