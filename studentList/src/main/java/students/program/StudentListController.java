@@ -126,7 +126,14 @@ public class StudentListController {
 	public void editStudent() {
 		System.out.println("edit student");
 		try {
-			editStudent(getSelectedStudent(), "Ändern");
+			Student changedStudent = editStudent(getSelectedStudent(), "Ändern");
+			if (changedStudent != null) {
+				// im Repository ersetzen
+				studentRepository.updateStudent(changedStudent);
+				// und im Listview ersetzen
+				int index = lstStudents.getItems().indexOf(getSelectedStudent());
+				lstStudents.getItems().set(index, changedStudent);
+			}
 		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
 			MessageBox.show("Ändern", "Fehler beim Ändern einer Student:in" + e.getMessage(),
@@ -137,6 +144,16 @@ public class StudentListController {
 	@FXML
 	public void deleteStudent() {
 		System.out.println("delete student");
+		try {
+			// aus dem Repository löschen
+			studentRepository.deleteStudent(getSelectedStudent().getId());
+			// enfernen
+			lstStudents.getItems().remove(getSelectedStudent());
+		} catch (StudentRepositoryException e) {
+			e.printStackTrace();
+			MessageBox.show("Löschen", "Fehler beim Löschen einer Student:in" + e.getMessage(),
+				Alert.AlertType.ERROR);
+		}
 	}
 
 
@@ -193,7 +210,7 @@ public class StudentListController {
 		Student result = controller.getResult();
 		System.out.println("Student vom Edit-Dialgo erhalten: " + result);
 
-		return null;
+		return result;
 	}
 
 }
