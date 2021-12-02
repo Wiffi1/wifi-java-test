@@ -4,8 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import students.model.Language;
 import students.model.Student;
 import students.model.Gender;
+
+import java.util.List;
 
 public class EditStudentController {
     @FXML private ToggleGroup grpGeschlecht;
@@ -18,7 +21,9 @@ public class EditStudentController {
     @FXML private RadioButton rbDivers;
     @FXML private DatePicker dtpGeburtstag;
     @FXML private TextArea txtKommentar;
-    @FXML private ComboBox<String> cmbSprache;
+
+    // Combobox soll Language-Objekte anzeigen
+    @FXML private ComboBox<Language> cmbSprache;
     @FXML private CheckBox cbXml;
     @FXML private CheckBox cbHtml;
     @FXML private CheckBox cbFXML;
@@ -28,8 +33,12 @@ public class EditStudentController {
     @FXML
     private void initialize() {
         // ein paar Sprachen eintragen
-        cmbSprache.getItems().add("Deutsch");
-        cmbSprache.getItems().add("Englisch");
+        // nicht mehr nötig, kommt aus der DB
+//        cmbSprache.getItems().add("Deutsch");
+//        cmbSprache.getItems().add("Englisch");
+
+        cmbSprache.setCellFactory(cmb -> new LanguageListCell());
+        cmbSprache.setButtonCell(new LanguageListCell());
 
         // Den ok button enablen disablen je nach eingaben
         txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
@@ -91,7 +100,7 @@ public class EditStudentController {
         student.setFxml(cbFXML.isSelected());
 
         // Combobox
-        String language = cmbSprache.getValue();
+//        String language = cmbSprache.getValue();
 
         // todo Sprache
 //        student.setLanguage(language);
@@ -108,12 +117,15 @@ public class EditStudentController {
 
     // den Studenten übergeben (vorläufig nur string)
 
-    public void setStudent(Student student) {
+    public void setStudent(Student student, List<Language> languages) {
         // Wenn es ein neuer Student ist ein neues Objekt erzeugen
         if (student == null) {
           student = new Student();
 //          student.setId(0);
         }
+
+        // die languages in der Combobox anzeigen
+        cmbSprache.getItems().addAll(languages);
 
         txtId.setText(Integer.toString(student.getId()));
         txtName.setText(student.getName());
@@ -139,8 +151,30 @@ public class EditStudentController {
         cbFXML.setSelected(student.isFxml());
 
         //Combobox
-        // todo Sprache
-//        cmbSprache.setValue(student.getLanguage());
+        Language lang = null;
+        for (Language l : languages) {
+            if (l.getId() == student.getLanguageId()) {
+                lang = l;
+                break;
+            }
+        }
+        cmbSprache.setValue(lang);
+
+    }
+
+    // Klasse, für die ListCell
+    private static class LanguageListCell extends ListCell<Language>{
+        @Override
+        protected void updateItem(Language language, boolean empty) {
+            // Styles usw. setzen
+            super.updateItem(language, empty);
+
+            if (empty || language == null) {
+                setText(null);
+            } else {
+                setText(String.format("%s (%s)", language.getName(), language.getCode()));
+            }
+        }
     }
 
 }

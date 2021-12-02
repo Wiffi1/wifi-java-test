@@ -91,9 +91,18 @@ public class StudentListController {
 		lstStudents.getSelectionModel().selectedItemProperty().addListener(
 			// in der ObservableProperty das Objekt eintragen, das jetzt selektiert ist
 			(o, oldVal, newVal) -> {
-				selectedStudent.set(newVal);
-				boxSelStudent.setVisible(newVal != null);
+				setSelectedStudent(newVal);
 			});
+
+		selectedStudent.addListener((o, oldVal, newVal) -> {
+			boxSelStudent.setVisible(newVal != null);
+			btnEdit.setDisable(newVal == null);
+			btnDelete.setDisable(newVal == null);
+		});
+
+		boxSelStudent.setVisible(false);
+		btnEdit.setDisable(true);
+		btnDelete.setDisable(true);
 	}
 
 	@FXML
@@ -101,8 +110,10 @@ public class StudentListController {
 		System.out.println("add student");
 		try {
 			editStudent(null);
-		} catch (IOException e) {
+		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
+			MessageBox.show("Ändern", "Fehler beim Hinzufügen einer Student:in" + e.getMessage(),
+				Alert.AlertType.ERROR);
 		}
 	}
 
@@ -111,8 +122,10 @@ public class StudentListController {
 		System.out.println("edit student");
 		try {
 			editStudent(getSelectedStudent());
-		} catch (IOException e) {
+		} catch (IOException | StudentRepositoryException e) {
 			e.printStackTrace();
+			MessageBox.show("Ändern", "Fehler beim Ändern einer Student:in" + e.getMessage(),
+				Alert.AlertType.ERROR);
 		}
 	}
 
@@ -158,14 +171,16 @@ public class StudentListController {
 		};
 	}
 
-	private Student editStudent(Student s) throws IOException {
+	private Student editStudent(Student s) throws IOException, StudentRepositoryException {
 		Stage dialogStage = new Stage();
 //		FxmlHelper.initStage(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 //		FxmlHelper.initAsDialog(dialogStage, "/students/views/EditStudents.fxml", "Student:in erfassen");
 
 		EditStudentController controller = FxmlHelper.initAsDialog(dialogStage,
 			"/students/views/EditStudents.fxml", "Student:in erfassen");
-		controller.setStudent(s);
+
+		// dem Controller das Objekt zur Anzeige übergeben
+		controller.setStudent(s, languageRepository.selectAll());
 
 		// anzeigen und warten, bis die Maske geschlossen wurde
 		dialogStage.showAndWait();
