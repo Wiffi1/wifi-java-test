@@ -184,6 +184,7 @@ public class StudentListController {
 
 		// anzeigen und warten, bis die Maske geschlossen wurde
 		dialogStage.showAndWait();
+
 		return null;
 	}
 

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javafx.stage.Stage;
 import students.model.Language;
 import students.model.Student;
 import students.model.Gender;
@@ -11,6 +12,10 @@ import students.model.Gender;
 import java.util.List;
 
 public class EditStudentController {
+
+    private Student result;
+
+
     @FXML private ToggleGroup grpGeschlecht;
     @FXML private TextField txtId;
     @FXML private TextField txtName;
@@ -107,12 +112,17 @@ public class EditStudentController {
 
         System.out.println("Studentn erfasst " + student);
         // todo später das Fenster schließen
+
+        // ergebnis für später merken und das fenster schließen
+        result = student;
+        ((Stage)txtId.getScene().getWindow()).close();
     }
 
     @FXML
     private void onCancel(ActionEvent ae) {
         System.out.println("Student unverändert");
-        // todo später das Fenster schließen
+        result = null;
+        ((Stage)txtId.getScene().getWindow()).close();
     }
 
     // den Studenten übergeben (vorläufig nur string)
@@ -160,6 +170,10 @@ public class EditStudentController {
         }
         cmbSprache.setValue(lang);
 
+    }
+
+    public Student getResult() {
+        return result;
     }
 
     // Klasse, für die ListCell
