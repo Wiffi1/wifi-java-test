@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import students.model.Gender;
 import students.model.Student;
@@ -275,5 +276,17 @@ public class StudentTableController {
 
     }
 
+    @FXML
+    private void onClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            // den Callback für den Edit-Button aufrufen
+            editStudent();
+        }
+    }
+
+    @FXML
+    private void onKey(MouseEvent e) {
+
+    }
 
 }

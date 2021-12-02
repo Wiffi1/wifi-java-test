@@ -23,7 +23,7 @@
 
 
 	<!-- Table View -->
-	<TableView fx:id="tblStudents" items="${controller.students}" GridPane.rowIndex="1">
+	<TableView fx:id="tblStudents" GridPane.rowIndex="1" onKeyPressed="#onKey" onMouseClicked="#onClicked">
         <columns>
             <TableColumn fx:id="colId" minWidth="50" resizable="true" text="ID" />
             <TableColumn fx:id="colName" minWidth="100" resizable="true" text="Name"/>
