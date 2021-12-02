@@ -10,4 +10,5 @@ module swdev2021.samples.I.JavaFx {
     opens introFxml;
     opens students;
     opens mitarbeiterVerwaltungFxml;
+    opens menu;
 }
