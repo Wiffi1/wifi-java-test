@@ -3,6 +3,7 @@ package fileListingsSets;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.Instant;
 import java.util.*;
 
@@ -25,11 +26,34 @@ public class FileStatistics {
      * @param dirName
      */
     public FileStatistics(String dirName) throws IOException {
-        // TODO das Verzeichnis verarbeiten
-
+        // das Verzeichnis verarbeiten
+        System.out.printf("dirName: " + dirName);
+       readDirectory(new File(dirName));
     }
 
-    // TODO: ein Verzeichnis verarbeiten
+    // ein Verzeichnis verarbeiten
+    private void readDirectory(File dir) {
+        // alle Files und Verzeichnisst in diesem
+        File[] files = dir.listFiles();
+        System.out.printf("Verzeichnus %s: %d Einträge\n", dir.getAbsolutePath(), files.length);
+        // alle Einträge verarbeiten
+        for (File file: files) {
+            // für Files: In der Liste hinzufügen
+            if (file.isFile()) {
+               String path = file.getAbsolutePath();
+               long size = file.length();
+               // Änderungsdatum: milliseconds seit 1.1.1970
+               long lastModifiedMillis = file.lastModified();
+               // Einen Instand daraus erzeugen
+                Instant lastModified = Instant.ofEpochMilli(lastModifiedMillis);
+                // daraus ein FileData-Objekt erzeugen
+                FileData fd = new FileData(path, size, lastModified);
+                this.files.add(fd);
+            } else  if(file.isDirectory()) {
+                System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
+            }
+        }
+    }
 
     /**
      * Alle Files von allen Extensions anzeigen
@@ -63,7 +87,7 @@ public class FileStatistics {
 
 
     /**
-     * ältestes und neuestes File anzeigen
+     * kleinstes und neuestes File anzeigen
      */
     public void showOldestNewest() {
         System.out.println("Ältestes/neuestes File ");
