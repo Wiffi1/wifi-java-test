@@ -51,6 +51,8 @@ public class FileStatistics {
                 this.files.add(fd);
             } else  if(file.isDirectory()) {
                 System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
+                // auch das Unterverzeichnis verarbeiten.
+                readDirectory(file);
             }
         }
     }
