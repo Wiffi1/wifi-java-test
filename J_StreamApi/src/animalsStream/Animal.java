@@ -1,5 +1,7 @@
 package animalsStream;
 
+import java.util.Arrays;
+
 /**
  * Klasse für ein (Zoo-)Tier mit mehreren Eigenschaften wie Name, Lateinischer
  * Name oder Gewicht
