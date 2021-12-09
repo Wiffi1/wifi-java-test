@@ -42,5 +42,14 @@ public class StreamApiDemo {
             .sorted(Comparator.comparing(Animal::getWeight))
             .forEach(a -> System.out.printf("\t%s", a));
 
+        // Die Namen aller Pflanzenfresser
+        System.out.println("Namen aller Pflanzenfresser");
+        // Die namen aller pflanzenfresser
+        Stream.of(allAnimals).filter(Animal::isHerbivore)
+            // ab hier ist es Strean
+            .map(Animal::getName)
+            .sorted()
+            // Consumer ist jetzt Consumer<String>
+            .forEach(s -> System.out.printf("\t%s\n", s));
     }
 }
