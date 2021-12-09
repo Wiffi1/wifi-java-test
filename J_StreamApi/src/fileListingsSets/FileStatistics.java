@@ -128,13 +128,12 @@ public class FileStatistics {
             .filter(file -> file.getExtension().equalsIgnoreCase(ext))
             .forEach(a -> System.out.printf("\t%s\n", a));
 
-//        Stream<Animal> myStream =
 //        Set<FileData>
-
+/*
         Stream<FileData> myStream =  files.stream()
             .filter(file -> file.getExtension().equalsIgnoreCase(ext));
-
-        myStream.forEach(a -> System.out.printf("\tccccccc%s\n", a));
+        myStream.forEach(a -> System.out.printf("\t%s\n", a));
+*/
 
         System.out.println();
     }
