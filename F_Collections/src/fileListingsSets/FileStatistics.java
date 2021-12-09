@@ -17,7 +17,9 @@ public class FileStatistics {
     // passende Zuordnung für File-Extension zu Liste von Filenamen
     // statt einzelner Listen
     // private List<FileData> textFiles , javaFiles, classFiles;
-    private List<FileData> files = new ArrayList<>();
+    // TODO Set statt liste
+    //
+    private Set<FileData> files = new HashSet<>();
 
     /**
      * das Objekt mit dem angegebenen Verzeichnis initialisieren. Alle Files des Verzeichnisses werden
@@ -28,6 +30,10 @@ public class FileStatistics {
     public FileStatistics(String dirName) throws IOException {
         // das Verzeichnis verarbeiten
         System.out.printf("dirName: " + dirName);
+       readDirectory(new File(dirName));
+
+        // in einer Liste könne gleiche Objekte
+       // in einem Set kommt jedes Objekt nur einmal vor -> es gibt keine Verdoppelung durch 2-fache Verarbeitung
        readDirectory(new File(dirName));
     }
 

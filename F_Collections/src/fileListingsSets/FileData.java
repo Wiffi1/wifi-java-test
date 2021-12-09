@@ -73,4 +73,20 @@ public class FileData {
         return String.format("%-30s - %10d Byte - %s - %s", name, size, lastModified, path);
     }
 
+    // hashCode und equals implementieren
+    @Override
+    public int hashCode() {
+        // einen Streuwert für das Objekt liefern, z.B. für relvante Zeichenfolge des Objekts
+        return path.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // wenn das andere Objekt auch ein FileData-Objekt ist
+        if(other instanceof FileData fd) {
+            return path.equals(fd.path) && size == fd.size && lastModified.equals(fd.lastModified);
+        } else {
+            return false;
+        }
+    }
 }
