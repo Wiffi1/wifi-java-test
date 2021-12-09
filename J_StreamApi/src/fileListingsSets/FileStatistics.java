@@ -41,6 +41,8 @@ public class FileStatistics {
     }
 
     // 2 Stream-Api
+    // 1. verabetiet unr Files und erzeugt asu jedem File ein FileDataObjekt, das im foreach in die Liste hingzugefügt wird
+    // 2. verarbeitet nur Directories und führt für jedes Verzeichnis die readDirectory-Methode aus
     // ein Verzeichnis verarbeiten
     private void readDirectory(File dir) {
         // alle Files und Verzeichnisst in diesem
