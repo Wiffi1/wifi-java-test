@@ -83,6 +83,28 @@ public class StreamApiDemo {
 }
 
 
+/*            .forEach(s -> System.out.printf("\t%s\n", s));
+
+                // den Fleischfresser mit dem kleinsten Gewicht
+                Optional<Animal> min = Arrays.stream(allAnimals)
+    .filter(Predicate.not(Animal::isHerbivore))
+    .min(Comparator.comparing(Animal::getWeight));
+
+    min.ifPresent(a -> System.out.println("Das Tier mit dem kleinsten Gewich ist " + a.getName()));
+
+    int weight = 10;
+    Animal max = Arrays.stream(allAnimals)
+    .filter(a -> a.getWeight() < weight)
+    .max(Comparator.comparing(Animal::getWeight))
+    // wenn kein Objekt im ERgebnis ist, soll null geliefert werden
+    .orElse(null);
+    if (max != null) {
+    System.out.println("Schwerste Tier unter " + weight + " x kg ist " + max);
+    } else {
+    System.out.println("keine Tiere im Stream");
+    }
+    }*/
+
 /*
     public void showBiggestSmallest() {
         System.out.println("Ältestes/neuestes File ");

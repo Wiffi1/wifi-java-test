@@ -4,9 +4,8 @@ package fileListingsSets;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -193,6 +192,11 @@ public class FileStatistics {
      */
     public void showBiggestSmallest() {
         System.out.println("Ältestes/neuestes File ");
+
+        FileData minFile = files.stream().min(Comparator.comparing(f -> f.getSize())).orElse(null);
+        FileData maxFile = files.stream().min(Comparator.comparing(FileData::getSize)).orElse(null);
+
+/*
         FileData minFile = null, maxFile = null;
         // FileData mit min und max Größe suchen
         for (FileData fileData : files) {
@@ -203,10 +207,65 @@ public class FileStatistics {
                 maxFile = fileData;
             }
         }
+*/
 
         // Ergebnis anzeigen
         System.out.printf("\tKleinstes File: %s\n", minFile);
         System.out.printf("\tGrößtes   File: %s\n", maxFile);
         System.out.println();
     }
+
+    public void showBiggestSmallestNew() {
+        System.out.println("Ältestes/neuestes File ");
+//        FileData minFile = null, maxFile = null;
+        // FileData mit min und max Größe suchen
+/*        for (FileData fileData : files) {
+            if (minFile == null || fileData.getSize() < minFile.getSize()) {
+                minFile = fileData;
+            }
+            if (maxFile == null || fileData.getSize() > maxFile.getSize()) {
+                maxFile = fileData;
+            }
+        }*/
+
+//        Optional<FileData> min = Arrays.stream(files)
+//            .filter(Predicate.not(Animal::isHerbivore))
+
+        Optional<FileData> minFile = files.stream()
+            .min(Comparator.comparing(f -> f.getSize()));
+
+        Optional<FileData> maxFile = files.stream()
+            .min(Comparator.comparing(f -> f.getSize()));
+
+        // Ergebnis anzeigen
+        System.out.printf("\tKleinstes File: %s\n", minFile);
+        System.out.printf("\tGrößtes   File: %s\n", maxFile);
+        System.out.println();
+    }
+
 }
+
+
+
+/*            .forEach(s -> System.out.printf("\t%s\n", s));
+
+                // den Fleischfresser mit dem kleinsten Gewicht
+                Optional<Animal> min = Arrays.stream(allAnimals)
+    .filter(Predicate.not(Animal::isHerbivore))
+    .min(Comparator.comparing(Animal::getWeight));
+
+    min.ifPresent(a -> System.out.println("Das Tier mit dem kleinsten Gewich ist " + a.getName()));
+
+    int weight = 10;
+    Animal max = Arrays.stream(allAnimals)
+    .filter(a -> a.getWeight() < weight)
+    .max(Comparator.comparing(Animal::getWeight))
+    // wenn kein Objekt im ERgebnis ist, soll null geliefert werden
+    .orElse(null);
+    if (max != null) {
+    System.out.println("Schwerste Tier unter " + weight + " x kg ist " + max);
+    } else {
+    System.out.println("keine Tiere im Stream");
+    }
+    }*/
+
