@@ -95,14 +95,7 @@ public class FileStatistics {
 */
 
         files.stream()
-            .filter(file -> {
-                System.out.println("xxxxxx" +  file);
-                if (file.getExtension().equalsIgnoreCase(ext)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
+            .filter(file -> file.getExtension().equalsIgnoreCase(ext))
             .forEach(a -> System.out.printf("\t%s\n", a));
         System.out.println();
     }
