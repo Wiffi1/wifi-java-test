@@ -71,6 +71,7 @@ public class FileStatistics {
                 readDirectory(file);
             });*/
 
+
         // 2 Stream-API-Aufrufe:
 // der 1. verarbeitet nur Files und erzeugt aus jedem File ein FileData-Objekt, das im foreach in die Liste hinzugefügt wird
         Stream.of(files)
