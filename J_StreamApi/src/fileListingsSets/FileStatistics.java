@@ -1,8 +1,6 @@
 package fileListingsSets;
 
 
-import animalsStream.Animal;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
@@ -54,13 +52,18 @@ public class FileStatistics {
 
         Arrays.stream(files)
             .filter(f -> f.isFile())
-            .map(file -> {
-                    return new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
-            })
+            .map(file -> new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified())))
             .forEach(fd -> this.files.add(fd));
 
-
         Arrays.stream(files)
+            .filter(f -> f.isDirectory())
+            .forEach(file -> {
+                System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
+                // auch das Unterverzeichnis verarbeiten.
+                readDirectory(file);
+            });
+
+        Stream.of(files)
             .filter(f -> f.isDirectory())
             .forEach(file -> {
                 System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
@@ -128,7 +131,12 @@ public class FileStatistics {
 //        Stream<Animal> myStream =
 //        Set<FileData>
 
-            System.out.println();
+        Stream<FileData> myStream =  files.stream()
+            .filter(file -> file.getExtension().equalsIgnoreCase(ext));
+
+        myStream.forEach(a -> System.out.printf("\tccccccc%s\n", a));
+
+        System.out.println();
     }
 
 
