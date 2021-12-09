@@ -6,6 +6,7 @@ import animalsStream.Animal;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -40,34 +41,53 @@ public class FileStatistics {
        readDirectory(new File(dirName));
     }
 
-    // 2 Stream-Api
-    // 1. verabetiet unr Files und erzeugt asu jedem File ein FileDataObjekt, das im foreach in die Liste hingzugefügt wird
-    // 2. verarbeitet nur Directories und führt für jedes Verzeichnis die readDirectory-Methode aus
     // ein Verzeichnis verarbeiten
     private void readDirectory(File dir) {
         // alle Files und Verzeichnisst in diesem
         File[] files = dir.listFiles();
         System.out.printf("Verzeichnus %s: %d Einträge\n", dir.getAbsolutePath(), files.length);
         // alle Einträge verarbeiten
-        for (File file: files) {
-            // für Files: In der Liste hinzufügen
-            if (file.isFile()) {
-//               String path = file.getAbsolutePath();
-//               long size = file.length();
-//               // Änderungsdatum: milliseconds seit 1.1.1970
-//               long lastModifiedMillis = file.lastModified();
-//               // Einen Instand daraus erzeugen
-//                Instant lastModified = Instant.ofEpochMilli(lastModifiedMillis);
-                // daraus ein FileData-Objekt erzeugen
-//                FileData fd = new FileData(path, size, lastModified);
-                FileData fd = new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
-                this.files.add(fd);
-            } else  if(file.isDirectory()) {
+
+        // 2 Stream-Api
+        // 1. verabetiet unr Files und erzeugt asu jedem File ein FileDataObjekt, das im foreach in die Liste hingzugefügt wird
+        // 2. verarbeitet nur Directories und führt für jedes Verzeichnis die readDirectory-Methode aus
+
+        Arrays.stream(files)
+            .filter(f -> f.isFile())
+            .map(file -> {
+                    return new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
+            })
+            .forEach(fd -> this.files.add(fd));
+
+
+        Arrays.stream(files)
+            .filter(f -> f.isDirectory())
+            .forEach(file -> {
                 System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
                 // auch das Unterverzeichnis verarbeiten.
                 readDirectory(file);
-            }
-        }
+            });
+
+//        for (File file: files) {
+//            // für Files: In der Liste hinzufügen
+//            if (file.isFile()) {
+////               String path = file.getAbsolutePath();
+////               long size = file.length();
+////               // Änderungsdatum: milliseconds seit 1.1.1970
+////               long lastModifiedMillis = file.lastModified();
+////               // Einen Instand daraus erzeugen
+////                Instant lastModified = Instant.ofEpochMilli(lastModifiedMillis);
+//                // daraus ein FileData-Objekt erzeugen
+////                FileData fd = new FileData(path, size, lastModified);
+//                FileData fd = new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
+//                this.files.add(fd);
+//            } else  if(file.isDirectory()) {
+//                System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
+//                // auch das Unterverzeichnis verarbeiten.
+//                readDirectory(file);
+//            }
+//        }
+
     }
 
     /**
