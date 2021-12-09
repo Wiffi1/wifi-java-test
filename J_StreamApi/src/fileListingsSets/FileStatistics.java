@@ -1,11 +1,14 @@
 package fileListingsSets;
 
 
+import animalsStream.Animal;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /**
  * die Klasse gruppiert die Files eines Verzeichnisses (samt Unterverzeichnissen) nach der
@@ -37,6 +40,7 @@ public class FileStatistics {
        readDirectory(new File(dirName));
     }
 
+    // 2 Stream-Api
     // ein Verzeichnis verarbeiten
     private void readDirectory(File dir) {
         // alle Files und Verzeichnisst in diesem
@@ -46,14 +50,15 @@ public class FileStatistics {
         for (File file: files) {
             // für Files: In der Liste hinzufügen
             if (file.isFile()) {
-               String path = file.getAbsolutePath();
-               long size = file.length();
-               // Änderungsdatum: milliseconds seit 1.1.1970
-               long lastModifiedMillis = file.lastModified();
-               // Einen Instand daraus erzeugen
-                Instant lastModified = Instant.ofEpochMilli(lastModifiedMillis);
+//               String path = file.getAbsolutePath();
+//               long size = file.length();
+//               // Änderungsdatum: milliseconds seit 1.1.1970
+//               long lastModifiedMillis = file.lastModified();
+//               // Einen Instand daraus erzeugen
+//                Instant lastModified = Instant.ofEpochMilli(lastModifiedMillis);
                 // daraus ein FileData-Objekt erzeugen
-                FileData fd = new FileData(path, size, lastModified);
+//                FileData fd = new FileData(path, size, lastModified);
+                FileData fd = new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
                 this.files.add(fd);
             } else  if(file.isDirectory()) {
                 System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
@@ -97,7 +102,11 @@ public class FileStatistics {
         files.stream()
             .filter(file -> file.getExtension().equalsIgnoreCase(ext))
             .forEach(a -> System.out.printf("\t%s\n", a));
-        System.out.println();
+
+//        Stream<Animal> myStream =
+//        Set<FileData>
+
+            System.out.println();
     }
 
 
