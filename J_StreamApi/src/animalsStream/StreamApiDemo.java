@@ -1,5 +1,9 @@
 package animalsStream;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 public class StreamApiDemo {
     public static void main(String[] args) {
         Animal[] allAnimals = new Animal[] {
@@ -12,5 +16,31 @@ public class StreamApiDemo {
 
 
         };
+
+        // Stream für ein Array holen
+        Stream<Animal> myStream = Stream.of(allAnimals)
+            // filter; nur die Tiere, dei dem Predicate entsprechen
+            .filter(a -> !a.isHerbivore())
+            // in natürlicher Sortierreihenfolge
+            .sorted();
+        // bisher ist noch nichts verarbeitet worden -< Verarbeitung mit terminal
+        System.out.println("Fleischfresser sortiert");
+        myStream.forEach(a -> System.out.printf("\t%s \n", a));
+
+        try {
+            System.out.println("2. Ausführung");
+            myStream.forEach(System.out::println);
+        } catch (IllegalStateException e) {
+            System.out.println("Fehler bei zweiter Ausführung");
+        }
+
+        //            .filter(Predicate.not(a -> a.isHerbivore()))
+
+        Stream.of(allAnimals)
+            // statt a -> !a.
+            .filter(Predicate.not(Animal::isHerbivore))
+            .sorted(Comparator.comparing(Animal::getWeight))
+            .forEach(a -> System.out.printf("\t%s", a));
+
     }
 }
