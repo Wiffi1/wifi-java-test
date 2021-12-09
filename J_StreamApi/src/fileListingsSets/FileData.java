@@ -35,6 +35,15 @@ public class FileData implements Comparable<FileData> {
     }
 
     /**
+     * Konstruktor, mit dem das File-Data-Objekt aus einem File-Objekt initialisiert wird
+     * @param file
+     */
+    public FileData(File file) {
+//        new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified())))
+        this(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified()));
+    }
+
+    /**
      * getter für den Namen
      */
     public String getName() {
