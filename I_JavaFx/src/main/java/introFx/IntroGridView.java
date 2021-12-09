@@ -22,32 +22,32 @@ public class IntroGridView extends GridPane {
     private Button btnOk, btnCancel;
     private ListView<String> lvMessages;
 
-    public IntroGridView() {
 
-        // Horizontalen und vertikalen Abstand der Controls setzen
+    public IntroGridView(){
+
+        // Horizontalen und vertikalen Abstand zwischen den Controls setzen
         setHgap(5);
         setVgap(5);
 
-        // Abstand vom Rand
+        // Abstand vom Rand (überall 20)
         setPadding(new Insets(20));
 
         // Titel
-        Label lblTitle = new Label("Willkommen bei Java FY!");
+        Label lblTitle = new Label("Willkommen bei Java FX!");
         // im Container hinzufügen, in Spalte 0, Zeile 0, 3 Spalten breit, 1 Zeile hoch
         add(lblTitle, 0, 0, 3, 1);
         setHalignment(lblTitle, HPos.CENTER);
 
-        // Name; Beschriftung und Text
+        // Name: Beschriftung und Text
         Label lblName = new Label("Dein Name:");
-        // im Container hinzufügen, in Spalte 0, Zeile 1, 1 Spalten breit, 1 Zeile hoch
+        // im Container hinzufügen, in Spalte 0, Zeile 1, 1 Spalte breit, 1 Zeile hoch
         add(lblName, 0, 1);
 
         txtName = new TextField();
-        // in Spalte 1/Zeile 1
+        // in Spalte 1/Zeile1
         add(txtName, 1, 1, 2, 1);
 
-
-        // Buttons erzeugen wir als
+        // Button
         btnOk = new Button("OK");
         btnOk.setUserData("OK");
         add(btnOk, 1, 2);
@@ -61,21 +61,21 @@ public class IntroGridView extends GridPane {
         btnCancel.setOnAction(this::onClickButton);
 
         lvMessages = new ListView<String>();
-        add(lvMessages, 1, 3, 1, 1);
+        add(lvMessages, 1, 3, 2, 1);
         lvMessages.setMinWidth(250);
 
-        addEntry("Application startup finished");
-
-        // Änderungen im Textfeld reagieren
-        txtName.textProperty().addListener((o, oldVal, newVal) ->
-                // Wenn das Textfeld jetzt leer ist, den Button disablen
-                // sonst den Button enablen
-                btnOk.setDisable(newVal == null || newVal.isBlank()));
-        addEntry("App startup finished");
-
-        // Anfangs sden Button disablen
+        // auf Änderungen im Textfeld reagieren
+        txtName.textProperty().addListener((o, oldVal, newVal) ->{
+            // wenn das Textfeld jetzt leer ist, den Button disablen
+            // sonst den Button enablen
+            btnOk.setDisable(newVal == null || newVal.isBlank());
+        });
+        // anfangs den Button disabeln
         btnOk.setDisable(true);
+
+        addEntry("Application startup finished");
     }
+
 
     private void onClickButton(ActionEvent ae) {
 
@@ -91,5 +91,4 @@ public class IntroGridView extends GridPane {
         lvMessages.getItems().add(
                 DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).format(LocalTime.now()) + ": " + msg);
     }
-
 }

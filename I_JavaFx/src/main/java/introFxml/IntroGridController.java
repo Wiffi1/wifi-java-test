@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class IntroGridController {
+    // Attribute für die Controls
     @FXML
     private TextField txtName;
     @FXML
@@ -22,19 +23,21 @@ public class IntroGridController {
     private ListView<String> lvMessages;
 
     @FXML
-    private void initialize() {
+    private void initialize(){
 
-        // Änderungen im Textfeld reagieren
-        txtName.textProperty().addListener((o, oldVal, newVal) ->
-        // Wenn das Textfeld jetzt leer ist, den Button disablen
-        // sonst den Button enablen
-                btnOk.setDisable(newVal == null || newVal.isBlank()));
-        addEntry("App startup finished");
+        // auf Änderungen im Textfeld reagieren
+        txtName.textProperty().addListener((o, oldVal, newVal) ->{
+            // wenn das Textfeld jetzt leer ist, den Button disablen
+            // sonst den Button enablen
+            btnOk.setDisable(newVal == null || newVal.isBlank());
+        });
 
-        // Anfangs sden Button disablen
+        // anfangs den Button disabeln
         btnOk.setDisable(true);
-    }
 
+
+        addEntry("App startup finished!");
+    }
 
     @FXML
     private void onClickButton(ActionEvent ae) {

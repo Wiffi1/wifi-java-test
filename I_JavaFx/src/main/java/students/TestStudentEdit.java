@@ -14,21 +14,22 @@ public class TestStudentEdit extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // FXML loader, damit wir Zugriff auf das Controllerobjekt bekommen
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/students/EditStudents.fxml"));
-
+        // FXMLLoader instanzieren, damit wir Zugriff auf das Controllerobjekt bekommen
+        FXMLLoader loader =
+                new FXMLLoader(getClass().getResource("/views/students/EditStudent.fxml"));
         // den Scene Graph laden
         Parent root = loader.load();
         // den Controller holen
         EditStudentController controller = loader.getController();
         // und konfigurieren
-        // ein neues Objekt erfassen
+        // eines neues Objekt erfassen
         controller.setStudent(null);
 
-        // DenContainer für unser View-Objekt erzeugen (=Scene Graph)
-        Scene scene = new Scene(root, 400, 400);
-        // den Scene graph im Hauptfenster
+        // den Container für unser View-Objekt erzeugen (=Scene Graph)
+        Scene scene = new Scene(root);
+        // den Scene Graph im Hauptfenster setzen
         stage.setScene(scene);
+
         stage.setTitle("Student*in bearbeiten");
         // Hauptfenster anzeigen
         stage.show();
