@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="I_JavaFx" />
         <module name="studentList" />
+        <module name="simpleEditor" />
         <module name="I_SimpleEditor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="I_JavaFx" target="16" />
       <module name="I_SimpleEditor" target="16" />
+      <module name="simpleEditor" target="17" />
       <module name="studentList" target="17" />
     </bytecodeTargetLevel>
   </component>
