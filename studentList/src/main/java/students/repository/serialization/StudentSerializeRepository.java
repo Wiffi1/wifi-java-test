@@ -107,7 +107,8 @@ public class StudentSerializeRepository implements StudentRepository {
                 studentColl = students;
                 nextStudentId = ois.readInt();
                 System.out.println("nextStudentId: " + nextStudentId);
-            } catch (IOException | ClassNotFoundException e) {
+            }
+            catch (IOException | ClassNotFoundException e) {
                 throw new StudentRepositoryException("Fehler beim Deserialisieren der Daten aus dem File " + repoPath, e);
             }
         }

@@ -17,19 +17,20 @@ public class StudentListMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-/*		Parent root = (Parent)
-				FXMLLoader.load(getClass().getResource("/students/views/StudentListView.fxml"));
-		Scene scene = new Scene(root, 800, 750);
-		// das CSS-Stylesheet laden und setzen
-		scene.getStylesheets().add(getClass().getResource("/students/views/studentStyles.css").toExternalForm());
-		// das ganze anzeigen
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Collection Binding Demo");*/
+//		Parent root = (Parent)
+//				FXMLLoader.load(getClass().getResource("/students/views/StudentListView.fxml"));
+//		Scene scene = new Scene(root, 800, 750);
+//		// das CSS-Stylesheet laden und setzen
+//		scene.getStylesheets().add(getClass().getResource("/students/views/studentStyles.css").toExternalForm());
+//		// das ganze anzeigen
+//		primaryStage.setScene(scene);
+//		primaryStage.setTitle("Collection Binding Demo");
 
 		// unsere neue schlaue Methode aufrufen
-		StudentListController controller = FxmlHelper.initStage(primaryStage, "/students/views/StudentListView.fxml", "Collection Binding Demo");
+		StudentListController controller =  FxmlHelper.initStage(primaryStage,
+				"/students/views/StudentListView.fxml", "Collection Binding Demo");
 
-		// dem Cont
+		// dem Controller den Pfad zum Repository mitteilen:
 		controller.setRepositoryPath("studentList/Repository.seri");
 
 		primaryStage.show();

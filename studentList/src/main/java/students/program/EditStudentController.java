@@ -5,6 +5,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.stage.Stage;
@@ -18,71 +19,90 @@ public class EditStudentController {
 
     private Student result;
 
-
-    @FXML private ToggleGroup grpGeschlecht;
-    @FXML private TextField txtId;
-    @FXML private TextField txtName;
-    @FXML private TextField txtPlz;
-    @FXML private TextField txtStadt;
-    @FXML private RadioButton rbMaennlich;
-    @FXML private RadioButton rbWeiblich;
-    @FXML private RadioButton rbDivers;
-    @FXML private DatePicker dtpGeburtstag;
-    @FXML private TextArea txtKommentar;
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextField txtName;
+    @FXML
+    private TextField txtPlz;
+    @FXML
+    private TextField txtStadt;
+    @FXML
+    private RadioButton rbMaennlich;
+    @FXML
+    private ToggleGroup grpGeschlecht;
+    @FXML
+    private RadioButton rbWeiblich;
+    @FXML
+    private RadioButton rbDivers;
+    @FXML
+    private DatePicker dtpGeburtsdatum;
+    @FXML
+    private CheckBox cbHtml;
+    @FXML
+    private CheckBox cbXml;
+    @FXML
+    private CheckBox cbFxml;
 
     // Combobox soll Language-Objekte anzeigen
-    @FXML private ComboBox<Language> cmbSprache;
-    @FXML private CheckBox cbXml;
-    @FXML private CheckBox cbHtml;
-    @FXML private CheckBox cbFXML;
-    @FXML private Button btnCancel;
-    @FXML private Button btnOK;
+    @FXML
+    private ComboBox<Language> cmbSprache;
+    @FXML
+    private TextArea txtKommentar;
+    @FXML
+    private Button btnAbbrechen;
+    @FXML
+    private Button btnOK;
 
     @FXML
     private void initialize() {
         // ein paar Sprachen eintragen
-        // nicht mehr nötig, kommt aus der DB
+        // nicht mehr nötig, kommt aus der "DB"
 //        cmbSprache.getItems().add("Deutsch");
 //        cmbSprache.getItems().add("Englisch");
 
+        // Cell-Factory liefert eine LanguageListCell bei jedem Aufruf
         cmbSprache.setCellFactory(cmb -> new LanguageListCell());
+        // die LanguageListCell auch für das ausgewählte Item verwenden
         cmbSprache.setButtonCell(new LanguageListCell());
 
-        // Den ok button enablen disablen je nach eingaben
-        // Variante 1 Listener registrieren und die Property entsprechend setzten
-/*        txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
-        txtStadt.textProperty().addListener((o, oldval, newval) -> checkGueltig());
-        txtPlz.textProperty().addListener((o, oldval, newval) -> checkGueltig());
-        // Bei Radiobuttons auf Änderungen der selectedToggle-Eigenschaft der ButtonGroup reagieren
-        grpGeschlecht.selectedToggleProperty().addListener((o, oldval, newval) -> checkGueltig());
-        // Bei Datepicker und Combobox die value-Eigenschaft
-        dtpGeburtstag.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
-        cmbSprache.valueProperty().addListener((o, oldval, newval) -> checkGueltig());*/
+         
+        // den OK button enablen disablen je nach Eingaben
+        // Variante 1: Listener registrieren und die Property entsprechend setzen
+//        txtName.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+//        txtStadt.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+//        txtPlz.textProperty().addListener((o, oldval, newval) -> checkGueltig());
+//        // bei Radiobuttons auf Änderungen der selectedToggle-Eigenschaft der ButtonGroup reagieren
+//        grpGeschlecht.selectedToggleProperty().addListener((o, oldval, newval) -> checkGueltig());
+//        // Bei DatePicker und ComboBox-> die value-Eigenschaft
+//        dtpGeburtsdatum.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
+//        cmbSprache.valueProperty().addListener((o, oldval, newval) -> checkGueltig());
 
-        // ein Binding erzeugen, dass bei Änderungen von den beteiligten Properties die
-        // isGueltig Methofe aufruft
+        // Variante 2: Bindings verwenden
+        // ein Binging erzeugen, das bei Änderungen von den beteiligten Properties die
+        // isGueltig Methode aufruft
         BooleanBinding isValid = Bindings.createBooleanBinding(this::isGueltig,
-                            txtName.textProperty(), txtStadt.textProperty(), txtPlz.textProperty(),
-                             grpGeschlecht.selectedToggleProperty(), dtpGeburtstag.valueProperty(),
-                               cmbSprache.valueProperty());
+                // die beteiligten Properties:
+                txtName.textProperty(), txtStadt.textProperty(), txtPlz.textProperty(),
+                grpGeschlecht.selectedToggleProperty(), dtpGeburtsdatum.valueProperty(), cmbSprache.valueProperty());
+        // die disable-Property des OK Buttons an den Kehrwert von "isValid" binden
         btnOK.disableProperty().bind(isValid.not());
     }
 
-
     private void checkGueltig() {
         boolean gueltig = isGueltig();
-        // Den Button je nach Gültigkeit enablen/disablen
+        // den Button je nach Gültigkeit enablen/disablen
         btnOK.setDisable(!gueltig);
     }
 
     private boolean isGueltig() {
         boolean gueltig = txtName.getText() != null && !txtName.getText().isBlank()
-                && txtStadt.getText() != null && !txtStadt.getText() .isBlank()
-                && txtPlz.getText() != null && !txtPlz.getText() .isBlank()
+                && txtStadt.getText() != null && !txtStadt.getText().isBlank()
+                && txtPlz.getText() != null && !txtPlz.getText().isBlank()
                 && grpGeschlecht.getSelectedToggle() != null
-                && dtpGeburtstag.getValue() != null
+                && dtpGeburtsdatum.getValue() != null
                 && cmbSprache.getValue() != null;
-        System.out.println("Gültig; " + gueltig);
+        System.out.println("Gültig=" + gueltig);
         return gueltig;
     }
 
@@ -90,17 +110,19 @@ public class EditStudentController {
     private void onOK(ActionEvent ae) {
 
         try {
-            // Die Daten auslesen und in ein Student-Objekt übernehmen
+            // die Daten auslesen und in Student-Objekt übernehmen
             Student student = new Student();
+            // Textfelder auslesen
             student.setId(Integer.parseInt(txtId.getText()));
             student.setName(txtName.getText().trim());
             student.setCity(txtStadt.getText().trim());
-            student.setComment(txtKommentar.getText().trim());
+            // Kommentar ist optional
+            if (txtKommentar.getText() != null) {
+                student.setComment(txtKommentar.getText().trim());
+            }
             student.setAreaCode(Integer.parseInt(txtPlz.getText().trim()));
 
-            // Radiobuttons: je nach Button das passende Geschlecht
-//        Gender gender =
-
+            // Radiobuttons: je nach Button das passende Gender ermitteln
             Gender gender;
             if (grpGeschlecht.getSelectedToggle() == rbMaennlich) {
                 gender = Gender.MALE;
@@ -111,48 +133,47 @@ public class EditStudentController {
             }
             student.setGender(gender);
 
-            // Datepicker
-            student.setBirthDate(dtpGeburtstag.getValue());
+            // DatePicker: den Value verwenden
+            student.setBirthDate(dtpGeburtsdatum.getValue());
 
-            if (txtKommentar.getText() != null) {
-                student.setComment(txtKommentar.getText().trim());
-            }
-
-            // Checkboxen
+            // Checkboxen: selected-Property
             student.setHtml(cbHtml.isSelected());
             student.setXml(cbXml.isSelected());
-            student.setFxml(cbFXML.isSelected());
+            student.setFxml(cbFxml.isSelected());
 
-            // Combobox
+            // ComboBox: den Value verwenden
             Language language = cmbSprache.getValue();
-
+            // Sprache
             student.setLanguageId(language.getId());
 
-            System.out.println("Studentn erfasst " + student);
+            System.out.println("Student*in erfasst: " + student);
 
-            // ergebnis für später merken und das fenster schließen
+            // hier würden wir am liebsten  dem Aufrufer des Dialogs das StudentObjekt zurückliefern
+            // ist hier nicht möglich, daher: das Ergebnis für später merken und das Fenster schließen
             result = student;
-            ((Stage)txtId.getScene().getWindow()).close();
-        } catch (Exception e) {
-            MessageBox.show("Erfassen", "Fehler beim Erfassen: " + e.getMessage()
-                , Alert.AlertType.ERROR, ButtonType.OK);
+            ((Stage) txtId.getScene().getWindow()).close();
+        }catch(Exception e){
+            e.printStackTrace();
+            MessageBox.show("Erfassen", "Fehler beim Erfassen: " + e.getMessage(), Alert.AlertType.ERROR, ButtonType.OK);
         }
     }
 
     @FXML
     private void onCancel(ActionEvent ae) {
-        System.out.println("Student unverändert");
+        System.out.println("Erfassen abgebrochen");
+
+
+        // das Ergebnis zurücksetzen und das Fenster schließen
         result = null;
         ((Stage)txtId.getScene().getWindow()).close();
     }
 
-    // den Studenten übergeben (vorläufig nur string)
-
+    // den Studenten übergeben
     public void setStudent(Student student, List<Language> languages) {
-        // Wenn es ein neuer Student ist ein neues Objekt erzeugen
+
+        // wenn es ein neuer Student ist: ein "leeres" Objekt erzeugen
         if (student == null) {
-          student = new Student();
-//          student.setId(0);
+            student = new Student();
         }
 
         // die languages in der Combobox anzeigen
@@ -164,8 +185,8 @@ public class EditStudentController {
         txtKommentar.setText(student.getComment());
         txtPlz.setText(Integer.toString(student.getAreaCode()));
 
+        // Radiobuttons je nach Gender
         if (student.getGender() != null) {
-            // Radiobutton
             switch (student.getGender()) {
                 case MALE -> rbMaennlich.setSelected(true);
                 case FEMALE -> rbWeiblich.setSelected(true);
@@ -173,32 +194,37 @@ public class EditStudentController {
             }
         }
 
-        //Datepicker
-        dtpGeburtstag.setValue(student.getBirthDate());
+        // DatePicker: den Value setzen
+        dtpGeburtsdatum.setValue(student.getBirthDate());
 
         // Checkboxen
         cbHtml.setSelected(student.isHtml());
         cbXml.setSelected(student.isXml());
-        cbFXML.setSelected(student.isFxml());
+        cbFxml.setSelected(student.isFxml());
 
-        //Combobox
+        // ComboBox
+        // Sprache
+        // die Sprache in der Liste suchen
         Language lang = null;
         for (Language l : languages) {
             if (l.getId() == student.getLanguageId()) {
+                // diese Sprache selektieren
                 lang = l;
                 break;
             }
+
         }
+        // die Sprache in der ComboBox selektieren
         cmbSprache.setValue(lang);
 
     }
 
-    public Student getResult() {
+    // dem Controller (nach Ende des Dialogs) das Result verfügbar machen
+    public Student getResult(){
         return result;
     }
-
-    // Klasse, für die ListCell
-    private static class LanguageListCell extends ListCell<Language>{
+    // Klasse für die ListCell für die Sprachen
+    private class LanguageListCell extends ListCell<Language> {
         @Override
         protected void updateItem(Language language, boolean empty) {
             // Styles usw. setzen

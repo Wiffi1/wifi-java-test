@@ -5,6 +5,7 @@ import common.MessageBox;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -111,23 +112,27 @@ public class StudentTableController {
     private void initialize() {
         System.out.println("init StudentList");
 
-        // TODO: Spalten korrekt anzeigen
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        // Spalten korrekt anzeigen
+        // PropertyValueFactory ist eine vordefinierte Klasse, die aus einem Objekt eine Property
+        // ausliest und anzeigt, z.B. die id aus dem Student-Objekt
+        colId.setCellValueFactory(new PropertyValueFactory<Student, Integer>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
         colAreaCode.setCellValueFactory(new PropertyValueFactory<>("areaCode"));
         colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
-        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        colHtml.setCellValueFactory(new PropertyValueFactory<>("html"));
+        colBirthdate.setCellValueFactory(new PropertyValueFactory<Student, LocalDate>("birthDate"));
+        colGender.setCellValueFactory(new PropertyValueFactory<Student, Gender>("gender"));
+        colHtml.setCellValueFactory(new PropertyValueFactory<Student, Boolean>("html"));
         colXml.setCellValueFactory(new PropertyValueFactory<>("xml"));
         colFxml.setCellValueFactory(new PropertyValueFactory<>("fxml"));
 
-        // TODO die CellFactories setzen
-//        colBirthdate.setCellFactory(this::localDateCell);
-//        // die Booleschen Spalten als Check anzeigen
-//        colHtml.setCellFactory(this::checkBoxCell);
-//        colXml.setCellFactory(this::checkBoxCell);
-//        colFxml.setCellFactory(this::checkBoxCell);
+        //  die CellFactories setzen
+        // das Geburtsdatum im lokalen Format anzeigen
+        colBirthdate.setCellFactory(this::localDateCell);
+        // die Booleschen Spalten als CheckBox anzeigen
+        colHtml.setCellFactory(this::checkBoxCell);
+        colXml.setCellFactory(this::checkBoxCell);
+        colFxml.setCellFactory(this::checkBoxCell);
 
 
         // Handler für Änderungen im Listview
@@ -197,10 +202,9 @@ public class StudentTableController {
     public void deleteStudent() {
         System.out.println("deleteStudent");
         try{
-            ButtonType antwort = MessageBox.show("Löschen", "Studenti:in löschen "
-                        , Alert.AlertType.CONFIRMATION, ButtonType.OK, ButtonType.CANCEL);
-
-            if (antwort.equals(ButtonType.OK)) {
+            ButtonType antwort = MessageBox.show("Löschen", "Student*in löschen?",
+                    Alert.AlertType.CONFIRMATION, ButtonType.OK, ButtonType.CANCEL);
+            if(antwort.equals(ButtonType.OK)) {
                 // aus dem Repository löschen
                 studentRepository.deleteStudent(getSelectedStudent().getId());
                 // aus dem ListView entfernen
@@ -210,6 +214,7 @@ public class StudentTableController {
             e.printStackTrace();
             MessageBox.show("Löschen", "Fehler beim Löschen eine*s Student*in: "
                     + e.getMessage(), Alert.AlertType.ERROR);
+
         }
 
     }
@@ -236,7 +241,7 @@ public class StudentTableController {
 
     private Student editStudent(Student s, String title) throws IOException, StudentRepositoryException {
         Stage dialogStage = new Stage();
-        EditStudentController controller = FxmlHelper.initAsDialog(dialogStage,
+        EditStudentController_Validation controller = FxmlHelper.initAsDialog(dialogStage,
                 "/students/views/EditStudent.fxml", title);
         // dem Controller das Objekt zur Anzeige übergeben
         controller.setStudent(s, languageRepository.selectAll());
@@ -274,26 +279,30 @@ public class StudentTableController {
         // den Zellwert des Items, das angezeigt wird abruft
         //
         return new CheckBoxTableCell<Student, Boolean>(index -> {
+
+            // dieser Block wird aufgerufen, wenn der Wert für eine Zelle benötigt wird
+            // index ist der Zeilenindex im TableView
             System.out.printf("Checkbox für Spalte %s/Index %d: Wert==%b %n",
                     column.getText(), index, column.getCellData(index));
+            // eine Property mit dem boolean-Wert in dieser Zeile liefern
             return new SimpleBooleanProperty(column.getCellData(index));
         });
 
     }
 
     @FXML
-    private void onClicked(MouseEvent e) {
-        if (e.getClickCount() == 2) {
+    private void onClicked(MouseEvent e){
+        if(e.getClickCount() == 2){
             // den Callback für den Edit-Button aufrufen
             editStudent();
         }
     }
 
     @FXML
-    private void onKey(KeyEvent e) {
-        switch (e.getCode()) {
+    private void onKey(KeyEvent e){
+        switch (e.getCode()){
             case ENTER -> editStudent();
-            // ACHTUNG löscht ohne Rückfrage
+            // Achtung: deleteStudent löscht ohne Rückfrage
             case DELETE -> deleteStudent();
         }
     }

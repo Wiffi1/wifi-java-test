@@ -23,8 +23,8 @@
 		<Label text="Alle Details:" styleClass="subTitle" />
 		<HBox>
 			<Label text="Id: " styleClass="caption" />
-			<!--	Binding-Ausdruck: die id aus dem selektierten Studenten holen
-				selctedStudent is unsere Observble Property -->
+			<!-- Binding-Ausdruck: die id aus dem selektierten Student holen
+			selectedStudent ist unsere Observable Property-->
 			<Label text="${controller.selectedStudent.id}" />
 
 		</HBox>
