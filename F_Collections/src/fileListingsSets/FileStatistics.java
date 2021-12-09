@@ -19,7 +19,7 @@ public class FileStatistics {
     // private List<FileData> textFiles , javaFiles, classFiles;
     // TODO Set statt liste
     //
-    private Set<FileData> files = new HashSet<>();
+    private Set<FileData> files = new TreeSet<>();
 
     /**
      * das Objekt mit dem angegebenen Verzeichnis initialisieren. Alle Files des Verzeichnisses werden

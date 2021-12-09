@@ -8,7 +8,7 @@ import java.time.Instant;
  *
  * @author Michaela
  */
-public class FileData {
+public class FileData implements Comparable<FileData> {
 
     // Attribute für name, path, size und lastModified
     private final String name, path, extension;
@@ -88,5 +88,17 @@ public class FileData {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int compareTo(FileData o) {
+        int ret = path.compareTo(o.path);
+        if (ret == 0) {
+            ret = lastModified.compareTo(o.lastModified);
+            if (ret == 0) {
+                ret = Long.compare(size, o.size);
+            }
+        }
+        return ret;
     }
 }
