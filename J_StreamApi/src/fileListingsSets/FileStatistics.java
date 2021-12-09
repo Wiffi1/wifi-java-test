@@ -50,7 +50,7 @@ public class FileStatistics {
         // 1. verabetiet unr Files und erzeugt asu jedem File ein FileDataObjekt, das im foreach in die Liste hingzugefügt wird
         // 2. verarbeitet nur Directories und führt für jedes Verzeichnis die readDirectory-Methode aus
 
-        Arrays.stream(files)
+/*        Arrays.stream(files)
             .filter(f -> f.isFile())
             .map(file -> new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified())))
             .forEach(fd -> this.files.add(fd));
@@ -69,7 +69,28 @@ public class FileStatistics {
                 System.out.printf("\tUnterverzeichnis %s...", file.getAbsolutePath());
                 // auch das Unterverzeichnis verarbeiten.
                 readDirectory(file);
-            });
+            });*/
+
+        // 2 Stream-API-Aufrufe:
+// der 1. verarbeitet nur Files und erzeugt aus jedem File ein FileData-Objekt, das im foreach in die Liste hinzugefügt wird
+        Stream.of(files)
+            .filter(File::isFile)
+// oder
+//.filter(f -> f.isFile())
+            .map(file -> new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified())))
+// statt method reference geht auch
+//.forEach(fd -> this.files.add(fd));
+            .forEach(this.files::add);
+
+
+
+// der 2. verarbeitet nur Directories und führt für jedes Verzeichnis die readDirectory-Methode aus
+        Stream.of(files)
+            .filter(File::isDirectory)
+// Alternative ohne method reference:
+//.forEach(file -> readDirectory(file));
+            .forEach(this::readDirectory);
+
 
 //        for (File file: files) {
 //            // für Files: In der Liste hinzufügen
