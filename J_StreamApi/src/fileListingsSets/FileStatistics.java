@@ -58,10 +58,8 @@ public class FileStatistics {
 // oder
 //.filter(f -> f.isFile())
 //            .map(file -> new FileData(file.getAbsolutePath(), file.length(), Instant.ofEpochMilli(file.lastModified())))
-
             // mit neuem Konstruktor
 //            .map(file -> new FileData(file))
-
             // oder mit Kontruktor-Referenz
             .map(FileData::new)
 // statt method reference geht auch
