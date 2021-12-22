@@ -1,5 +1,6 @@
 package intro;
 
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ThreadDemo {
@@ -15,7 +16,8 @@ public class ThreadDemo {
         // jeweils in eigenem Thread starten (= run asynchron ausführen)
         // a) Thread-Objekt erzeugen
         Thread t1 = new Thread(runnable1), t2 = new Thread(runnable2);
-        t1.setDaemon(true);
+//        t1.setDaemon(true);
+        // nur t2 als Daemon configurieren
         t2.setDaemon(true);
 
         // b) ... und starten (damit wird die jeweilige run-Implementierung ausgeführt)
@@ -48,6 +50,11 @@ public class ThreadDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // das Programm beeden
+        System.out.println("Beenden mit Enter");
+        Scanner scan = new Scanner(System.in);
+        scan.nextLine();
 
         System.out.println("Main-Thread beendet.");
     }

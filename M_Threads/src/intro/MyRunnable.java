@@ -13,7 +13,7 @@ public class MyRunnable implements Runnable {
     public void run(){
         // Random-Generator für diesen Thread holen
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        for (int i = 1; i<= 5; i++){
+        for (int i = 1; i<= 50; i++){
             System.out.printf("%s: Durchlauf %d\n", name, i);
             try {
                 Thread.sleep(random.nextInt(500));
