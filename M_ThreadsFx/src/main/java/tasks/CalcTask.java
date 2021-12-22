@@ -37,12 +37,22 @@ public class CalcTask extends CalcTaskBase {
 
         double sum = 0;
         for (int i = 0; i < count; i++) {
-            // TODO abbrechen
+            // abbrechen
+
+            if (isCancelled()) {
+                System.out.println("Task wurde abgebrochen");
+                updateMessage("Task wurde bei Schritt %d abgebrochen".formatted(i+1));
+                return null;
+            }
 
             double value = calcValue();
             sum += value;
 
-            // TODO: UI updaten
+            // UI updaten mit zwei Methoden aus Task<T> (die Änderungen am Ui werden garantiert am passenden Thread ausgeführt)
+            // Für den Progressbar: i+1 Schritte von count Schritten sind erledigt
+            updateProgress(i+1, count);
+            updateMessage("Schritt %d von %d ausgeführt, ".formatted(i+1, count));
+
         }
         // den Durchschnitt zurückliefern
         return sum / count;

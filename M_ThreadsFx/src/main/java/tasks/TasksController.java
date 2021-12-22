@@ -146,21 +146,46 @@ public class TasksController {
         // TODO: Handler für Success registrieren (wird am richtigen Thread ausgelöst)
 
         // TODO: Handler für Cancel registrieren
+        myTask.setOnSucceeded(e -> {
+            System.out.println("onSucceeded in Thread " + Thread.currentThread().getName());
+            try {
+                // Das Ergebnis der Call-Methode des Task-Objekts abholen
+                Double result = myTask.get();
+                Duration elapsed = Duration.between(startTime, Instant.now());
+                lblMessage.setText("Async. Task in %d ms abgeschlossen, result=%.2f".formatted(
+                    elapsed.toMillis(), result));
+            } catch (InterruptedException | ExecutionException ex) {
+                ex.printStackTrace();
+            }
+            isRunning.set(false);
+        });
 
-        // TODO: Listener für die Message-Property (Message im Label anzeigen)
+        // Listener für die Message-Property (Message im Label anzeigen)
         // nicht mit Binding, weil wir den Text im Label auch von anderen Stellen setzen
         // der Handler wird am Application Main Thread ausgelöst
+        myTask.messageProperty().addListener((o, oldval, newval) -> lblMessage.setText(newval));
 
-        // TODO: den ProgressBar an den Fortschritt des Tasks binden
+        // den ProgressBar an den Fortschritt des Tasks binden
+        barProgress.progressProperty().bind(myTask.progressProperty());
 
-        // TODO: Zeitmessung starten und asynchron ausführen
+        // Zeitmessung starten und asynchron ausführen
+        startTime = Instant.now();
+        // startet den Task in einem eigenen Thread -> damit wird die call-Methode ausgeführt
+        new Thread(myTask).start();
 
-        // TODO: Buttons enablen/disablen
+        // Buttons enablen/disablen
+        isRunning.set(true);
     }
 
     @FXML
     private void cancelAsync(ActionEvent event) {
-        // TODO: den Task canceln und Buttons enablen/disablen
+        // den Task canceln und Buttons enablen/disablen
+        if (myTask != null && myTask.isRunning()) {
+            // im Task das isCancelled-Flag auf true setzen
+            myTask.cancel();
+            // Button enablen/disablen
+            isRunning.set(false);
+        }
     }
 
 }

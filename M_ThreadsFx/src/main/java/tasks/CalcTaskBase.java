@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class CalcTaskBase {
+public abstract class CalcTaskBase extends Task<Double> {
     protected final int count;
 
 
