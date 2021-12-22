@@ -13,4 +13,18 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+
+    <dependencies>
+        <!-- JDBC Connector für MySQL-Datenbanken. Brauchen wir für den JDBC-Zugriff
+          auf eine MySQL DB.
+          Es genügt, wenn die Library am Classpath vorhanden ist, der Treiber registriert
+          sich automatisch beim JDBC-DriverManager -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version>
+        </dependency>
+
+    </dependencies>
 </project>
