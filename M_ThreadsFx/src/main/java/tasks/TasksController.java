@@ -73,25 +73,37 @@ public class TasksController {
         btnCancelAsync.disableProperty().bind(isRunning.not());
 
 
-        // TODO: Timer erzeugen und starten
+        // Timer erzeugen und starten
+        myTimer = new Timer("My Timer");
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                onTimerBreak();
+            }
+        }, 2000, 1000); // Timer 1x pro Sekubnde start nach 2
 
-        // TODO: Timer beenden, wenn das Fenster geschlossen wird
-//        Platform.runLater(() -> {
-//            lblStatus.getScene().getWindow()
-//                    .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, we -> {
-//                        System.out.println("Fenster wird geschlossen -> Timer wird beendet");
-//                        myTimer.cancel();
-//                    });
-//        });
+        // Timer beenden, wenn das Fenster geschlossen wird
+        Platform.runLater(() -> {
+            lblStatus.getScene().getWindow()
+                    .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, we -> {
+                        System.out.println("Fenster wird geschlossen -> Timer wird beendet");
+                        myTimer.cancel();
+                    });
+        });
 
     }
 
     private void onTimerBreak() {
-        System.out.printf("TimerBreak in Thread %s, Uhrzeit: %s\n",
-                Thread.currentThread().getName(), LocalDateTime.now().toString());
+//        System.out.printf("TimerBreak in Thread %s, Uhrzeit: %s\n",
+//                Thread.currentThread().getName(), LocalDateTime.now().toString());
 
         DateTimeFormatter fmt = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        lblStatus.setText(fmt.format(LocalDateTime.now()));
+
+        // das Zugreifen auf die Controls ist nur im JavaFX Application-Thread erlaubt
+        Platform.runLater(() -> {
+            System.out.println("Platform.runLater in Thread " + Thread.currentThread().getName());
+            lblStatus.setText(fmt.format(LocalDateTime.now()));
+        });
 
     }
 
