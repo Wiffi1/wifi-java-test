@@ -31,7 +31,9 @@ public class StudentListMain extends Application {
 				"/students/views/StudentListView.fxml", "Collection Binding Demo");
 
 		// dem Controller den Pfad zum Repository mitteilen:
-		controller.setRepositoryPath("studentList/Repository.seri");
+		//controller.setRepositoryPath("studentList/Repository.seri");
+		// Neu: für DB dem Controller die Verbindungsdaten zur DB übergeben
+		controller.setDbConnection("jdbc:mysql://localhost/CourseDB", "root", "");
 
 		primaryStage.show();
 

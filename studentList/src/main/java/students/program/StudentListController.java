@@ -17,6 +17,8 @@ import students.model.Student;
 import students.repository.LanguageRepository;
 import students.repository.StudentRepository;
 import students.repository.StudentRepositoryException;
+import students.repository.db.LanguageDbRepository;
+import students.repository.db.StudentDbRepository;
 import students.repository.serialization.LanguageSerializeRepository;
 import students.repository.serialization.StudentSerializeRepository;
 
@@ -74,12 +76,21 @@ public class StudentListController {
     }
 
 
-
+    // wenn der Controller mit dieser Methode initialisiert wird, werden die Daten
+    // aus dem File abgerufen
     public void setRepositoryPath(String path) {
         // Repository -Objekte erzeugen
         studentRepository = new StudentSerializeRepository(path);
         languageRepository = new LanguageSerializeRepository();
 
+        reload();
+    }
+
+    // wenn der Controller mit dieser Methode initialisiert wird, werden die Daten
+    // aus der Datenbank abgerufen
+    public void setDbConnection(String dbURL, String user, String password){
+        studentRepository = new StudentDbRepository(dbURL, user, password);
+        languageRepository = new LanguageDbRepository(dbURL, user, password);
         reload();
     }
 
