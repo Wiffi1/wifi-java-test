@@ -13,13 +13,17 @@ public class MyRunnable implements Runnable {
     public void run(){
         // Random-Generator für diesen Thread holen
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        for (int i = 1; i<= 50; i++){
+        // Das interrupted-Flag prüfen und ggf abbrechen
+        for (int i = 1; i<= 25 && !Thread.interrupted(); i++){
             System.out.printf("%s: Durchlauf %d\n", name, i);
             try {
                 Thread.sleep(random.nextInt(500));
             } catch (InterruptedException e) {
-                // TODO: InterruptedException korrekt behandeln
-                e.printStackTrace();
+                // Wenn exception ausgeölst wird, heißt das, dass der Thread mit interrupt() beendet wurde
+//                e.printStackTrace();
+                System.out.printf("Runnalbe %s wurde mit InterruptedException aufgeweckt\n", name);
+                // Die Schleife verlassen und damit die run-Methode beenden
+                break;
             }
         }
     }

@@ -28,13 +28,14 @@ public class ThreadDemo {
         // Thread mit Lambda Expression erzeugen und starten
         Thread t3 = new Thread(() -> {
             ThreadLocalRandom random = ThreadLocalRandom.current();
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 10 && !Thread.interrupted(); i++) {
                 System.out.printf("Lambda 1: Durchlauf %d\n", i);
                 try {
                     Thread.sleep(random.nextInt(200));
                 } catch (InterruptedException e) {
-                    // TODO: InterruptedException
                     e.printStackTrace();
+                    // Schleife verlassen und run-Methode beenden.
+                    break;
                 }
             }
         });
@@ -48,13 +49,23 @@ public class ThreadDemo {
             t3.join();
             System.out.println("t3 ist beendet");
         } catch (InterruptedException e) {
+            // OK, wird hier nicht vorkommen (beenden von main-Thread)
             e.printStackTrace();
         }
 
         // das Programm beeden
         System.out.println("Beenden mit Enter");
-        Scanner scan = new Scanner(System.in);
-        scan.nextLine();
+//        Scanner scan = new Scanner(System.in);
+//        scan.nextLine();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // den 1. Thread beenden
+        t1.interrupt();
 
         System.out.println("Main-Thread beendet.");
     }

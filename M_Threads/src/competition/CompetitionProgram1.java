@@ -23,6 +23,7 @@ public class CompetitionProgram1 {
             try {
                 runnerThreads[i].join();
             } catch (InterruptedException e) {
+                // Ok, wird hier nicht vorkommen (beenden)
                 e.printStackTrace();
             }
         }

@@ -18,16 +18,20 @@ public class Runner implements Runnable{
     @Override
     public void run() {
         ThreadLocalRandom rand = ThreadLocalRandom.current();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 5 && !Thread.interrupted(); i++) {
             System.out.printf("%d. Runde %s\n", i, getName());
             try {
                 Thread.sleep(rand.nextInt(1000));
             } catch (InterruptedException e) {
-                // TODO InterruptedException
+                System.out.println("Der Wetllauf wurde unterbrochen");
                 e.printStackTrace();
+                break;
             }
 
         }
+
+        System.out.printf("%s ist im Ziel", name);
+
     }
 
     @Override
