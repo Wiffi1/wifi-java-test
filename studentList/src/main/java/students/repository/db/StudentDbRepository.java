@@ -13,11 +13,19 @@ public class StudentDbRepository extends DbRepositoryBase implements StudentRepo
 
     private static final String SELECT_STUDENT_SQL =
             "select id, name, areaCode, city, birthDate , gender, xml, html, fxml, comment, languageId from students";
-    // TODO: Konstante für Insert, update, delete
+    // Konstante für Insert, update, delete
     private static final String INSERT_STUDENT_SQL =
             "insert into Students (name, areaCode, city, birthDate , gender, xml, html, fxml, comment, languageId) " +
                     // jedes ? ist ein Platzhalter für einen Parameter
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // für Update die Spalten in der gleichen Reihenfolge angeben wie im Insert (damit setCommonParams funktioniert):
+    private static final String UPDATE_STUDENT_SQL =
+            "update Students set name = ?, areaCode = ?, city = ?, birthDate  = ?, gender  = ?, " +
+                    "xml = ?, html = ?, fxml = ?, comment = ?, languageId = ? " +
+                    " where id = ?"; // nur den Datensatz mit der angegebenen Id
+
+    private static final String DELETE_STUDENT_SQL =
+            "delete from Students where id = ?";
 
     public StudentDbRepository(String dbURL, String user, String password) {
         super(dbURL, user, password);
@@ -61,10 +69,10 @@ public class StudentDbRepository extends DbRepositoryBase implements StudentRepo
             stmt.setInt(1, id);
             // Daten abrufen
             ResultSet result = stmt.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 Student student = readStudent(result);
                 return student;
-            }else{
+            } else {
                 throw new StudentRepositoryException("Student*in mit Id " + id + " wurde nicht gefunden");
             }
         } catch (SQLException e) {
@@ -75,6 +83,105 @@ public class StudentDbRepository extends DbRepositoryBase implements StudentRepo
         }
 
     }
+
+
+    @Override
+    public int insertStudent(Student student) throws StudentRepositoryException {
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, password)) {
+            // bei diesem Statement wollen wir nach der Ausführung den Key des neuen Datensatzes abholen
+            PreparedStatement stmt = conn.prepareStatement(INSERT_STUDENT_SQL, Statement.RETURN_GENERATED_KEYS);
+            // Werte für die Parameter setzen
+            setCommonParams(student, stmt);
+            int rowsAff = stmt.executeUpdate();
+            // das kann eigentlich nicht vorkommen - wenn das Einfügen nicht funktioniert, wird
+            // eine SQLException ausgelöst
+            if (rowsAff == 0) {
+                throw new StudentRepositoryException("Vom Insert sind keine Datensätze betroffen.");
+            }
+            // den Key holen
+            ResultSet keyResult = stmt.getGeneratedKeys();
+            if (keyResult.next()) {
+                int id = keyResult.getInt(1);
+                System.out.println("Student eingefügt, Id=" + id);
+                return id;
+            } else {
+                System.out.println("Provider unterstützt RETURN_GENERATED_KEYS nicht");
+                return -1;
+            }
+        } catch (SQLException e) {
+            // SQLException hier fangen und Fehler-Info anzeigen
+            e.printStackTrace();
+            // Fehler unbedingt weiterwerfen
+            throw new StudentRepositoryException("Fehler beim Einfügen der Student*in", e);
+        }
+
+
+    }
+
+    @Override
+    public void updateStudent(Student student) throws StudentRepositoryException {
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, password)) {
+            PreparedStatement stmt = conn.prepareStatement(UPDATE_STUDENT_SQL);
+            // die gemeinsamen Parameter setzen
+            int maxIndex = setCommonParams(student, stmt);
+            // die Id setzen
+            stmt.setInt(++maxIndex, student.getId());
+
+            int rowsAff = stmt.executeUpdate();
+            // wenn kein Datensatz betroffen ist, hat jemand anderer den Datensatz gelöscht
+            if (rowsAff == 0) {
+                throw new StudentRepositoryException("Student*in mit Id " + student.getId() + " wurde nicht gefunden");
+            }
+            // sonst: alles OK, nichts weiter zu tun
+
+        } catch (SQLException e) {
+            // SQLException hier fangen und Fehler-Info anzeigen
+            e.printStackTrace();
+            // Fehler unbedingt weiterwerfen
+            throw new StudentRepositoryException("Fehler beim Aktualisieren der Student*in", e);
+        }
+
+    }
+
+    @Override
+    public void deleteStudent(int id) throws StudentRepositoryException {
+
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, password)) {
+            // wir führen nur 1 Statement aus, daher wäre manuelle Transaktionsteuerung nicht nötig
+            // hier für Demozwecke trotzdem verwenden
+            // manuelle Transaktionssteuerung aktivieren
+            conn.setAutoCommit(false);
+
+            try {
+                PreparedStatement stmt = conn.prepareStatement(DELETE_STUDENT_SQL);
+                stmt.setInt(1, id);
+
+                int rowsAff = stmt.executeUpdate();
+                // wenn kein Datensatz betroffen ist, hat jemand anderer den Datensatz gelöscht
+                if (rowsAff == 0) {
+                    throw new StudentRepositoryException("Student*in mit Id " + id + " wurde nicht gefunden");
+                }
+
+                // hier könnten wir weitere Statements ausführen, die Daten ändern,
+                // wenn alle ohne Fehler ausgeführt werden, rufen wir commit auf
+                // wenn in einem Statements ein Fehler passiert, wird alles zurückgesetzt
+
+                // sonst: alles OK -> bei manueller Steuerung selbst das commit ausführen
+                conn.commit();
+            } catch (SQLException e1) {
+                // im Fehlerfall die Transaktion zurücksetzen
+                conn.rollback();
+                throw new StudentRepositoryException("Fehler beim Löschen der Student*in", e1);
+            }
+        } catch (SQLException e) {
+            // SQLException hier fangen und Fehler-Info anzeigen
+            e.printStackTrace();
+            // Fehler unbedingt weiterwerfen
+            throw new StudentRepositoryException("Fehler beim Löschen der Student*in", e);
+        }
+
+    }
+
 
     private Student readStudent(ResultSet result) throws SQLException {
         // ein Student-Objekt erzeugen
@@ -95,22 +202,26 @@ public class StudentDbRepository extends DbRepositoryBase implements StudentRepo
 
         student.setComment(result.getString("comment"));
         student.setLanguageId(result.getInt("languageId"));
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + student);
         return student;
     }
 
-    @Override
-    public int insertStudent(Student student) throws StudentRepositoryException {
-        return 0;
+    private int setCommonParams(Student student, PreparedStatement stmt) throws SQLException {
+        // die Eigenschaften aus dem Student-Objekt im Statement eintragen
+        stmt.setString(1, student.getName());
+        stmt.setInt(2, student.getAreaCode());
+        stmt.setString(3, student.getCity());
+        // Umwandlung von LocalDate nach Date muss über Date erfolgen
+        //stmt.setDate(4, student.getBirthDate().toDate());
+        stmt.setDate(4, Date.valueOf(student.getBirthDate()));
+        stmt.setString(5, student.getGender().toString());
+        stmt.setBoolean(6, student.isXml());
+        stmt.setBoolean(7, student.isHtml());
+        stmt.setBoolean(8, student.isFxml());
+        stmt.setString(9, student.getComment());
+        stmt.setInt(10, student.getLanguageId());
+        // den letzten verwendeten Parameter-Index zurückliefern
+        return 10;
     }
 
-    @Override
-    public void updateStudent(Student student) throws StudentRepositoryException {
 
-    }
-
-    @Override
-    public void deleteStudent(int id) throws StudentRepositoryException {
-
-    }
 }

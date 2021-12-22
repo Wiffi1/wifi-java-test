@@ -136,7 +136,8 @@ public class StudentListController {
         try {
             Student newStudent = editStudent(null, "Hinzufügen");
             if(newStudent != null){
-                studentRepository.insertStudent(newStudent);
+                int id = studentRepository.insertStudent(newStudent);
+                System.out.println("Student hinzugefügt, Id des neuen Objekts: " + id);
                 // kompletten reload machen, damit wird die Liste aktualisiert
                 // und ggf. die korrekte ID für das neue Objekt verwendet
                 reload();
@@ -144,8 +145,9 @@ public class StudentListController {
 
         } catch (IOException | StudentRepositoryException e) {
             e.printStackTrace();
-            MessageBox.show("Hinzufügen", "Fehler beim Hinzufügen eine*s Student*in: "
-                    + e.getMessage(), Alert.AlertType.ERROR);
+//            MessageBox.show("Hinzufügen", "Fehler beim Hinzufügen eine*s Student*in: "
+//                    + e.getMessage(), Alert.AlertType.ERROR);
+            MessageBox.show("Fehler beim Hinzufügen", e);
 
         }
 
