@@ -39,6 +39,11 @@ public class EchoServer {
 						writer.newLine();
 						// Das Senden der Daten jetzt erzwingen
 						writer.flush();
+						if (line.equalsIgnoreCase("shutdown")) {
+							System.out.println("Client hat shutdown initiiert.");
+							keepRunning = false;
+							break;
+						}
 					}
 				} catch (Exception e) {
 					System.err.println("Fehler in Client-Kommunikation");

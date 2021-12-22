@@ -35,6 +35,9 @@ public class EchoClient {
 				// die Antwort lesen
 				String response = reader.readLine();
 				System.out.println("Antwort vom Server: " + response);
+				if (line.equalsIgnoreCase("shutdown")) {
+					break;
+				}
 			}
 			clientSocket.close();
 
