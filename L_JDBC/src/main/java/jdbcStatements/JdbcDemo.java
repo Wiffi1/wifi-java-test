@@ -44,7 +44,7 @@ public class JdbcDemo {
 
             // vorbereitetes Statement, mit Platzhalter-Syntax
             PreparedStatement pstmt = conn.prepareStatement(
-                    "select id, name, city, birthDate from students where languageId=?");
+                    "select id, name, city, birthDate, areaCode from students where languageId=?");
             // Wert für Platzhalter angeben
             pstmt.setInt(1, langId);
             // das vorbereitete Statement ausführen
@@ -55,7 +55,16 @@ public class JdbcDemo {
                 String name = result2.getString("name");
                 String city = result2.getString("city");
                 Date birthdate = result2.getDate("birthDate");
-                System.out.printf("%s - %d - %s - %s\n", name, id, city, birthdate);
+                // wenn der areaCode in der DB NULL wäre, kann das nicht mit int abgebildet werden
+                // stattdessen muss der Wrapper-Typ verwendet werden und geprüft werden, ob der Wert in
+                // Spalte NULL war
+                Integer areaCode = result2.getInt("areaCode");
+                if(result2.wasNull()){
+                    areaCode = null;
+                }
+                System.out.printf("%s - %d - %s - %s - %s\n", name, id,
+                        areaCode != null ? areaCode.toString() : "n.v.",
+                        city, birthdate);
             }
 
             // kann über try-with-resources gemacht werden
