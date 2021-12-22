@@ -1,5 +1,8 @@
 package competition;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class CompetitionProgram1 {
     public static void main(String[] args) {
         //  Array mit 3 Runner-Objekten erzeugen
@@ -27,6 +30,11 @@ public class CompetitionProgram1 {
                 e.printStackTrace();
             }
         }
+
+        // Ergebnis anzeigen
+        Arrays.stream(runnerList)
+            .sorted(Comparator.comparing(Runner::getPlace))
+            .forEach(r -> System.out.printf("%d. Platz: %s\n", r.getPlace(), r.getName()));
 
 //        // die for-schleifen dürfen nicht "wegoptimiert" werden
 //        for (int i = 0; i < runnerThreads.length; i++) {

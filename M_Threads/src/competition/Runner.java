@@ -2,10 +2,15 @@ package competition;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-// TODO: Runnable implementieren, 10 Runden laufen
+// TODO: Runnable implementieren, 5 Runden laufen
 // TODO: toString, name-Property
 public class Runner implements Runnable{
     private  final String name;
+
+    // der Platz, den der Läufer erreicht hat.
+    private int place;
+    // Zähler für die Platzierungen
+    private static int nextPlace = 1;
 
     public Runner(String name) {
         this.name = name;
@@ -13,6 +18,10 @@ public class Runner implements Runnable{
 
     public String getName() {
         return name;
+    }
+
+    public int getPlace() {
+        return place;
     }
 
     @Override
@@ -31,7 +40,17 @@ public class Runner implements Runnable{
         }
 
         System.out.printf("%s ist im Ziel", name);
-
+        // folgender Befehl mindestens 3 Befehle für CPU
+        // es gibt nur wenige atomare Operationen
+        place = nextPlace;
+        try {
+            // die Race Condition mit einem Sleep provozieren
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+//            e.printStackTrace();
+            // nichts mehr zu tun wir sind schon fertig
+        }
+        nextPlace ++;
     }
 
     @Override
