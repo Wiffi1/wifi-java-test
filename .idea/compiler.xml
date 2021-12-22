@@ -11,12 +11,14 @@
         <module name="simpleEditor" />
         <module name="I_SimpleEditor" />
         <module name="L_JDBC" />
+        <module name="M_ThreadsFx" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="I_JavaFx" target="16" />
       <module name="I_SimpleEditor" target="16" />
       <module name="L_JDBC" target="17" />
+      <module name="M_ThreadsFx" target="17" />
       <module name="simpleEditor" target="17" />
       <module name="studentList" target="17" />
     </bytecodeTargetLevel>

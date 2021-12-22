@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane hgap="10.0" stylesheets="@tasks.css" vgap="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tasks.TasksController">
+	<Label id="lblTitle" text="Multithreading in Java FX " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+	<HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+		<Label text="Anzahl Teilschritte" />
+		<TextField fx:id="txtCount" prefColumnCount="8" />
+      <CheckBox fx:id="chkUseExecutor" mnemonicParsing="false" text="mit Executor" />
+	</HBox>
+
+	<VBox fillWidth="true" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+		<Label fx:id="lblMessage" text="Warte auf Start..." />
+		<ProgressBar fx:id="barProgress" prefWidth="400" />
+	</VBox>
+
+	<HBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
+      	<Button fx:id="btnRunSync" onAction="#runSync" text="Synchron starten" />
+		<Button fx:id="btnStartAsync" onAction="#startAsync" text="Asynchron starten" />
+		<Button fx:id="btnCancelAsync" onAction="#cancelAsync" text="Abbrechen (async.)" />
+	</HBox>
+	<Label fx:id="lblStatus" text="(Status)" GridPane.rowIndex="5" />
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>
