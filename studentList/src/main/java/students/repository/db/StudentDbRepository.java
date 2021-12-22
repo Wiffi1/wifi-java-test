@@ -95,6 +95,7 @@ public class StudentDbRepository extends DbRepositoryBase implements StudentRepo
 
         student.setComment(result.getString("comment"));
         student.setLanguageId(result.getInt("languageId"));
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + student);
         return student;
     }
 
