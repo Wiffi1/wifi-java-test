@@ -73,7 +73,7 @@ public class HttpRequestsDemo {
             req.headers().map().forEach((hKey, hValue) -> {
                 System.out.printf("\t%s: %s %n", hKey, hValue);
             });
-            // Handler für den Body erzeugen
+            // Handler für den Body erzeugen, der Handler wird den Response in das angegebene File speicher.
             BodyHandler<Path> bodyHandler = HttpResponse.BodyHandlers.ofFile(Paths.get(dest));
             // client erzeugen
             HttpClient client = HttpClient.newHttpClient();
@@ -89,6 +89,7 @@ public class HttpRequestsDemo {
             });
             if (statusCode < 400) {
                 System.out.println("Ressource erfolgreich geladen");
+                // nichts weiter zu tun, der Handler hat den Response ins 'File geschrieben
             } else {
                 // Files.move(Paths.get(dest), Paths.get(dest + ".txt"));
                 System.out.println("Die Ressource konnte nicht geladen werden. " +
