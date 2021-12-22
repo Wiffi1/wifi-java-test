@@ -171,7 +171,8 @@ public class TasksController {
         // Zeitmessung starten und asynchron ausführen
         startTime = Instant.now();
         // startet den Task in einem eigenen Thread -> damit wird die call-Methode ausgeführt
-        new Thread(myTask).start();
+//        new Thread(myTask).start();
+        CompletableFuture.runAsync(myTask);
 
         // Buttons enablen/disablen
         isRunning.set(true);
