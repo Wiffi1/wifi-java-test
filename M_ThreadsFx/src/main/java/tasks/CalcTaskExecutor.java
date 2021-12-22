@@ -21,15 +21,32 @@ public class CalcTaskExecutor extends CalcTaskBase {
     public double runSync() throws ExecutionException, InterruptedException {
         System.out.printf("CalcTaskExecutor.runSync in Thread %s\n", Thread.currentThread().getName());
 
-        // TODO: Executor erzeugen
+        // Executor erzeugen
+        executor = Executors.newFixedThreadPool(8);
 
-        // TODO: zuerst alle Schritte beim Executor hinzufügen
+        // zuerst alle Schritte beim Executor hinzufügen
+        List<Future<Double>> steps = new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            // Das Ergebnis von Submit ist ein Future<Double>, über das später das Ergebnis abgeholt werden kann.
+            steps.add(executor.submit(() -> calcValue()));
         }
 
         double sum = 0;
-        // TODO: jetzt auf die Ergebnisse warten
+        // jetzt auf die Ergebnisse warten
+        for (int i = 0; i < steps.size(); i++) {
+            // Das Ergebnis von Submit ist ein Future<Double>, über daqs später das Ergebnis abgeholt werden kann.
+            Future<Double> step = steps.get(i);
+            double value = step.get();
+            sum += value;
+            steps.add(executor.submit(() -> calcValue()));
 
+            if (i > 0 && i % 100 == 0) {
+                System.out.printf("Schritt %d von %d abgeschlossen\n", i + 1, count);
+            }
+        }
+
+        // den Executor beenden
+        executor.shutdown();
         return sum / count;
     }
 
